@@ -13,6 +13,7 @@
     <modules>
         <module>dictator-core</module>
         <module>dictator-common</module>
+        <module>dictator-spring</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
@@ -23,6 +24,8 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <commons-lang.version>3.4</commons-lang.version>
+
+        <spring.version>4.3.7.RELEASE</spring.version>
 
         <curator.version>2.12.0</curator.version>
         <lombok.version>1.16.18</lombok.version>
@@ -35,6 +38,11 @@
             <dependency>
                 <groupId>com.github.liuyuyu</groupId>
                 <artifactId>dictator-common</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.liuyuyu</groupId>
+                <artifactId>dictator-core</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
             <dependency>
@@ -66,9 +74,21 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
