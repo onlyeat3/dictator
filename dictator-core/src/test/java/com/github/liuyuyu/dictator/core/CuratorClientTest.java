@@ -32,14 +32,14 @@ public class CuratorClientTest {
         // 2.2 Get node and data
         print("ls", "/");
         print(client.getChildren().forPath("/"));
-        print("get", ZK_PATH);
+        print("find", ZK_PATH);
         print(client.getData().forPath(ZK_PATH));
 
         // 2.3 Modify data
         String data2 = "world";
-        print("set", ZK_PATH, data2);
+        print("save", ZK_PATH, data2);
         client.setData().forPath(ZK_PATH, data2.getBytes());
-        print("get", ZK_PATH);
+        print("find", ZK_PATH);
         print(client.getData().forPath(ZK_PATH));
 
         // 2.4 Remove node

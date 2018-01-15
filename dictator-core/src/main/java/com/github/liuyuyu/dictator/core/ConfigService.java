@@ -8,13 +8,13 @@ import com.github.liuyuyu.dictator.core.param.ConfigSetParam;
  * @author liuyuyu
  */
 public interface ConfigService {
-    String get(ConfigGetParam configGetParam);
+    String find(ConfigGetParam configGetParam);
 
-    void set(ConfigSetParam configSetParam);
+    void save(ConfigSetParam configSetParam);
 
-    void setOrModify(ConfigSetParam configSetParam);
+    void saveOrModify(ConfigSetParam configSetParam);
 
     boolean exists(CommonParam commonParam);
 
-    void setIfNotExists(ConfigSetParam configSetParam);
+    void saveIfNotExists(ConfigSetParam configSetParam);
 }
