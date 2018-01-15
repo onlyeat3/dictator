@@ -13,14 +13,13 @@ public class CommonParam {
     /**
      * 寻找的路径
      */
-    @NonNull
     private String path;
     /**
      * 配置名
      */
-    @NonNull private String key;
+    private String key;
 
-    public String toPath(){
-        return String.format("%s/%s", this.getPath(), this.getKey());
+    public String toPath(@NonNull String seperator) {
+        return String.format("%s%s%s", this.getPath(),seperator, this.getKey());
     }
 }
