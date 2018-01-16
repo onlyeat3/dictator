@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "dictator",
+      "type": "com.github.liuyuyu.dictator.springboot"
+    }
+  ],
+  "properties": [
+    {
+      "name": "zkAddress",
+      "type": "java.lang.String",
+      "description": "Dictator Zookeeper address",
+      "defaultValue": "127.0.0.1:2181"
+    },
+    {
+      "name": "basePath",
+      "type": "java.lang.String",
+      "description": "Dictator Zookeeper basePath",
+      "defaultValue": "/"
+    },
+    {
+      "name": "sessionTimeoutMs",
+      "type": "java.lang.Integer",
+      "description": "Dictator Zookeeper sessionTimeoutMs",
+      "defaultValue": "60000"
+    },
+    {
+      "name": "retryPolicy",
+      "type": "org.apache.curator.RetryPolicy",
+      "description": "Dictator Zookeeper RetryPolicy"
+    }
+  ]
+}

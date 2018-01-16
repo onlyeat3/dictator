@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
+import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.Closeable;
@@ -23,7 +24,7 @@ import java.io.IOException;
 @Slf4j
 @Data
 @NoArgsConstructor
-public class ZookeeperConfigService implements ConfigService,Closeable {
+public class ZookeeperConfigService implements ConfigService, Closeable {
     private ZkProperties zkProperties;
     @Setter(AccessLevel.PRIVATE)
     private CuratorFramework zkClient;
@@ -36,11 +37,11 @@ public class ZookeeperConfigService implements ConfigService,Closeable {
         this.zkProperties = zkProperties;
     }
 
-    public void init(){
+    public void init() {
         this.zkClient = CuratorFrameworkFactory
-                .newClient(this.zkProperties.getZkAddress(),this.zkProperties.getSessionTimeoutMs(),this.zkProperties.getConnectionTimeoutMs(),this.zkProperties.getRetryPolicy());
+                .newClient(this.zkProperties.getZkAddress(), this.zkProperties.getSessionTimeoutMs(), this.zkProperties.getConnectionTimeoutMs(), this.zkProperties.getRetryPolicy());
         CuratorFrameworkState curatorFrameworkState = this.zkClient.getState();
-        if(CuratorFrameworkState.LATENT.equals(curatorFrameworkState)){
+        if (CuratorFrameworkState.LATENT.equals(curatorFrameworkState)) {
             this.zkClient.start();
         }
         log.info("[ZKConfigService]started.");
@@ -54,30 +55,30 @@ public class ZookeeperConfigService implements ConfigService,Closeable {
     @Override
     public String find(ConfigGetParam configGetParam) {
         String fullPath = configGetParam.toPath(this.seperator);
-        log.debug("find node path:{}",fullPath);
-        String finalValue;
+        log.debug("find node path:{}", fullPath);
+        String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
         try {
-            finalValue = new String(this.zkClient.getData().forPath(fullPath));
-        } catch (Exception e) {
-            //有默认值返回默认值
-            if(configGetParam.getDefaultValue() != null){
-                finalValue = configGetParam.getDefaultValue();
-            }else{
-                throw ZKForPathException.of(e);
+            byte[] zkValueBytes = this.zkClient.getData().forPath(fullPath);
+            if(zkValueBytes != null && zkValueBytes.length > 0){
+                finalValue = new String(zkValueBytes);
             }
+        }catch (KeeperException.NoNodeException e){
+            //ignore
+        }catch (Exception e) {
+            throw ZKForPathException.of(e);
         }
-        log.debug("find node path:{},value:{}",fullPath,finalValue);
+        log.debug("find node path:{},value:{}", fullPath, finalValue);
         return finalValue;
     }
 
     @Override
     public void save(ConfigSetParam configSetParam) {
         String fullPath = configSetParam.toPath(this.seperator);
-        log.debug("save node path:{},value:{}",fullPath,configSetParam.getValue());
+        log.debug("save node path:{},value:{}", fullPath, configSetParam.getValue());
         try {
             this.zkClient.create()
                     .creatingParentsIfNeeded()
-                    .forPath(fullPath,configSetParam.getValue().getBytes());
+                    .forPath(fullPath, configSetParam.getValue().getBytes());
         } catch (Exception e) {
             throw ZKForPathException.of(e);
         }
@@ -86,14 +87,14 @@ public class ZookeeperConfigService implements ConfigService,Closeable {
     @Override
     public void saveOrModify(ConfigSetParam configSetParam) {
         boolean exists = this.exists(configSetParam.to(CommonParam.class));
-        if(exists){
+        if (exists) {
             try {
                 this.zkClient.setData()
-                        .forPath(configSetParam.toPath(this.seperator),configSetParam.getValue().getBytes());
+                        .forPath(configSetParam.toPath(this.seperator), configSetParam.getValue().getBytes());
             } catch (Exception e) {
                 throw ZKForPathException.of(e);
             }
-        }else{
+        } else {
             this.save(configSetParam);
         }
     }
@@ -106,7 +107,7 @@ public class ZookeeperConfigService implements ConfigService,Closeable {
                     .forPath(commonParam.toPath(this.seperator));
             return stat != null;
         } catch (Exception e) {
-            log.warn("exists?,e:{}",e);
+            log.warn("exists?,e:{}", e);
             return false;
         }
     }
@@ -114,7 +115,7 @@ public class ZookeeperConfigService implements ConfigService,Closeable {
     @Override
     public void saveIfNotExists(ConfigSetParam configSetParam) {
         boolean exists = this.exists(configSetParam);
-        if(!exists){
+        if (!exists) {
             this.save(configSetParam);
         }
     }

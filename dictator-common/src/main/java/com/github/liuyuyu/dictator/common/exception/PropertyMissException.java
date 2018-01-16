@@ -21,4 +21,9 @@ public class PropertyMissException extends RuntimeException {
         propertyMissException.setPropertyName(propertyName);
         return propertyMissException;
     }
+
+    @Override
+    public String getMessage() {
+        return String.format("Miss %s", this.propertyName);
+    }
 }

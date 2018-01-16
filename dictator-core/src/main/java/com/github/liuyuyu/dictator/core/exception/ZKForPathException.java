@@ -12,7 +12,11 @@ public class ZKForPathException extends RuntimeException {
     }
 
     public static ZKForPathException of(Throwable e) {
-        return new ZKForPathException(ExceptionUtils.getRootCause(e));
+        Throwable rootCause = ExceptionUtils.getRootCause(e);
+        if(rootCause != null){
+            e = rootCause;
+        }
+        return new ZKForPathException(e);
     }
 
 }

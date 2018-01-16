@@ -5,11 +5,6 @@ import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.retry.RetryForever;
-import org.reflections.ReflectionUtils;
-
-import java.lang.reflect.Field;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /*
  * @author liuyuyu
@@ -38,15 +33,10 @@ public class ZkProperties {
     private RetryPolicy retryPolicy = new RetryForever(1000);
 
     public String getZkAddress() {
-        if(StringUtils.isNotBlank(this.zkAddress)){
+        if (StringUtils.isNotBlank(this.zkAddress)) {
             return this.zkAddress;
-        }else{
+        } else {
             throw PropertyMissException.of("zkAddress");
         }
-    }
-    public static List<String> getPropertiesNames(){
-        return ReflectionUtils.getAllFields(ZkProperties.class).stream()
-                .map(Field::getName)
-                .collect(Collectors.toList());
     }
 }

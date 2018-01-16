@@ -20,6 +20,6 @@ public class CommonParam {
     private String key;
 
     public String toPath(@NonNull String seperator) {
-        return String.format("%s%s%s", this.getPath(),seperator, this.getKey());
+        return String.format("%s%s%s", this.getPath(), seperator, this.getKey());
     }
 }
