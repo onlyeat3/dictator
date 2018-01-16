@@ -8,7 +8,9 @@ import org.apache.curator.retry.RetryNTimes;
  * @author liuyuyu
  */
 public class CuratorClientTest {
-    /** Zookeeper info */
+    /**
+     * Zookeeper info
+     */
     private static final String ZK_ADDRESS = "127.0.0.1:2181";
     private static final String ZK_PATH = "/zktest";
 

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigurer.EnableAutoConfiguration=\
+com.github.liuyuyu.dictator.springboot.DictatorAutoConfiguration

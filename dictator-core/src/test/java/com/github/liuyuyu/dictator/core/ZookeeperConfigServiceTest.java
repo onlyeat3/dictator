@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /*
  * @author liuyuyu
@@ -19,7 +19,7 @@ public class ZookeeperConfigServiceTest {
     private ZookeeperConfigService zookeeperConfigService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         ZkProperties zkProperties = new ZkProperties();
         zkProperties.setZkAddress("localhost:2181");
         zkProperties.setBasePath("/dictator");
@@ -38,10 +38,16 @@ public class ZookeeperConfigServiceTest {
 
     @org.junit.Test
     public void setIfNotExists() {
+        this.set("spring.datasource.url","jdbc:mysql://localhost:3306/test");
+        this.set("spring.datasource.username","root");
+        this.set("spring.datasource.password","123456");
+    }
+
+    private void set(String key,String value){
         ConfigSetParam configSetParam = new ConfigSetParam();
-        configSetParam.setKey("spring.datasource.url");
+        configSetParam.setKey(key);
         configSetParam.setPath("/app/dev/db");
-        configSetParam.setValue("jdbc:mysql://localhost:3306/test");
+        configSetParam.setValue(value);
         this.zookeeperConfigService.saveIfNotExists(configSetParam);
     }
 
@@ -62,7 +68,7 @@ public class ZookeeperConfigServiceTest {
         configSetParam.setDefaultValue("none");
         String value = this.zookeeperConfigService.find(configSetParam);
 
-        log.info("find value :{}",value);
+        log.info("find value :{}", value);
         assertNotNull(value);
     }
 
