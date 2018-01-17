@@ -1,9 +1,10 @@
 package com.github.liuyuyu.dictator.core;
 
+import com.github.liuyuyu.dictator.api.ConfigService;
+import com.github.liuyuyu.dictator.api.param.CommonParam;
+import com.github.liuyuyu.dictator.api.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.api.param.ConfigSetParam;
 import com.github.liuyuyu.dictator.core.exception.ZKForPathException;
-import com.github.liuyuyu.dictator.core.param.CommonParam;
-import com.github.liuyuyu.dictator.core.param.ConfigGetParam;
-import com.github.liuyuyu.dictator.core.param.ConfigSetParam;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

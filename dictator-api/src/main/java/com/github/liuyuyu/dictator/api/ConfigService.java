@@ -1,8 +1,8 @@
-package com.github.liuyuyu.dictator.core;
+package com.github.liuyuyu.dictator.api;
 
-import com.github.liuyuyu.dictator.core.param.CommonParam;
-import com.github.liuyuyu.dictator.core.param.ConfigGetParam;
-import com.github.liuyuyu.dictator.core.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.api.param.CommonParam;
+import com.github.liuyuyu.dictator.api.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.api.param.ConfigSetParam;
 
 /*
  * @author liuyuyu

@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.core.param;
+package com.github.liuyuyu.dictator.api.param;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

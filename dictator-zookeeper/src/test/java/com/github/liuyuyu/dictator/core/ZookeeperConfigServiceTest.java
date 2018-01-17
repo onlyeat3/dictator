@@ -1,8 +1,8 @@
 package com.github.liuyuyu.dictator.core;
 
 import com.github.liuyuyu.dictator.core.exception.ZKForPathException;
-import com.github.liuyuyu.dictator.core.param.ConfigGetParam;
-import com.github.liuyuyu.dictator.core.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.api.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.api.param.ConfigSetParam;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.FixMethodOrder;

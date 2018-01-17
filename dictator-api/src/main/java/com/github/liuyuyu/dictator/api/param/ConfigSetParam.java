@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.core.param;
+package com.github.liuyuyu.dictator.api.param;
 
 import com.github.liuyuyu.dictator.common.Convertible;
 import lombok.Data;

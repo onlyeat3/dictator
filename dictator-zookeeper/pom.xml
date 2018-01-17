@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dictator-core</artifactId>
+    <artifactId>dictator-zookeeper</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.apache.curator</groupId>
@@ -30,6 +30,10 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.liuyuyu</groupId>
+            <artifactId>dictator-api</artifactId>
         </dependency>
     </dependencies>
 </project>
