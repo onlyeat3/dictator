@@ -11,8 +11,9 @@
     <description>轻量的的配置中心实现</description>
 
     <modules>
-        <module>dictator-core</module>
+        <module>dictator-api</module>
         <module>dictator-common</module>
+        <module>dictator-zookeeper</module>
         <module>dictator-spring</module>
         <module>dictator-spring-boot-starter</module>
         <module>dictator-spring-boot-starter-demo</module>
@@ -46,6 +47,11 @@
             <dependency>
                 <groupId>com.github.liuyuyu</groupId>
                 <artifactId>dictator-core</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.liuyuyu</groupId>
+                <artifactId>dictator-api</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
             <dependency>

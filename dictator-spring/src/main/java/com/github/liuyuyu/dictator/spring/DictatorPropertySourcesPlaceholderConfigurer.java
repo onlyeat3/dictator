@@ -2,7 +2,7 @@ package com.github.liuyuyu.dictator.spring;
 
 import com.github.liuyuyu.dictator.core.ConfigService;
 import com.github.liuyuyu.dictator.core.ZkProperties;
-import com.github.liuyuyu.dictator.core.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.api.param.ConfigGetParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
