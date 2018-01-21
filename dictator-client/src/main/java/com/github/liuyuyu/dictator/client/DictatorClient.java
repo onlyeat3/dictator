@@ -5,10 +5,7 @@ import com.github.liuyuyu.dictator.common.ApiUrlConstants;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.common.utils.JsonUtils;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
@@ -24,6 +21,7 @@ public class DictatorClient {
     /**
      * 默认客户端实现
      */
+    @Setter(AccessLevel.PRIVATE)
     private OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .build();
 
