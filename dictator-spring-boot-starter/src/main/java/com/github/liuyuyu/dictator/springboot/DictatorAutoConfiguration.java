@@ -1,38 +1,36 @@
 package com.github.liuyuyu.dictator.springboot;
 
+import com.github.liuyuyu.dictator.client.DictatorClient;
+import com.github.liuyuyu.dictator.client.DictatorClientProperties;
+import com.github.liuyuyu.dictator.spring.DictatorPropertySourcesPlaceholderConfigurer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+
+import java.io.IOException;
 
 /*
  * @author liuyuyu
  */
-@Deprecated
 @Configuration
 public class DictatorAutoConfiguration {
-    public static String SPRING_APPLICATION_PROPERTIES_FILE_PATH = "application.properties";
-//
-//    @Bean
-//    public ZkProperties zkProperties() throws IOException {
-//        Properties properties = new Properties();
-//        properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream(SPRING_APPLICATION_PROPERTIES_FILE_PATH));
-//        String zkAddress = properties.getProperty("dictator.zkAddress");
-//        String basePath = properties.getProperty("dictator.basePath");
-//
-//        ZkProperties zkProperties = new ZkProperties();
-//        zkProperties.setZkAddress(zkAddress);
-//        zkProperties.setBasePath(basePath);
-//        return zkProperties;
-//    }
-//
-//    @Bean
-//    public static PropertyPlaceholderConfigurer properties(@Autowired ConfigService dictatorClient, @Autowired ZkProperties zkProperties) {
-//        DictatorPropertySourcesPlaceholderConfigurer dictatorPropertySourcesPlaceholderConfigurer = new DictatorPropertySourcesPlaceholderConfigurer();
-//        dictatorPropertySourcesPlaceholderConfigurer.setDictatorClient(dictatorClient);
-//        dictatorPropertySourcesPlaceholderConfigurer.setZkProperties(zkProperties);
-//        return dictatorPropertySourcesPlaceholderConfigurer;
-//    }
-//
-//    @Bean(initMethod = "init")
-//    public ZookeeperConfigService dictatorClient(@Autowired ZkProperties zkProperties) {
-//        return new ZookeeperConfigService(zkProperties);
-//    }
+
+    @Bean
+    public DictatorClient dictatorClient(@Autowired ApplicationContext applicationContext) throws IOException {
+        Resource resource = applicationContext.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "dictator.properties");
+        DictatorClientProperties dictatorClientProperties = DictatorBootstrapPropertiesLoader.from(resource);
+        return DictatorClient.of(dictatorClientProperties);
+    }
+
+    @Bean
+    public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer(@Autowired DictatorClient dictatorClient) {
+        DictatorPropertySourcesPlaceholderConfigurer dictatorPropertySourcesPlaceholderConfigurer = new DictatorPropertySourcesPlaceholderConfigurer();
+        dictatorPropertySourcesPlaceholderConfigurer.setDictatorClient(dictatorClient);
+        return dictatorPropertySourcesPlaceholderConfigurer;
+    }
+
 }

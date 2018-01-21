@@ -19,10 +19,6 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
 
     @Override
     protected String resolvePlaceholder(@NonNull String placeholder, Properties props, int systemPropertiesMode) {
-        String localPropertyValue = super.resolvePlaceholder(placeholder, props, systemPropertiesMode);
-        if (StringUtils.isNotEmpty(localPropertyValue)) {
-            return localPropertyValue;
-        }
         return this.dictatorClient.get(placeholder);
     }
 }
