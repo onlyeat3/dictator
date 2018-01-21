@@ -24,15 +24,15 @@ public class DictatorAutoConfiguration {
 //    }
 //
 //    @Bean
-//    public static PropertyPlaceholderConfigurer properties(@Autowired ConfigService configService, @Autowired ZkProperties zkProperties) {
+//    public static PropertyPlaceholderConfigurer properties(@Autowired ConfigService dictatorClient, @Autowired ZkProperties zkProperties) {
 //        DictatorPropertySourcesPlaceholderConfigurer dictatorPropertySourcesPlaceholderConfigurer = new DictatorPropertySourcesPlaceholderConfigurer();
-//        dictatorPropertySourcesPlaceholderConfigurer.setConfigService(configService);
+//        dictatorPropertySourcesPlaceholderConfigurer.setDictatorClient(dictatorClient);
 //        dictatorPropertySourcesPlaceholderConfigurer.setZkProperties(zkProperties);
 //        return dictatorPropertySourcesPlaceholderConfigurer;
 //    }
 //
 //    @Bean(initMethod = "init")
-//    public ZookeeperConfigService configService(@Autowired ZkProperties zkProperties) {
+//    public ZookeeperConfigService dictatorClient(@Autowired ZkProperties zkProperties) {
 //        return new ZookeeperConfigService(zkProperties);
 //    }
 }

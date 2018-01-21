@@ -43,6 +43,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>com.github.liuyuyu</groupId>
+                <artifactId>dictator-common</artifactId>
+                <version>${project.parent.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>

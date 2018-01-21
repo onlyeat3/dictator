@@ -6,16 +6,17 @@
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd">
     <context:component-scan base-package="com.github.liuyuyu.dictator.spring"/>
-
-    <bean id="zkProperties" class="com.github.liuyuyu.dictator.com.github.liuyuyu.dictator.server.service.zookeeper.ZkProperties">
-        <property name="basePath" value="/app/dev/db"/>
-        <property name="zkAddress" value="127.0.0.1:2181"/>
-    </bean>
-    <bean id="configService" class="com.github.liuyuyu.dictator.com.github.liuyuyu.dictator.server.service.zookeeper.ZookeeperConfigService" init-method="init">
-        <property name="zkProperties" ref="zkProperties"/>
-    </bean>
     <bean class="com.github.liuyuyu.dictator.spring.DictatorPropertySourcesPlaceholderConfigurer">
-        <property name="configService" ref="configService"/>
-        <property name="zkProperties" ref="zkProperties"/>
+        <property name="dictatorClient">
+            <bean class="com.github.liuyuyu.dictator.client.DictatorClient">
+                <property name="dictatorClientProperties">
+                    <bean class="com.github.liuyuyu.dictator.client.DictatorClientProperties">
+                        <property name="appId" value="app" />
+                        <property name="deploymentId" value="dev/db" />
+                        <property name="serverUrl" value="http://localhost:8080" />
+                    </bean>
+                </property>
+            </bean>
+        </property>
     </bean>
 </beans>
