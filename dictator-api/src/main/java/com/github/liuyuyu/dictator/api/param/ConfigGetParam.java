@@ -19,7 +19,7 @@ public class ConfigGetParam extends CommonParam {
     public static ConfigGetParam from(CommonParam commonParam) {
         ConfigGetParam configGetParam = new ConfigGetParam();
         configGetParam.setKey(commonParam.getKey());
-        configGetParam.setPath(commonParam.getPath());
+        configGetParam.setAppId(commonParam.getAppId());
         return configGetParam;
     }
 }

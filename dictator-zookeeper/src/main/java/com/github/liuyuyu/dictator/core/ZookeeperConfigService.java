@@ -55,8 +55,8 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
 
     @Override
     public String find(ConfigGetParam configGetParam) {
-        String fullPath = configGetParam.toPath(this.seperator);
-        log.debug("find node path:{}", fullPath);
+        String fullPath = configGetParam.toFullKey(this.seperator);
+        log.debug("find node appId:{}", fullPath);
         String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
         try {
             byte[] zkValueBytes = this.zkClient.getData().forPath(fullPath);
@@ -68,14 +68,14 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
         }catch (Exception e) {
             throw ZKForPathException.of(e);
         }
-        log.debug("find node path:{},value:{}", fullPath, finalValue);
+        log.debug("find node appId:{},value:{}", fullPath, finalValue);
         return finalValue;
     }
 
     @Override
     public void save(ConfigSetParam configSetParam) {
-        String fullPath = configSetParam.toPath(this.seperator);
-        log.debug("save node path:{},value:{}", fullPath, configSetParam.getValue());
+        String fullPath = configSetParam.toFullKey(this.seperator);
+        log.debug("save node appId:{},value:{}", fullPath, configSetParam.getValue());
         try {
             this.zkClient.create()
                     .creatingParentsIfNeeded()
@@ -91,7 +91,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
         if (exists) {
             try {
                 this.zkClient.setData()
-                        .forPath(configSetParam.toPath(this.seperator), configSetParam.getValue().getBytes());
+                        .forPath(configSetParam.toFullKey(this.seperator), configSetParam.getValue().getBytes());
             } catch (Exception e) {
                 throw ZKForPathException.of(e);
             }
@@ -105,7 +105,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
         try {
             Stat stat = this.zkClient.checkExists()
                     .creatingParentContainersIfNeeded()
-                    .forPath(commonParam.toPath(this.seperator));
+                    .forPath(commonParam.toFullKey(this.seperator));
             return stat != null;
         } catch (Exception e) {
             log.warn("exists?,e:{}", e);

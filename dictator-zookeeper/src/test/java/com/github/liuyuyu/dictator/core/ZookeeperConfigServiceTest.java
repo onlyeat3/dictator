@@ -31,7 +31,7 @@ public class ZookeeperConfigServiceTest {
     public void set() {
         ConfigSetParam configSetParam = new ConfigSetParam();
         configSetParam.setKey("spring.datasource.url");
-        configSetParam.setPath("/app/dev/db");
+        configSetParam.setAppId("/app/dev/db");
         configSetParam.setValue("jdbc:mysql://localhost:3306/test?user=root&password=&useUnicode=true&characterEncoding=gbk&autoReconnect=true&failOverReadOnly=false");
         this.zookeeperConfigService.save(configSetParam);
     }
@@ -46,7 +46,7 @@ public class ZookeeperConfigServiceTest {
     private void set(String key,String value){
         ConfigSetParam configSetParam = new ConfigSetParam();
         configSetParam.setKey(key);
-        configSetParam.setPath("/app/dev/db");
+        configSetParam.setAppId("/app/dev/db");
         configSetParam.setValue(value);
         this.zookeeperConfigService.saveIfNotExists(configSetParam);
     }
@@ -55,7 +55,7 @@ public class ZookeeperConfigServiceTest {
     public void setOrModify() {
         ConfigSetParam configSetParam = new ConfigSetParam();
         configSetParam.setKey("spring.datasource.url");
-        configSetParam.setPath("/app/dev/db");
+        configSetParam.setAppId("/app/dev/db");
         configSetParam.setValue("jdbc:mysql://localhost:3306/test");
         this.zookeeperConfigService.saveOrModify(configSetParam);
     }
@@ -64,7 +64,7 @@ public class ZookeeperConfigServiceTest {
     public void get() {
         ConfigGetParam configSetParam = new ConfigGetParam();
         configSetParam.setKey("spring.datasource.url");
-        configSetParam.setPath("/app/dev/db");
+        configSetParam.setAppId("/app/dev/db");
         configSetParam.setDefaultValue("none");
         String value = this.zookeeperConfigService.find(configSetParam);
 

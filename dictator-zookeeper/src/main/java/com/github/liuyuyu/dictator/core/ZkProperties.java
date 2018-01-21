@@ -10,7 +10,7 @@ import org.apache.curator.retry.RetryForever;
  * @author liuyuyu
  */
 @Data
-public class ZkProperties {
+public class ZkProperties{
     /**
      * zookeeper地址
      */
