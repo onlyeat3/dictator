@@ -1,14 +1,16 @@
-package com.github.liuyuyu.dictator.server.zookeeper;
+package com.github.liuyuyu.dictator.server.service.zookeeper;
 
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.retry.RetryForever;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /*
  * @author liuyuyu
  */
 @Data
+@ConfigurationProperties(prefix = "dictator")
 public class ZkProperties{
     /**
      * zookeeper地址
