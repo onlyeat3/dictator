@@ -28,7 +28,15 @@ public class DictatorClient {
     private DictatorClientProperties dictatorClientProperties;
 
     public static DictatorClient of(@NonNull DictatorClientProperties dictatorClientProperties) {
-
+        if(dictatorClientProperties.getAppId() == null){
+            throw new IllegalArgumentException("appId can not be null.");
+        }
+        if(dictatorClientProperties.getDeploymentId() == null){
+            throw new IllegalArgumentException("deploymentId can not be null.");
+        }
+        if(dictatorClientProperties.getServerUrl() == null){
+            throw new IllegalArgumentException("serverUrl can not be null.");
+        }
         DictatorClient dictatorClient = new DictatorClient();
         dictatorClient.setDictatorClientProperties(dictatorClientProperties);
         return dictatorClient;
