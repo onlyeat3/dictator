@@ -11,10 +11,8 @@
     <description>轻量的的配置中心实现</description>
 
     <modules>
-        <module>dictator-api</module>
         <module>dictator-common</module>
         <module>dictator-server</module>
-        <module>dictator-zookeeper</module>
         <module>dictator-spring</module>
         <module>dictator-spring-boot-starter</module>
         <module>dictator-spring-boot-starter-demo</module>
@@ -36,12 +34,18 @@
 
         <curator.version>2.12.0</curator.version>
         <lombok.version>1.16.18</lombok.version>
+        <okhttp.version>3.9.1</okhttp.version>
 
         <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
