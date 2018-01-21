@@ -1,7 +1,6 @@
 package com.github.liuyuyu.dictator.spring;
 
-import com.github.liuyuyu.dictator.core.ConfigService;
-import com.github.liuyuyu.dictator.core.ZkProperties;
+import com.github.liuyuyu.dictator.api.ConfigService;
 import com.github.liuyuyu.dictator.api.param.ConfigGetParam;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,8 +18,6 @@ import java.util.Properties;
 public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
     private ConfigService configService;
 
-    private ZkProperties zkProperties;
-
     @Override
     protected String resolvePlaceholder(@NonNull String placeholder, Properties props, int systemPropertiesMode) {
         String localPropertyValue = super.resolvePlaceholder(placeholder, props, systemPropertiesMode);
@@ -29,7 +26,6 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
         }
         ConfigGetParam configGetParam = new ConfigGetParam();
         configGetParam.setKey(placeholder);
-        configGetParam.setPath(this.zkProperties.getBasePath());
         return this.configService.find(configGetParam);
     }
 }

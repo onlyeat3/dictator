@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.liuyuyu</groupId>
-            <artifactId>dictator-core</artifactId>
+            <artifactId>dictator-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -27,6 +27,10 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 </project>

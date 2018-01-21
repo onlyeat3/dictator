@@ -21,7 +21,7 @@ public class ConfigSetParam extends CommonParam implements Convertible<CommonPar
     public CommonParam to(Class<CommonParam> clazz) {
         CommonParam commonParam = new CommonParam();
         commonParam.setKey(this.getKey());
-        commonParam.setPath(this.getPath());
+        commonParam.setAppId(this.getAppId());
         return commonParam;
     }
 }
