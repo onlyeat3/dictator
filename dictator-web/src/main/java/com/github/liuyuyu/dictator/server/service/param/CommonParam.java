@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.param;
+package com.github.liuyuyu.dictator.server.service.param;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

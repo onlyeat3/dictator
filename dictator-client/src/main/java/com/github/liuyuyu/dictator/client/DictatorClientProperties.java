@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.client;
 
+import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -7,7 +8,7 @@ import lombok.NonNull;
  * @author liuyuyu
  */
 @Data
-public class DictatorClientProperties {
+public class DictatorClientProperties extends BaseProperties {
 
     public static DictatorClientProperties of(){
         return new DictatorClientProperties();
@@ -21,14 +22,6 @@ public class DictatorClientProperties {
         return dictatorClientProperties;
     }
 
-    /**
-     * 应用ID
-     */
-    private String appId;
-    /**
-     * 部署的节点ID
-     */
-    private String deploymentId;
     /**
      * 配置中心服务端地址
      */

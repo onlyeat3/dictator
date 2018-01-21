@@ -1,9 +1,10 @@
-package com.github.liuyuyu.dictator.server.zookeeper;
+package com.github.liuyuyu.dictator.server.service.zookeeper;
 
-import com.github.liuyuyu.dictator.server.ConfigService;
-import com.github.liuyuyu.dictator.server.param.CommonParam;
-import com.github.liuyuyu.dictator.server.param.ConfigGetParam;
-import com.github.liuyuyu.dictator.server.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.server.service.ConfigService;
+import com.github.liuyuyu.dictator.server.service.dto.ReturnValueDto;
+import com.github.liuyuyu.dictator.server.service.param.CommonParam;
+import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,10 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.Closeable;
 import java.io.IOException;
 
@@ -24,9 +28,9 @@ import java.io.IOException;
 @Slf4j
 @Data
 @NoArgsConstructor
+@Service
 public class ZookeeperConfigService implements ConfigService, Closeable {
-    private ZkProperties zkProperties;
-    @Setter(AccessLevel.PRIVATE)
+    @Autowired private ZkProperties zkProperties;
     private CuratorFramework zkClient;
     /**
      * path分隔符
@@ -37,6 +41,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
         this.zkProperties = zkProperties;
     }
 
+    @PostConstruct
     public void init() {
         this.zkClient = CuratorFrameworkFactory
                 .newClient(this.zkProperties.getZkAddress(), this.zkProperties.getSessionTimeoutMs(), this.zkProperties.getConnectionTimeoutMs(), this.zkProperties.getRetryPolicy());
@@ -53,8 +58,8 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
     }
 
     @Override
-    public String find(ConfigGetParam configGetParam) {
-        String fullPath = configGetParam.toFullKey(this.seperator);
+    public ReturnValueDto find(ConfigGetParam configGetParam) {
+        String fullPath = this.seperator + configGetParam.toFullKey(this.seperator);
         log.debug("find node appId:{}", fullPath);
         String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
         try {
@@ -68,7 +73,10 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
-        return finalValue;
+        ReturnValueDto returnValueDto = ReturnValueDto.of();
+        returnValueDto.setValue(finalValue);
+        returnValueDto.setVersion("unknown");
+        return returnValueDto;
     }
 
     @Override

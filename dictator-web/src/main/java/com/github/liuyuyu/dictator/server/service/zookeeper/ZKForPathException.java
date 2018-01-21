@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.zookeeper;
+package com.github.liuyuyu.dictator.server.service.zookeeper;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 

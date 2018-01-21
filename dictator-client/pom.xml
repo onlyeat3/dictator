@@ -18,7 +18,8 @@
         </dependency>
         <dependency>
             <groupId>com.github.liuyuyu</groupId>
-            <artifactId>dictator-api</artifactId>
+            <artifactId>dictator-common</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
     </dependencies>
 </project>
