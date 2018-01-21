@@ -2,12 +2,14 @@ package com.github.liuyuyu.dictator.client;
 
 import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 
 /*
  * @author liuyuyu
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DictatorClientProperties extends BaseProperties {
 
     public static DictatorClientProperties of(){

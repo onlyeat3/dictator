@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.service.dto;
+package com.github.liuyuyu.dictator.common.model.dto;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import lombok.Data;
  * @author liuyuyu
  */
 @Data
-public class ReturnValueDto {
+public class DictatorValueResponse {
     /**
      * 配置的具体值
      */
@@ -16,7 +16,7 @@ public class ReturnValueDto {
      */
     private String version;
 
-    public static ReturnValueDto of() {
-        return new ReturnValueDto();
+    public static DictatorValueResponse of() {
+        return new DictatorValueResponse();
     }
 }

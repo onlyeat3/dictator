@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.common.model.response;
 
 import com.github.liuyuyu.dictator.common.ErrorCodeEnum;
+import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import lombok.Data;
 
 /*
@@ -19,7 +20,7 @@ public class DataWrapper {
     /**
      * 属性值
      */
-    private Object data;
+    private DictatorValueResponse responseData;
 
     public static DataWrapper of() {
         return new DataWrapper();
@@ -33,9 +34,9 @@ public class DataWrapper {
         return dataWrapper;
     }
 
-    public static DataWrapper from(Object data) {
+    public static DataWrapper from(DictatorValueResponse data) {
         DataWrapper dataWrapper = new DataWrapper();
-        dataWrapper.setData(data);
+        dataWrapper.setResponseData(data);
         return dataWrapper;
     }
 }

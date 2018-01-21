@@ -1,14 +1,12 @@
 package com.github.liuyuyu.dictator.server.service.zookeeper;
 
 import com.github.liuyuyu.dictator.server.service.ConfigService;
-import com.github.liuyuyu.dictator.server.service.dto.ReturnValueDto;
+import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.server.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
-import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -58,7 +56,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
     }
 
     @Override
-    public ReturnValueDto find(ConfigGetParam configGetParam) {
+    public DictatorValueResponse find(ConfigGetParam configGetParam) {
         String fullPath = this.seperator + configGetParam.toFullKey(this.seperator);
         log.debug("find node appId:{}", fullPath);
         String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
@@ -73,10 +71,10 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
-        ReturnValueDto returnValueDto = ReturnValueDto.of();
-        returnValueDto.setValue(finalValue);
-        returnValueDto.setVersion("unknown");
-        return returnValueDto;
+        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
+        dictatorValueResponse.setValue(finalValue);
+        dictatorValueResponse.setVersion("unknown");
+        return dictatorValueResponse;
     }
 
     @Override

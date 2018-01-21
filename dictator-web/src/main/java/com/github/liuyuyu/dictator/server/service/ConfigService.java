@@ -1,6 +1,6 @@
 package com.github.liuyuyu.dictator.server.service;
 
-import com.github.liuyuyu.dictator.server.service.dto.ReturnValueDto;
+import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.server.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
@@ -9,7 +9,7 @@ import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
  * @author liuyuyu
  */
 public interface ConfigService {
-    ReturnValueDto find(ConfigGetParam configGetParam);
+    DictatorValueResponse find(ConfigGetParam configGetParam);
 
     void save(ConfigSetParam configSetParam);
 
