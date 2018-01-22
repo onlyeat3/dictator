@@ -1,6 +1,5 @@
 package com.github.liuyuyu.dictator.common;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.NonNull;
 import org.hibernate.validator.constraints.NotBlank;
