@@ -4,15 +4,15 @@ import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
+import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.NotNull;
 
 /*
  * @author liuyuyu
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class PropertyGetRequest extends BaseProperties {
     /**
      * 属性名
