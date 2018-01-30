@@ -2,4 +2,9 @@
 *.iml
 target/
 *.log
+.project
+.classpath
+.settings
+.vscode
+
 pom.xml.versionsBackup
