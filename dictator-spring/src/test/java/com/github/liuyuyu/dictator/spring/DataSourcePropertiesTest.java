@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import java.util.concurrent.TimeUnit;
+
 /*
  * @author liuyuyu
  */
@@ -15,7 +17,9 @@ public class DataSourcePropertiesTest extends AbstractJUnit4SpringContextTests {
     private DataSourceProperties dataSourceProperties;
 
     @Test
-    public void testInject() {
+    public void testInject() throws InterruptedException {
+        System.out.println(this.dataSourceProperties);
+        TimeUnit.SECONDS.sleep(10);
         System.out.println(this.dataSourceProperties);
         Assert.assertNotNull(this.dataSourceProperties.getUrl());
     }
