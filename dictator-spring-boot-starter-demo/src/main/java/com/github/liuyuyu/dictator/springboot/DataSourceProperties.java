@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.springboot;
 
+import com.github.liuyuyu.dictator.spring.annotation.AutoRefreshValue;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Slf4j
 @Component
+@AutoRefreshValue
 public class DataSourceProperties implements InitializingBean {
     @Value("${spring.datasource.url}")
     private String url;

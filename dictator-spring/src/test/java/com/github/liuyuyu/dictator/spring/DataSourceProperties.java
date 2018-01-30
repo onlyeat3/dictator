@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.spring;
 
+import com.github.liuyuyu.dictator.spring.annotation.AutoRefreshValue;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
+@AutoRefreshValue
 public class DataSourceProperties {
     @Value("${spring.datasource.url}")
     private String url;
