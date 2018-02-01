@@ -9,10 +9,11 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
+        <plugin type="com.github.liuyuyu.mbg.plus.ClearResultMapPlugin" />
+        <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin" />
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
-        <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin" />
 
         <commentGenerator type="com.github.liuyuyu.mbg.plus.DatabaseCommentGenerator" />
 
