@@ -12,6 +12,20 @@
 
 	<name>dictator-web</name>
 	<description>配置中心服务端</description>
+	<properties>
+		<!--  MyBatis Generator  -->
+		<!--  Java接口和实体类  -->
+		<targetJavaProject>${basedir}/src/main/java</targetJavaProject>
+		<targetMapperPackage>com.github.liuyuyu.dictator.server.mapper</targetMapperPackage>
+		<targetModelPackage>com.github.liuyuyu.dictator.server.model.entity</targetModelPackage>
+		<!--  XML生成路径  -->
+		<targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
+		<targetXMLPackage>mapper</targetXMLPackage>
+		<!--  依赖版本  -->
+		<mapper.version>3.5.2</mapper.version>
+		<mysql.version>6.0.6</mysql.version>
+		<mbg.version>1.0-SNAPSHOT</mbg.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -30,6 +44,14 @@
 			<artifactId>reflections</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.cadenzauk</groupId>
+			<artifactId>siesta</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.github.liuyuyu</groupId>
 			<artifactId>dictator-common</artifactId>
 			<version>${project.parent.version}</version>
@@ -43,6 +65,33 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+					<overwrite>true</overwrite>
+					<verbose>true</verbose>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>tk.mybatis</groupId>
+						<artifactId>mapper</artifactId>
+						<version>${mapper.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.github.liuyuyu</groupId>
+						<artifactId>mbg-plus</artifactId>
+						<version>${mbg.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
