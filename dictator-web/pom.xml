@@ -48,8 +48,9 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.cadenzauk</groupId>
-			<artifactId>siesta</artifactId>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+			<version>${mapper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.liuyuyu</groupId>
