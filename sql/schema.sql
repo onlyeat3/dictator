@@ -54,3 +54,18 @@ CREATE TABLE dictator_user
   INDEX `idx_updated_time` (`updated_time`),
   INDEX `idx_operator_id` (`operator_id`)
 )ENGINE = InnoDB COMMENT '管理员';
+
+CREATE TABLE dictator_config_environment
+(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '自增主键',
+  env_name VARCHAR(50) NOT NULL COMMENT '环境名',
+  env_code VARCHAR(20) NOT NULL COMMENT '环境代码',
+  env_desc VARCHAR(200) NOT NULL DEFAULT '' COMMENT '环境描述',
+  created_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  updated_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  operator_id BIGINT NOT NULL COMMENT '操作者ID',
+  operator_ip VARCHAR(50) NOT NULL COMMENT '操作者IP',
+  INDEX `idx_created_time` (`created_time`),
+  INDEX `idx_updated_time` (`updated_time`),
+  INDEX `idx_operator_id` (`operator_id`)
+)ENGINE = InnoDB COMMENT '配置的环境';
