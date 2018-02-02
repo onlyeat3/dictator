@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.service.database;
 
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
-import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.server.utils.ParamBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +16,20 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DataBaseConfigServiceTest {
-    @Autowired private DataBaseConfigService dataBaseConfigService;
+public class DataBaseConfigReadServiceTest {
+    @Autowired private DataBaseConfigReadService dataBaseConfigService;
 
     @Test
     public void find() {
-        DictatorValueResponse dictatorValueResponse = this.dataBaseConfigService.find(this.getParam());
+        DictatorValueResponse dictatorValueResponse = this.dataBaseConfigService.find(ParamBuilder.buildCommonParam());
         assertNotNull(dictatorValueResponse);
         assertNotNull(dictatorValueResponse.getValue());
     }
 
     @Test
     public void exists() {
-        boolean isExists = this.dataBaseConfigService.exists(this.getParam());
+        boolean isExists = this.dataBaseConfigService.exists(ParamBuilder.buildCommonParam());
         assertTrue(isExists);
     }
 
-    private ConfigGetParam getParam(){
-        ConfigGetParam param = new ConfigGetParam();
-        param.setAppId("app");
-        param.setDeploymentId("db");
-        param.setProfile("dev");
-        param.setKey("spring.datasource.username");
-        return param;
-    }
 }

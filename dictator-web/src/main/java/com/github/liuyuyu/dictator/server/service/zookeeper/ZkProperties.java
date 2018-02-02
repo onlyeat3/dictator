@@ -10,12 +10,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author liuyuyu
  */
 @Data
-@ConfigurationProperties(prefix = "dictator")
-public class ZkProperties{
+@ConfigurationProperties(prefix = "dictator.zk")
+public class ZkProperties {
+    /**
+     * 是否启用
+     */
+    private Boolean enable;
     /**
      * zookeeper地址
      */
-    private String zkAddress = StringUtils.EMPTY;
+    private String address = StringUtils.EMPTY;
     /**
      * 分配的根目录
      */
