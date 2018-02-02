@@ -23,6 +23,7 @@ public class PropertyGetRequest extends BaseProperties {
         PropertyGetRequest target = new PropertyGetRequest();
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());
+        target.setProfile(source.getProfile());
         return target;
     }
 }
