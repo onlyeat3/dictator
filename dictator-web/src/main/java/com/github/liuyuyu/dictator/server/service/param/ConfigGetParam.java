@@ -28,6 +28,7 @@ public class ConfigGetParam extends CommonParam {
         ConfigGetParam configGetParam = new ConfigGetParam();
         configGetParam.setAppId(propertyGetRequest.getAppId());
         configGetParam.setDeploymentId(propertyGetRequest.getDeploymentId());
+        configGetParam.setProfile(propertyGetRequest.getProfile());
         configGetParam.setKey(propertyGetRequest.getPropertyName());
         return configGetParam;
     }
