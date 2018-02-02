@@ -52,6 +52,10 @@
 			<artifactId>mapper</artifactId>
 			<version>${mapper.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>com.github.liuyuyu</groupId>
 			<artifactId>dictator-common</artifactId>

@@ -26,6 +26,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
+        <mybatis-spring-boot.version>1.2.3</mybatis-spring-boot.version>
 
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
@@ -96,11 +97,6 @@
                 <version>${reflections.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.cadenzauk</groupId>
-                <artifactId>siesta</artifactId>
-                <version>${siesta.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
@@ -116,6 +112,11 @@
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>tk.mybatis</groupId>
+                <artifactId>mapper-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

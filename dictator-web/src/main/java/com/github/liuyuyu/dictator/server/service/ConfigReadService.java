@@ -8,14 +8,8 @@ import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
 /*
  * @author liuyuyu
  */
-public interface ConfigService {
+public interface ConfigReadService {
     DictatorValueResponse find(ConfigGetParam configGetParam);
 
-    void save(ConfigSetParam configSetParam);
-
-    void saveOrModify(ConfigSetParam configSetParam);
-
     boolean exists(CommonParam commonParam);
-
-    void saveIfNotExists(ConfigSetParam configSetParam);
 }
