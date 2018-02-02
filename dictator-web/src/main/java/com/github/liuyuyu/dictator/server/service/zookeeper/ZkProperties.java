@@ -3,7 +3,7 @@ package com.github.liuyuyu.dictator.server.service.zookeeper;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.RetryPolicy;
-import org.apache.curator.retry.RetryForever;
+import org.apache.curator.retry.RetryOneTime;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /*
@@ -33,7 +33,7 @@ public class ZkProperties {
      */
     private Integer connectionTimeoutMs = Integer.getInteger("curator-default-connection-timeout", 15000);
     /**
-     * 重试策略(默认一秒重试一次，连上为止)
+     * 重试策略(curator的start方法不能用重试策略，生效的只有新来的请求，为了保障速度，只重试一次)
      */
-    private RetryPolicy retryPolicy = new RetryForever(1000);
+    private RetryPolicy retryPolicy = new RetryOneTime(1000);
 }
