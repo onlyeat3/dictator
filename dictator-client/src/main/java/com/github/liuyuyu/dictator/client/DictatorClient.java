@@ -55,8 +55,9 @@ public class DictatorClient {
                 ResponseBody responseBody = response.body();
                 if(responseBody != null){
                     String responseBodyString = responseBody.string();
+                    log.debug("dictator server response:{}",responseBodyString);
                     DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
-                    if(dataWrapper != null){
+                    if(dataWrapper != null && dataWrapper.getResponseData() != null){
                         if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
                             return dataWrapper.getResponseData().getValue();
                         }
