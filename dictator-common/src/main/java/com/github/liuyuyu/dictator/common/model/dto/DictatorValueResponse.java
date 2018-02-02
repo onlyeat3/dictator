@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.common.model.dto;
 
 import lombok.Data;
+import lombok.NonNull;
 
 /*
  * @author liuyuyu
@@ -16,7 +17,9 @@ public class DictatorValueResponse {
      */
     private String version;
 
-    public static DictatorValueResponse of() {
-        return new DictatorValueResponse();
+    public static DictatorValueResponse of(@NonNull String defaultValue) {
+        DictatorValueResponse dictatorValueResponse = new DictatorValueResponse();
+        dictatorValueResponse.setValue(defaultValue);
+        return dictatorValueResponse;
     }
 }

@@ -71,7 +71,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
-        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
+        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of(configGetParam.getDefaultValue());
         dictatorValueResponse.setValue(finalValue);
         dictatorValueResponse.setVersion("unknown");
         return dictatorValueResponse;
