@@ -1,7 +1,8 @@
 package com.github.liuyuyu.dictator.server.service.zookeeper;
 
-import com.github.liuyuyu.dictator.server.service.ConfigService;
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
+import com.github.liuyuyu.dictator.server.service.ConfigReadService;
+import com.github.liuyuyu.dictator.server.service.ConfigWriteService;
 import com.github.liuyuyu.dictator.server.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
@@ -14,7 +15,7 @@ import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.data.Stat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.core.annotation.Order;
 
 import javax.annotation.PostConstruct;
 import java.io.Closeable;
@@ -26,8 +27,8 @@ import java.io.IOException;
 @Slf4j
 @Data
 @NoArgsConstructor
-@Service
-public class ZookeeperConfigService implements ConfigService, Closeable {
+@Order(1)
+public class ZookeeperConfigService implements ConfigWriteService,ConfigReadService, Closeable {
     @Autowired private ZkProperties zkProperties;
     private CuratorFramework zkClient;
     /**
@@ -42,12 +43,12 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
     @PostConstruct
     public void init() {
         this.zkClient = CuratorFrameworkFactory
-                .newClient(this.zkProperties.getZkAddress(), this.zkProperties.getSessionTimeoutMs(), this.zkProperties.getConnectionTimeoutMs(), this.zkProperties.getRetryPolicy());
+                .newClient(this.zkProperties.getAddress(), this.zkProperties.getSessionTimeoutMs(), this.zkProperties.getConnectionTimeoutMs(), this.zkProperties.getRetryPolicy());
         CuratorFrameworkState curatorFrameworkState = this.zkClient.getState();
         if (CuratorFrameworkState.LATENT.equals(curatorFrameworkState)) {
             this.zkClient.start();
         }
-        log.info("[ZKConfigService]started.");
+        log.info("[ZookeeperConfigService]started.");
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
-        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of(configGetParam.getDefaultValue());
+        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
         dictatorValueResponse.setValue(finalValue);
         dictatorValueResponse.setVersion("unknown");
         return dictatorValueResponse;
@@ -110,7 +111,7 @@ public class ZookeeperConfigService implements ConfigService, Closeable {
         try {
             Stat stat = this.zkClient.checkExists()
                     .creatingParentContainersIfNeeded()
-                    .forPath(commonParam.toFullKey(this.seperator));
+                    .forPath(this.seperator + commonParam.toFullKey(this.seperator));
             return stat != null;
         } catch (Exception e) {
             log.warn("exists?,e:{}", e);
