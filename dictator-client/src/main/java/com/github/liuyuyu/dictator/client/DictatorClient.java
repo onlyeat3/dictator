@@ -62,7 +62,7 @@ public class DictatorClient {
                             return dataWrapper.getResponseData().getValue();
                         }
                     }
-                    log.warn("properties load fail",JsonUtils.toJson(dataWrapper));
+                    log.warn("config '{}' not found.",propertyName);
                 }
             }
         } catch (IOException e) {
