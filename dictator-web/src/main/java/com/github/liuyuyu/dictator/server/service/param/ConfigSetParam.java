@@ -4,6 +4,7 @@ import com.github.liuyuyu.dictator.common.Convertible;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /*
  * @author liuyuyu
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
+@ToString(callSuper = true)
 public class ConfigSetParam extends CommonParam implements Convertible<CommonParam> {
     /**
      * 配置值

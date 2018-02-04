@@ -4,6 +4,7 @@ import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /*
  * @author liuyuyu
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class ConfigGetParam extends CommonParam {
     /**
      * 配置值

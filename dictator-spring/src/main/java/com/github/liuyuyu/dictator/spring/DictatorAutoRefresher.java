@@ -31,8 +31,12 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
         try {
             applicationContext.getBeansWithAnnotation(AutoRefreshValue.class)
                     .forEach((key, bean) -> {
-                        beanPostProcessor.processInjection(bean);
-                        log.debug("refresh bean {}", bean);
+                        try {
+                            beanPostProcessor.processInjection(bean);
+                            log.debug("refresh bean {}", bean);
+                        }catch (Throwable e){
+                            log.warn("refresh bean {} fail",bean);
+                        }
                     });
             log.debug("refresh end.");
         } finally {
