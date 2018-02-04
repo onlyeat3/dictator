@@ -24,7 +24,7 @@
 		<!--  依赖版本  -->
 		<mapper.version>3.5.2</mapper.version>
 		<mysql.version>6.0.6</mysql.version>
-		<mbg.version>1.0-SNAPSHOT</mbg.version>
+		<mbg.version>1.0</mbg.version>
 	</properties>
 	<dependencies>
 		<dependency>
