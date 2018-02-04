@@ -25,7 +25,7 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
 
     private AutowiredAnnotationBeanPostProcessor beanPostProcessor;
 
-    @Scheduled(fixedRateString = "${dictator.refresh.rate:1000}")
+    @Scheduled(fixedRateString = "${dictator.client.refresh.rate:1000}")
     public void refresh() {
         this.lock.lock();
         try {
