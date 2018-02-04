@@ -59,6 +59,12 @@ public class DictatorConfigHistory {
     private Date updatedTime;
 
     /**
+     * 记录创建时间
+     */
+    @Column(name = "history_created_time")
+    private Date historyCreatedTime;
+
+    /**
      * 操作者ID
      */
     @Column(name = "operator_id")
