@@ -29,7 +29,7 @@ CREATE TABLE dictator_config_history
   version BIGINT NOT NULL DEFAULT 0 COMMENT '配置版本',
   created_time DATETIME NOT NULL COMMENT '创建时间',
   updated_time DATETIME NOT NULL COMMENT '修改时间',
-  history_created_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+  history_created_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
   operator_id BIGINT NOT NULL COMMENT '操作者ID',
   operator_ip VARCHAR(50) NOT NULL COMMENT '操作者IP',
   INDEX `idx_app_id` (`app_id`),

@@ -13,7 +13,7 @@ public interface DictatorConfigHistoryMapper extends Mapper<DictatorConfigHistor
     default List<DictatorConfigHistory> findLastHour(){
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
         weekend.weekendCriteria()
-                .andGreaterThanOrEqualTo(DictatorConfigHistory::getCreatedTime, LocalDateTime.now().minusHours(1));
+                .andGreaterThanOrEqualTo(DictatorConfigHistory::getHistoryCreatedTime, LocalDateTime.now().minusHours(1));
         return this.selectByExample(weekend);
     }
 }
