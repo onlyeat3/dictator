@@ -1,10 +1,7 @@
 package com.github.liuyuyu.dictator.server.service.param;
 
 import com.github.liuyuyu.dictator.common.BaseProperties;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.stream.Stream;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class CommonParam extends BaseProperties {
     /**
      * 配置名

@@ -15,4 +15,6 @@ public interface ConfigWriteService {
     void saveOrModify(ConfigSetParam configSetParam);
 
     void saveIfNotExists(ConfigSetParam configSetParam);
+
+    boolean delete(CommonParam commonParam);
 }

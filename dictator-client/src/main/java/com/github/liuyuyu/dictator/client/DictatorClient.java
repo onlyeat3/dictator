@@ -66,7 +66,7 @@ public class DictatorClient {
                 }
             }
         } catch (IOException e) {
-            log.error("properties load error",e);
+            log.error("properties load fail",e.getMessage());
         }
         return null;
     }

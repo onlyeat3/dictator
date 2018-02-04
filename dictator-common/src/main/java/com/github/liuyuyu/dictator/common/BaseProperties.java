@@ -23,11 +23,17 @@ public class BaseProperties {
      */
     private String profile = StringUtils.EMPTY;
 
+    /**
+     * 配置的版本
+     */
+    private String version;
+
     public static BaseProperties from(@NonNull BaseProperties source){
         BaseProperties target = new BaseProperties();
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());
         target.setProfile(source.getProfile());
+        target.setVersion(source.getVersion());
         return target;
     }
 }

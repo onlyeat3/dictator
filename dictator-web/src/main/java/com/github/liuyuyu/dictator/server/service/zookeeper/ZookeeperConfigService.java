@@ -80,7 +80,7 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
 
     @Override
     public void save(ConfigSetParam configSetParam) {
-        String fullPath = configSetParam.toFullKey(this.seperator);
+        String fullPath = this.seperator + configSetParam.toFullKey(this.seperator);
         log.debug("save node appId:{},value:{}", fullPath, configSetParam.getValue());
         try {
             this.zkClient.create()
@@ -93,11 +93,11 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
 
     @Override
     public void saveOrModify(ConfigSetParam configSetParam) {
-        boolean exists = this.exists(configSetParam.to(CommonParam.class));
+        boolean exists = this.exists(configSetParam);
         if (exists) {
             try {
                 this.zkClient.setData()
-                        .forPath(configSetParam.toFullKey(this.seperator), configSetParam.getValue().getBytes());
+                        .forPath(this.seperator + configSetParam.toFullKey(this.seperator), configSetParam.getValue().getBytes());
             } catch (Exception e) {
                 throw ZKForPathException.of(e);
             }
@@ -114,7 +114,7 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
                     .forPath(this.seperator + commonParam.toFullKey(this.seperator));
             return stat != null;
         } catch (Exception e) {
-            log.warn("exists?,e:{}", e);
+            log.warn("exists", e);
             return false;
         }
     }
@@ -125,5 +125,20 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
         if (!exists) {
             this.save(configSetParam);
         }
+    }
+
+    @Override
+    public boolean delete(CommonParam commonParam) {
+        try {
+            boolean exists = this.exists(commonParam);
+            if(exists){
+                this.zkClient.delete()
+                        .forPath(this.seperator + commonParam.toFullKey(this.seperator));
+                return true;
+            }
+        } catch (Exception e) {
+            log.warn("delete", e);
+        }
+        return false;
     }
 }
