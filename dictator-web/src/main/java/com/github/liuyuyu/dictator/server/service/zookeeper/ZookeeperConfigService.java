@@ -134,6 +134,7 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
             if(exists){
                 this.zkClient.delete()
                         .forPath(this.seperator + commonParam.toFullKey(this.seperator));
+                log.debug("delete {} success.",commonParam);
                 return true;
             }
         } catch (Exception e) {
