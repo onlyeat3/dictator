@@ -31,8 +31,6 @@ public class ListableConfigWriteService implements ConfigWriteService {
 
     @Override
     public boolean delete(CommonParam commonParam) {
-        boolean deleted = this.configWriteService.delete(commonParam);
-        log.info("delete {} {}",commonParam,deleted);
-        return deleted;
+        return this.configWriteService.delete(commonParam);
     }
 }
