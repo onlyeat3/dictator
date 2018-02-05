@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.client;
 
 import com.github.liuyuyu.dictator.client.http.MediaTypeConstants;
 import com.github.liuyuyu.dictator.common.ApiUrlConstants;
+import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.common.utils.JsonUtils;
@@ -59,7 +60,7 @@ public class DictatorClient {
                     DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
                     if(dataWrapper != null && dataWrapper.getData() != null){
                         if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
-                            return dataWrapper.getData().getValue();
+                            return dataWrapper.getData(DictatorValueResponse.class).getValue();
                         }
                     }
                     log.warn("config '{}' not found.",propertyName);
