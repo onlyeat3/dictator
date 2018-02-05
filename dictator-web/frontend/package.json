@@ -3,8 +3,8 @@
   "version": "3.0.0",
   "license": "MIT",
   "description": "dictator 配置中心",
-  "author": [
-    "Pan <panfree23@gmail.com>",
+  "author": "Pan <panfree23@gmail.com>",
+  "contributors": [
     "liuyuyu<liuyuyu2333@gmail.com>"
   ],
   "scripts": {
