@@ -1,10 +1,8 @@
 package com.github.liuyuyu.dictator.server.service.param;
 
+import com.github.liuyuyu.dictator.common.BaseProperties;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /*
  * @author liuyuyu
@@ -33,5 +31,14 @@ public class ConfigGetParam extends CommonParam {
         configGetParam.setProfile(propertyGetRequest.getProfile());
         configGetParam.setKey(propertyGetRequest.getPropertyName());
         return configGetParam;
+    }
+
+    public static ConfigGetParam from(@NonNull BaseProperties source){
+        ConfigGetParam target = new ConfigGetParam();
+        target.setAppId(source.getAppId());
+        target.setDeploymentId(source.getDeploymentId());
+        target.setProfile(source.getProfile());
+        target.setVersion(source.getVersion());
+        return target;
     }
 }
