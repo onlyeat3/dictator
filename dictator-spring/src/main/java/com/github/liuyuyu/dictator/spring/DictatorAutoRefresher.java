@@ -1,8 +1,6 @@
 package com.github.liuyuyu.dictator.spring;
 
 import com.github.liuyuyu.dictator.spring.annotation.AutoRefreshValue;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
@@ -29,6 +27,10 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
     public void refresh() {
         this.lock.lock();
         try {
+            //刷新缓存
+            DictatorPropertySourcesPlaceholderConfigurer dictatorPropertySourcesPlaceholderConfigurer = applicationContext.getBean(DictatorPropertySourcesPlaceholderConfigurer.class);
+            dictatorPropertySourcesPlaceholderConfigurer.refreshCache();
+            //触发bean更新
             applicationContext.getBeansWithAnnotation(AutoRefreshValue.class)
                     .forEach((key, bean) -> {
                         try {

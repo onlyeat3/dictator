@@ -8,6 +8,7 @@ import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigSetParam;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -20,6 +21,9 @@ import org.springframework.core.annotation.Order;
 import javax.annotation.PostConstruct;
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /*
  * @author liuyuyu
@@ -116,6 +120,32 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
         } catch (Exception e) {
             log.warn("exists", e);
             return false;
+        }
+    }
+
+    @Override
+    public Map<String, String> findAll(CommonParam commonParam) {
+        String fullPath = this.seperator + commonParam.toFullKey(this.seperator);
+        log.debug("find node appId:{}", fullPath);
+        Map<String,String> configMap = new HashMap<>();
+        try {
+            this.getChildren(fullPath,configMap);
+        }catch (KeeperException.NoNodeException e){
+            //ignore
+        }catch (Exception e) {
+            throw ZKForPathException.of(e);
+        }
+        log.debug("find node appId:{},value:{}", fullPath, configMap);
+        return configMap;
+    }
+
+    private void getChildren(@NonNull String parentNodePath, @NonNull Map<String,String> nodeMap) throws Exception {
+        List<String> childNodeNameList = this.zkClient.getChildren().forPath(parentNodePath);
+        for (String childNodePath : childNodeNameList) {
+            byte[] zkValueBytes = this.zkClient.getData().forPath(parentNodePath + this.seperator + childNodePath);
+            if(zkValueBytes != null && zkValueBytes.length > 0){
+                nodeMap.put(childNodePath,new String(zkValueBytes));
+            }
         }
     }
 

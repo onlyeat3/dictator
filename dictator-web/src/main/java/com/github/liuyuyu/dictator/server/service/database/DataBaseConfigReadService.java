@@ -13,6 +13,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author liuyuyu
@@ -37,6 +39,12 @@ public class DataBaseConfigReadService implements ConfigReadService {
     @Override
     public boolean exists(CommonParam commonParam) {
         return this.configMapper.countByParam(commonParam) > 0;
+    }
+
+    @Override
+    public Map<String, String> findAll(CommonParam commonParam) {
+        return this.findAllValid().stream()
+                .collect(Collectors.toMap(DictatorConfig::getConfigName, DictatorConfig::getConfigValue));
     }
 
     public List<DictatorConfig> findAllValid() {

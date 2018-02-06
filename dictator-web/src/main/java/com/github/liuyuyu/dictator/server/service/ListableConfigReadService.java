@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author liuyuyu
@@ -36,5 +37,16 @@ public class ListableConfigReadService implements ConfigReadService {
             }
         }
         return false;
+    }
+
+    @Override
+    public Map<String, String> findAll(CommonParam commonParam) {
+        for (ConfigReadService configReadService : this.configReadServiceList) {
+            Map<String, String> configMap = configReadService.findAll(commonParam);
+            if(configMap != null && !configMap.isEmpty()){
+                return configMap;
+            }
+        }
+        return null;
     }
 }

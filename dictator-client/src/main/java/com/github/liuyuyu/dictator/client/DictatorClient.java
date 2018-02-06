@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.client;
 
 import com.github.liuyuyu.dictator.client.http.MediaTypeConstants;
 import com.github.liuyuyu.dictator.common.ApiUrlConstants;
+import com.github.liuyuyu.dictator.common.BaseProperties;
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * @author liuyuyu
@@ -60,7 +63,10 @@ public class DictatorClient {
                     DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
                     if(dataWrapper != null && dataWrapper.getData() != null){
                         if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
-                            return dataWrapper.getData(DictatorValueResponse.class).getValue();
+                            DictatorValueResponse dictatorValueResponse = JsonUtils.toObject(JsonUtils.toJson(dataWrapper.getData()), DictatorValueResponse.class);
+                            if(dictatorValueResponse != null){
+                                return dictatorValueResponse.getValue();
+                            }
                         }
                     }
                     log.warn("config '{}' not found.",propertyName);
@@ -70,5 +76,32 @@ public class DictatorClient {
             log.error("properties load fail",e.getMessage());
         }
         return null;
+    }
+
+    public Map<String, String> reload(){
+        BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
+        Request request = new Request.Builder()
+                .url(String.format("%s/%s",this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_BATCH_GET_URI))
+                .post(RequestBody.create(MediaTypeConstants.APPLICATION_JSON_UTF8, JsonUtils.toJson(batchRequest)))
+                .build();
+        try {
+            Response response = this.okHttpClient.newCall(request).execute();
+            if(response.code() == 200){
+                ResponseBody responseBody = response.body();
+                if(responseBody != null){
+                    String responseBodyString = responseBody.string();
+                    log.debug("dictator server response:{}",responseBodyString);
+                    DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
+                    if(dataWrapper != null && dataWrapper.getData() != null){
+                        if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
+                            return  (Map<String, String>) dataWrapper.getData();
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            log.error("properties load fail",e.getMessage());
+        }
+        return new HashMap<>();
     }
 }
