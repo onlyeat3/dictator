@@ -5,8 +5,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +20,12 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author liuyuyu
  */
 @Data
+@Slf4j
 @EqualsAndHashCode(callSuper = true)
 public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements InitializingBean {
+    @Autowired
+    private Environment environment;
+
     @Getter
     private Map<String,String> configCache = new HashMap<>();
     private DictatorClient dictatorClient;
@@ -37,6 +44,7 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
     @Override
     public void afterPropertiesSet() {
         this.refreshCache();
+        log.info("start.");
     }
 
     public void refreshCache(){
