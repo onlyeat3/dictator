@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.springboot;
 import com.github.liuyuyu.dictator.client.DictatorClient;
 import com.github.liuyuyu.dictator.client.DictatorClientProperties;
 import com.github.liuyuyu.dictator.spring.DictatorConfigEnvironment;
+import com.github.liuyuyu.dictator.spring.DictatorPropertySource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
