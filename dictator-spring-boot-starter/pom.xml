@@ -5,10 +5,10 @@
     <parent>
         <groupId>com.github.liuyuyu</groupId>
         <artifactId>dictator</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
     <artifactId>dictator-spring-boot-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>dictator-spring-boot-starter</name>
