@@ -15,14 +15,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class DictatorPropertySource extends PropertySource<String> {
     @Setter
     private DictatorClient dictatorClient;
+    public static final String NAME = "dictatorPropertySource";
 
     @Getter
     private Map<String,String> configCache = new HashMap<>();
     private ReentrantLock lock = new ReentrantLock();
 
     public DictatorPropertySource(){
-        super("dictatorConfigPropertySource");
-        this.refreshCache();
+        super(NAME);
     }
 
     public DictatorPropertySource(String name) {
@@ -31,11 +31,16 @@ public class DictatorPropertySource extends PropertySource<String> {
 
     @Override
     public String getProperty(String name) {
-        String cachedValue = this.configCache.get(name);
-        if(cachedValue != null){
-            return cachedValue;
-        }else{
-            return this.dictatorClient.get(name);
+        this.lock.lock();
+        try {
+            String cachedValue = this.configCache.get(name);
+            if(cachedValue != null){
+                return cachedValue;
+            }else{
+                return null;
+            }
+        }finally {
+            this.lock.unlock();
         }
     }
 
@@ -48,5 +53,10 @@ public class DictatorPropertySource extends PropertySource<String> {
         }finally {
             this.lock.unlock();
         }
+    }
+
+    @Override
+    public String getName() {
+        return NAME;
     }
 }
