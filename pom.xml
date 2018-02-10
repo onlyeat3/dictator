@@ -6,9 +6,11 @@
 
     <groupId>com.github.liuyuyu</groupId>
     <artifactId>dictator</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1</version>
     <packaging>pom</packaging>
+    <name>dictator</name>
     <description>轻量的的配置中心实现</description>
+    <url>https://github.com/liuyuyu/dictator</url>
 
     <modules>
         <module>dictator-common</module>
