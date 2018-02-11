@@ -27,7 +27,7 @@ public class DictatorConfigEnvironment extends StandardEnvironment {
     @Override
     protected void customizePropertySources(MutablePropertySources propertySources) {
         this.dictatorPropertySource = new DictatorPropertySource();
-        propertySources.addLast(this.dictatorPropertySource);
+        propertySources.addFirst(this.dictatorPropertySource);
     }
 
     public static DictatorConfigEnvironment from(@NonNull DictatorClient dictatorClient){

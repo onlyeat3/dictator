@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigurer.EnableAutoConfiguration=\
 com.github.liuyuyu.dictator.springboot.DictatorAutoConfiguration
+org.springframework.boot.SpringApplicationRunListener=\
+com.github.liuyuyu.dictator.springboot.DictatorSpringBootStartEventListener
