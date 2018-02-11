@@ -22,12 +22,13 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
     public DictatorSpringBootStartEventListener() {
     }
 
-    public DictatorSpringBootStartEventListener(SpringApplication springApplication, String... args){
+    public DictatorSpringBootStartEventListener(SpringApplication springApplication, String... args) {
 
     }
 
     @Override
     public void starting() {
+        this.printBanner();
     }
 
     @Override
@@ -48,7 +49,7 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
             }
             log.info("dictator loaded.");
         } catch (IOException e) {
-            log.error("dictator load fail",e);
+            log.error("dictator load fail", e);
         }
     }
 
@@ -60,5 +61,18 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
     @Override
     public void finished(ConfigurableApplicationContext configurableApplicationContext, Throwable throwable) {
 
+    }
+
+    private void printBanner() {
+        String banner = "            88 88                                                              \n" +
+                "            88 \"\"              ,d                 ,d                           \n" +
+                "            88                 88                 88                           \n" +
+                "    ,adPPYb,88 88  ,adPPYba, MM88MMM ,adPPYYba, MM88MMM ,adPPYba,  8b,dPPYba,  \n" +
+                "   a8\"    `Y88 88 a8\"     \"\"   88    \"\"     `Y8   88   a8\"     \"8a 88P'   \"Y8  \n" +
+                "   8b       88 88 8b           88    ,adPPPPP88   88   8b       d8 88          \n" +
+                "   \"8a,   ,d88 88 \"8a,   ,aa   88,   88,    ,88   88,  \"8a,   ,a8\" 88          \n" +
+                "    `\"yong\"zhe ge  `kuangjia\"'  \"de `\"doushi     \"dashuaibi `\"!!!!!\"'            \n" +
+                "                                                                                ";
+        System.out.println("\n" + banner);
     }
 }
