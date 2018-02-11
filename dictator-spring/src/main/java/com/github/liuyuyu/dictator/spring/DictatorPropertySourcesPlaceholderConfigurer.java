@@ -27,16 +27,16 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
     private Environment environment;
 
     @Getter
-    private Map<String,String> configCache = new HashMap<>();
+    private Map<String, String> configCache = new HashMap<>();
     private DictatorClient dictatorClient;
     private ReentrantLock lock = new ReentrantLock();
 
     @Override
     protected String resolvePlaceholder(@NonNull String placeholder, Properties props, int systemPropertiesMode) {
         String cachedValue = this.configCache.get(placeholder);
-        if(cachedValue != null){
+        if (cachedValue != null) {
             return cachedValue;
-        }else{
+        } else {
             return this.dictatorClient.get(placeholder);
         }
     }
@@ -47,13 +47,13 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
         log.info("start.");
     }
 
-    public void refreshCache(){
+    public void refreshCache() {
         this.lock.lock();
         try {
             Map<String, String> currentConfigMap = this.getDictatorClient().reload();
             this.configCache.clear();
             this.configCache.putAll(currentConfigMap);
-        }finally {
+        } finally {
             this.lock.unlock();
         }
     }

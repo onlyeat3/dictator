@@ -15,7 +15,7 @@ import org.springframework.core.env.StandardEnvironment;
 public class DictatorConfigEnvironment extends StandardEnvironment {
     private DictatorPropertySource dictatorPropertySource;
 
-    public DictatorConfigEnvironment(){
+    public DictatorConfigEnvironment() {
     }
 
     public DictatorConfigEnvironment(DictatorClient dictatorClient) {
@@ -24,13 +24,13 @@ public class DictatorConfigEnvironment extends StandardEnvironment {
         this.dictatorPropertySource.refreshCache();
     }
 
+    public static DictatorConfigEnvironment from(@NonNull DictatorClient dictatorClient) {
+        return new DictatorConfigEnvironment(dictatorClient);
+    }
+
     @Override
     protected void customizePropertySources(MutablePropertySources propertySources) {
         this.dictatorPropertySource = new DictatorPropertySource();
         propertySources.addFirst(this.dictatorPropertySource);
-    }
-
-    public static DictatorConfigEnvironment from(@NonNull DictatorClient dictatorClient){
-        return new DictatorConfigEnvironment(dictatorClient);
     }
 }

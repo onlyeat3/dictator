@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostP
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,9 +20,8 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 @Component
 public class DictatorAutoRefresher implements ApplicationContextAware {
-    private ReentrantLock lock = new ReentrantLock();
     private static ApplicationContext applicationContext;
-
+    private ReentrantLock lock = new ReentrantLock();
     private AutowiredAnnotationBeanPostProcessor beanPostProcessor;
 
     @Scheduled(fixedRateString = "${dictator.client.refresh.rate:1000}")
@@ -32,10 +30,10 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
         try {
             //刷新缓存
             Environment environment = applicationContext.getEnvironment();
-            if(environment instanceof StandardEnvironment){
+            if (environment instanceof StandardEnvironment) {
                 StandardEnvironment standardEnv = (StandardEnvironment) environment;
                 DictatorPropertySource dictatorPropertySource = (DictatorPropertySource) standardEnv.getPropertySources().get(DictatorPropertySource.NAME);
-                if(dictatorPropertySource != null){
+                if (dictatorPropertySource != null) {
                     dictatorPropertySource.refreshCache();
                     //触发bean更新
                     applicationContext.getBeansWithAnnotation(AutoRefreshValue.class)
@@ -43,8 +41,8 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
                                 try {
                                     beanPostProcessor.processInjection(bean);
                                     log.debug("refresh bean {}", bean);
-                                }catch (Throwable e){
-                                    log.warn("refresh bean {} fail",bean);
+                                } catch (Throwable e) {
+                                    log.warn("refresh bean {} fail", bean);
                                 }
                             });
                     log.debug("refresh end.");

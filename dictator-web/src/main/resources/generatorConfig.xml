@@ -9,13 +9,13 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <plugin type="com.github.liuyuyu.mbg.plus.ClearResultMapPlugin" />
-        <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin" />
+        <plugin type="com.github.liuyuyu.mbg.plus.ClearResultMapPlugin"/>
+        <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin"/>
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
             <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
 
-        <commentGenerator type="com.github.liuyuyu.mbg.plus.DatabaseCommentGenerator" />
+        <commentGenerator type="com.github.liuyuyu.mbg.plus.DatabaseCommentGenerator"/>
 
         <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
                         connectionURL="${spring.datasource.url}"
@@ -24,13 +24,14 @@
         </jdbcConnection>
         <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}"/>
 
-        <sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}"/>
+        <sqlMapGenerator targetPackage="${targetXMLPackage}" targetProject="${targetResourcesProject}"/>
 
-        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
+                             type="XMLMAPPER"/>
 
-        <table tableName="dictator_config" />
-        <table tableName="dictator_config_environment" />
-        <table tableName="dictator_config_history" />
-        <table tableName="dictator_user" />
+        <table tableName="dictator_config"/>
+        <table tableName="dictator_config_environment"/>
+        <table tableName="dictator_config_history"/>
+        <table tableName="dictator_user"/>
     </context>
 </generatorConfiguration>

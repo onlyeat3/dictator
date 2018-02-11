@@ -6,6 +6,7 @@ import lombok.NonNull;
 
 /**
  * 未实现的功能
+ *
  * @author liuyuyu
  */
 @Data
@@ -16,7 +17,7 @@ public class IgnoredFunctionException extends RuntimeException {
      */
     private String functionName;
 
-    public static IgnoredFunctionException of(@NonNull String functionName){
+    public static IgnoredFunctionException of(@NonNull String functionName) {
         IgnoredFunctionException ignoredFunctionException = new IgnoredFunctionException();
         ignoredFunctionException.setFunctionName(functionName);
         return ignoredFunctionException;

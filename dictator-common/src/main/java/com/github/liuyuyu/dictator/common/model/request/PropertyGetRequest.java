@@ -17,9 +17,10 @@ public class PropertyGetRequest extends BaseProperties {
     /**
      * 属性名
      */
-    @NotBlank private String propertyName;
+    @NotBlank
+    private String propertyName;
 
-    public static PropertyGetRequest from(@NonNull BaseProperties source){
+    public static PropertyGetRequest from(@NonNull BaseProperties source) {
         PropertyGetRequest target = new PropertyGetRequest();
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());

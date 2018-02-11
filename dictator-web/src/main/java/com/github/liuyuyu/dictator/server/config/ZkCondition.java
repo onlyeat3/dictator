@@ -13,7 +13,7 @@ public class ZkCondition implements Condition {
     @Override
     public boolean matches(ConditionContext conditionContext, AnnotatedTypeMetadata annotatedTypeMetadata) {
         String zkEnableString = conditionContext.getEnvironment().getProperty("dictator.zk.enable");
-        if(StringUtils.isNotBlank(zkEnableString)){
+        if (StringUtils.isNotBlank(zkEnableString)) {
             return Boolean.valueOf(zkEnableString);
         }
         return false;

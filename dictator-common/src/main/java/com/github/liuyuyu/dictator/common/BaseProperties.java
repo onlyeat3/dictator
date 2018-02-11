@@ -13,11 +13,13 @@ public class BaseProperties {
     /**
      * 应用ID
      */
-    @NotBlank private String appId;
+    @NotBlank
+    private String appId;
     /**
      * 部署的节点ID
      */
-    @NotBlank private String deploymentId;
+    @NotBlank
+    private String deploymentId;
     /**
      * 环境区分
      */
@@ -28,7 +30,7 @@ public class BaseProperties {
      */
     private String version;
 
-    public static BaseProperties from(@NonNull BaseProperties source){
+    public static BaseProperties from(@NonNull BaseProperties source) {
         BaseProperties target = new BaseProperties();
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());

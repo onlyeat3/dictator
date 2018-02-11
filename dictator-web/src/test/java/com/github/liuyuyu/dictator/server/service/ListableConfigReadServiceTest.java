@@ -17,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ListableConfigReadServiceTest {
-    @Autowired private ListableConfigReadService listableConfigReadService;
+    @Autowired
+    private ListableConfigReadService listableConfigReadService;
 
     @Test
     public void find() {

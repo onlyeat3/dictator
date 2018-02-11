@@ -32,13 +32,13 @@ public class DictatorClient {
     private DictatorClientProperties dictatorClientProperties;
 
     public static DictatorClient of(@NonNull DictatorClientProperties dictatorClientProperties) {
-        if(dictatorClientProperties.getAppId() == null){
+        if (dictatorClientProperties.getAppId() == null) {
             throw new IllegalArgumentException("appId can not be null.");
         }
-        if(dictatorClientProperties.getDeploymentId() == null){
+        if (dictatorClientProperties.getDeploymentId() == null) {
             throw new IllegalArgumentException("deploymentId can not be null.");
         }
-        if(dictatorClientProperties.getServerUrl() == null){
+        if (dictatorClientProperties.getServerUrl() == null) {
             throw new IllegalArgumentException("serverUrl can not be null.");
         }
         DictatorClient dictatorClient = new DictatorClient();
@@ -50,57 +50,57 @@ public class DictatorClient {
         PropertyGetRequest propertyGetRequest = PropertyGetRequest.from(this.dictatorClientProperties);
         propertyGetRequest.setPropertyName(propertyName);
         Request request = new Request.Builder()
-                .url(String.format("%s/%s",this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_GET_URI))
+                .url(String.format("%s/%s", this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_GET_URI))
                 .post(RequestBody.create(MediaTypeConstants.APPLICATION_JSON_UTF8, JsonUtils.toJson(propertyGetRequest)))
                 .build();
         try {
             Response response = this.okHttpClient.newCall(request).execute();
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 ResponseBody responseBody = response.body();
-                if(responseBody != null){
+                if (responseBody != null) {
                     String responseBodyString = responseBody.string();
-                    log.debug("dictator server response:{}",responseBodyString);
+                    log.debug("dictator server response:{}", responseBodyString);
                     DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
-                    if(dataWrapper != null && dataWrapper.getData() != null){
-                        if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
+                    if (dataWrapper != null && dataWrapper.getData() != null) {
+                        if (dataWrapper.getSuccess() != null && dataWrapper.getSuccess()) {
                             DictatorValueResponse dictatorValueResponse = JsonUtils.toObject(JsonUtils.toJson(dataWrapper.getData()), DictatorValueResponse.class);
-                            if(dictatorValueResponse != null){
+                            if (dictatorValueResponse != null) {
                                 return dictatorValueResponse.getValue();
                             }
                         }
                     }
-                    log.warn("config '{}' not found.",propertyName);
+                    log.warn("config '{}' not found.", propertyName);
                 }
             }
         } catch (IOException e) {
-            log.error("properties load fail",e.getMessage());
+            log.error("properties load fail", e.getMessage());
         }
         return null;
     }
 
-    public Map<String, String> reload(){
+    public Map<String, String> reload() {
         BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
         Request request = new Request.Builder()
-                .url(String.format("%s/%s",this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_BATCH_GET_URI))
+                .url(String.format("%s/%s", this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_BATCH_GET_URI))
                 .post(RequestBody.create(MediaTypeConstants.APPLICATION_JSON_UTF8, JsonUtils.toJson(batchRequest)))
                 .build();
         try {
             Response response = this.okHttpClient.newCall(request).execute();
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 ResponseBody responseBody = response.body();
-                if(responseBody != null){
+                if (responseBody != null) {
                     String responseBodyString = responseBody.string();
-                    log.debug("dictator server response:{}",responseBodyString);
+                    log.debug("dictator server response:{}", responseBodyString);
                     DataWrapper dataWrapper = JsonUtils.toObject(responseBodyString, DataWrapper.class);
-                    if(dataWrapper != null && dataWrapper.getData() != null){
-                        if(dataWrapper.getSuccess() != null && dataWrapper.getSuccess()){
-                            return  (Map<String, String>) dataWrapper.getData();
+                    if (dataWrapper != null && dataWrapper.getData() != null) {
+                        if (dataWrapper.getSuccess() != null && dataWrapper.getSuccess()) {
+                            return (Map<String, String>) dataWrapper.getData();
                         }
                     }
                 }
             }
         } catch (IOException e) {
-            log.error("properties load fail",e.getMessage());
+            log.error("properties load fail", e.getMessage());
         }
         return new HashMap<>();
     }

@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class ListableConfigWriteService implements ConfigWriteService {
-    @Autowired private ConfigWriteService configWriteService;
+    @Autowired
+    private ConfigWriteService configWriteService;
 
     @Override
     public void save(ConfigSetParam configSetParam) {

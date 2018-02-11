@@ -22,20 +22,21 @@ import javax.validation.Valid;
 @RequestMapping("/dictator/config")
 public class DictatorConfigController {
 
-    @Autowired private ListableConfigReadService listableConfigReadService;
+    @Autowired
+    private ListableConfigReadService listableConfigReadService;
 
-    @RequestMapping(value = "/get",method = RequestMethod.POST)
-    public DataWrapper get(@Valid @RequestBody PropertyGetRequest propertyGetRequest){
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public DataWrapper get(@Valid @RequestBody PropertyGetRequest propertyGetRequest) {
         ConfigGetParam configGetParam = ConfigGetParam.from(propertyGetRequest);
         DataWrapper dataWrapper = DataWrapper.from(this.listableConfigReadService.find(configGetParam));
-        log.info("request:{},response:{}",propertyGetRequest,dataWrapper);
+        log.info("request:{},response:{}", propertyGetRequest, dataWrapper);
         return dataWrapper;
     }
 
-    @RequestMapping(value = "/batch/get",method = RequestMethod.POST)
-    public DataWrapper batchGet(@Valid @RequestBody CommonParam commonParam){
+    @RequestMapping(value = "/batch/get", method = RequestMethod.POST)
+    public DataWrapper batchGet(@Valid @RequestBody CommonParam commonParam) {
         DataWrapper dataWrapper = DataWrapper.from(this.listableConfigReadService.findAll(commonParam));
-        log.info("request:{},response:{}",commonParam,dataWrapper);
+        log.info("request:{},response:{}", commonParam, dataWrapper);
         return dataWrapper;
     }
 }

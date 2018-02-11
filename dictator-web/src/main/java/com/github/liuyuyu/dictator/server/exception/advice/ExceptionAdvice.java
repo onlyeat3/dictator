@@ -8,9 +8,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 /*
  * @author liuyuyu
  */
@@ -20,24 +17,24 @@ import java.util.stream.Collectors;
 public class ExceptionAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public DataWrapper handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+    public DataWrapper handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         DataWrapper dataWrapper = DataWrapper.of(ErrorCodeEnum.INVALID_PARAMETER);
         StringBuilder invalidParameterMsg = new StringBuilder();
         ex.getBindingResult().getFieldErrors().stream()
-                .map(e-> String.format("参数%s,%s",e.getField(), e.getDefaultMessage()))
-                .forEach(s-> invalidParameterMsg.append(s).append(","));
+                .map(e -> String.format("参数%s,%s", e.getField(), e.getDefaultMessage()))
+                .forEach(s -> invalidParameterMsg.append(s).append(","));
         dataWrapper.setMsg(invalidParameterMsg.toString());
-        log.warn("ex",ex);
+        log.warn("ex", ex);
         return dataWrapper;
     }
 
     @ExceptionHandler(Throwable.class)
-    public DataWrapper handleThrowable(Throwable ex){
+    public DataWrapper handleThrowable(Throwable ex) {
         DataWrapper dataWrapper = DataWrapper.of();
         dataWrapper.setMsg(ex.getMessage());
         dataWrapper.setCode("FAIL");
         dataWrapper.setSuccess(Boolean.FALSE);
-        log.warn("ex",ex);
+        log.warn("ex", ex);
         return dataWrapper;
     }
 }

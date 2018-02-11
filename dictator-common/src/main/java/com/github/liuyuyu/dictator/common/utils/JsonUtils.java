@@ -19,8 +19,8 @@ import java.util.List;
 public class JsonUtils {
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public static String toJson(Object object){
-        if(object == null){
+    public static String toJson(Object object) {
+        if (object == null) {
             return StringUtils.EMPTY;
         }
         try {
@@ -30,18 +30,18 @@ public class JsonUtils {
         }
     }
 
-    public static <T> T toObject(@NonNull String jsonString,Class<T> targetClass){
+    public static <T> T toObject(@NonNull String jsonString, Class<T> targetClass) {
         try {
-            return OBJECT_MAPPER.readValue(jsonString,targetClass);
+            return OBJECT_MAPPER.readValue(jsonString, targetClass);
         } catch (IOException e) {
             return null;
         }
     }
 
-    public static <T> List<T> toList(@NonNull String jsonString, Class<?> targetClass){
+    public static <T> List<T> toList(@NonNull String jsonString, Class<?> targetClass) {
         JavaType listJavaType = OBJECT_MAPPER.getTypeFactory().constructParametricType(ArrayList.class, targetClass);
         try {
-            return OBJECT_MAPPER.readValue(jsonString,listJavaType);
+            return OBJECT_MAPPER.readValue(jsonString, listJavaType);
         } catch (IOException e) {
             return new ArrayList<>();
         }

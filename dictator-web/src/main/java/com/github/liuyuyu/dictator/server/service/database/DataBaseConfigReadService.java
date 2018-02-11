@@ -22,14 +22,16 @@ import java.util.stream.Collectors;
 @Component
 @Order
 public class DataBaseConfigReadService implements ConfigReadService {
-    @Autowired private DictatorConfigMapper configMapper;
-    @Autowired private DictatorConfigHistoryMapper configHistoryMapper;
+    @Autowired
+    private DictatorConfigMapper configMapper;
+    @Autowired
+    private DictatorConfigHistoryMapper configHistoryMapper;
 
     @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
         DictatorConfig dictatorConfigEntity = this.configMapper.findByGetParam(configGetParam);
         DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
-        if(dictatorConfigEntity != null){
+        if (dictatorConfigEntity != null) {
             dictatorValueResponse.setValue(dictatorConfigEntity.getConfigValue());
             dictatorValueResponse.setVersion(String.valueOf(dictatorConfigEntity.getVersion()));
         }
