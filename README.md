@@ -1,4 +1,13 @@
-# dictator
+```
+            88 88                                                              
+            88 ""              ,d                 ,d                           
+            88                 88                 88                           
+    ,adPPYb,88 88  ,adPPYba, MM88MMM ,adPPYYba, MM88MMM ,adPPYba,  8b,dPPYba,  
+   a8"    `Y88 88 a8"     ""   88    ""     `Y8   88   a8"     "8a 88P'   "Y8  
+   8b       88 88 8b           88    ,adPPPPP88   88   8b       d8 88          
+   "8a,   ,d88 88 "8a,   ,aa   88,   88,    ,88   88,  "8a,   ,a8" 88          
+    `"yong"zhe ge  `kuangjia"'  "de `"doushi     "dashuaibi `"!!!!!"'            
+```
 
 中心化的配置管理组件。建立这个项目是为了解决同一公司多个项目多个环境配置不统一、修改麻烦的问题。
 
@@ -12,11 +21,19 @@
 
 - [x] JDK8+
 
+- [x] 自动更新配置
 
-### 架构设计
-![结构图(朴素黑白版)](./docs/images/arch.png)
+### 贡献代码
 
-项目开发中，如果你正好遇到同样的场景需要处理，欢迎直接提交issue/PR或者直接联系作者QQ:791411860
+如果你有好的想法和建议,你可以直接提issue或者pr,也可以把你的想法发到邮箱```liuyuyu2333@gmail.com```.下面的贡献者名单可能会出现你的名字.
+
+### 贡献者
+
+>虚位以待
+
+### 版本变更记录
+
+[changelog](./changelog.md)
 
 ### License
 
