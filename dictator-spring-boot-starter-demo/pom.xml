@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.github.liuyuyu</groupId>
         <artifactId>dictator</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>dictator-spring-boot-starter-demo</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>dictator-spring-boot-starter-demo</name>
