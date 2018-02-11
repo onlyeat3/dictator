@@ -21,36 +21,38 @@ import java.util.List;
 @Slf4j
 @Component
 public class ConfigReloadTask {
-    @Autowired private DataBaseConfigReadService dataBaseConfigReadService;
-    @Autowired private ListableConfigWriteService listableConfigWriteService;
+    @Autowired
+    private DataBaseConfigReadService dataBaseConfigReadService;
+    @Autowired
+    private ListableConfigWriteService listableConfigWriteService;
 
     @Scheduled(fixedRateString = "${dictator.server.refresh.rate:5000}")
-    public void refresh(){
+    public void refresh() {
         //删除最近一小时被清掉的配置
         List<DictatorConfigHistory> lastHourInvalidConfigList = this.dataBaseConfigReadService.findLastHourInvalid();
         lastHourInvalidConfigList.stream()
-                .map(ch-> {
+                .map(ch -> {
                     CommonParam commonParam = BeanConverter.from(ch).to(CommonParam.class);
                     commonParam.setKey(ch.getConfigName());
                     return commonParam;
                 })
-                .forEach(c-> this.listableConfigWriteService.delete(c));
+                .forEach(c -> this.listableConfigWriteService.delete(c));
 
         //刷新新的
         List<DictatorConfig> dictatorConfigList = this.dataBaseConfigReadService.findAllValid();
         dictatorConfigList.stream()
-                .map(d->{
+                .map(d -> {
                     ConfigSetParam configSetParam = BeanConverter.from(d)
                             .to(ConfigSetParam.class);
                     configSetParam.setKey(d.getConfigName());
                     configSetParam.setValue(d.getConfigValue());
                     return configSetParam;
                 })
-                .forEach(c-> this.listableConfigWriteService.saveOrModify(c));
+                .forEach(c -> this.listableConfigWriteService.saveOrModify(c));
     }
 
     @PostConstruct
-    public void init(){
+    public void init() {
         log.info("ConfigReloadTask start.");
     }
 }

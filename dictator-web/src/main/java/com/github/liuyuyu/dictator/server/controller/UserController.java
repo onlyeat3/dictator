@@ -19,16 +19,16 @@ import java.util.UUID;
 public class UserController {
 
     @RequestMapping("/login")
-    public DataWrapper login(@RequestBody @Valid LoginRequest loginRequest){
+    public DataWrapper login(@RequestBody @Valid LoginRequest loginRequest) {
         String token = UUID.randomUUID().toString().replaceAll("-", "");
         return DataWrapper.from(token);
     }
 
     @RequestMapping("/info")
-    public DataWrapper showInfo(){
+    public DataWrapper showInfo() {
         UserInfoResponse userInfoResponse = UserInfoResponse.of();
         userInfoResponse.setName("admin");
-        userInfoResponse.setRoles(Arrays.asList("admin","admini","adminii"));
+        userInfoResponse.setRoles(Arrays.asList("admin", "admini", "adminii"));
         return DataWrapper.from(userInfoResponse);
     }
 }

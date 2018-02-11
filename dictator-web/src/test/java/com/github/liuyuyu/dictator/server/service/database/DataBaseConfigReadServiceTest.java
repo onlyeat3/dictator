@@ -17,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DataBaseConfigReadServiceTest {
-    @Autowired private DataBaseConfigReadService dataBaseConfigService;
+    @Autowired
+    private DataBaseConfigReadService dataBaseConfigService;
 
     @Test
     public void find() {

@@ -9,11 +9,11 @@ import tk.mybatis.mapper.common.Mapper;
 
 @org.apache.ibatis.annotations.Mapper
 public interface DictatorConfigMapper extends Mapper<DictatorConfig> {
-    default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam){
+    default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam) {
         return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam));
     }
 
-    default int countByParam(@NonNull CommonParam commonParam){
+    default int countByParam(@NonNull CommonParam commonParam) {
         return this.selectCountByExample(DictatorConfigWeekend.from(commonParam));
     }
 }

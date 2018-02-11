@@ -15,7 +15,8 @@ import java.util.Map;
  */
 @Component
 public class ListableConfigReadService implements ConfigReadService {
-    @Autowired private List<ConfigReadService> configReadServiceList = new ArrayList<>();
+    @Autowired
+    private List<ConfigReadService> configReadServiceList = new ArrayList<>();
 
     @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
@@ -43,7 +44,7 @@ public class ListableConfigReadService implements ConfigReadService {
     public Map<String, String> findAll(CommonParam commonParam) {
         for (ConfigReadService configReadService : this.configReadServiceList) {
             Map<String, String> configMap = configReadService.findAll(commonParam);
-            if(configMap != null && !configMap.isEmpty()){
+            if (configMap != null && !configMap.isEmpty()) {
                 return configMap;
             }
         }

@@ -12,11 +12,16 @@ import lombok.NonNull;
 @EqualsAndHashCode(callSuper = true)
 public class DictatorClientProperties extends BaseProperties {
 
-    public static DictatorClientProperties of(){
+    /**
+     * 配置中心服务端地址
+     */
+    private String serverUrl;
+
+    public static DictatorClientProperties of() {
         return new DictatorClientProperties();
     }
 
-    public static DictatorClientProperties of(@NonNull String appId, @NonNull String deploymentId,@NonNull String profile, @NonNull String serverUrl){
+    public static DictatorClientProperties of(@NonNull String appId, @NonNull String deploymentId, @NonNull String profile, @NonNull String serverUrl) {
         DictatorClientProperties dictatorClientProperties = new DictatorClientProperties();
         dictatorClientProperties.setAppId(appId);
         dictatorClientProperties.setDeploymentId(deploymentId);
@@ -24,9 +29,4 @@ public class DictatorClientProperties extends BaseProperties {
         dictatorClientProperties.setServerUrl(serverUrl);
         return dictatorClientProperties;
     }
-
-    /**
-     * 配置中心服务端地址
-     */
-    private String serverUrl;
 }

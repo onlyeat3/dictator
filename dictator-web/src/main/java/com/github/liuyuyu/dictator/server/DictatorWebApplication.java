@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class DictatorWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DictatorWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DictatorWebApplication.class, args);
+    }
 }

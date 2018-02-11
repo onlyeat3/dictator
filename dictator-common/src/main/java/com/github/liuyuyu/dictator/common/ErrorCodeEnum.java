@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ErrorCodeEnum {
-    INVALID_PARAMETER("INVALID_PARAMETER","无效参数");
+    INVALID_PARAMETER("INVALID_PARAMETER", "无效参数");
     private String code;
     private String defaultMessage;
 }

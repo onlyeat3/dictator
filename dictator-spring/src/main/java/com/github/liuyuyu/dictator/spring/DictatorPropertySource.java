@@ -13,15 +13,14 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author liuyuyu
  */
 public class DictatorPropertySource extends PropertySource<String> {
+    public static final String NAME = "dictatorPropertySource";
     @Setter
     private DictatorClient dictatorClient;
-    public static final String NAME = "dictatorPropertySource";
-
     @Getter
-    private Map<String,String> configCache = new HashMap<>();
+    private Map<String, String> configCache = new HashMap<>();
     private ReentrantLock lock = new ReentrantLock();
 
-    public DictatorPropertySource(){
+    public DictatorPropertySource() {
         super(NAME);
     }
 
@@ -34,23 +33,23 @@ public class DictatorPropertySource extends PropertySource<String> {
         this.lock.lock();
         try {
             String cachedValue = this.configCache.get(name);
-            if(cachedValue != null){
+            if (cachedValue != null) {
                 return cachedValue;
-            }else{
+            } else {
                 return null;
             }
-        }finally {
+        } finally {
             this.lock.unlock();
         }
     }
 
-    public void refreshCache(){
+    public void refreshCache() {
         this.lock.lock();
         try {
             Map<String, String> currentConfigMap = this.dictatorClient.reload();
             this.configCache.clear();
             this.configCache.putAll(currentConfigMap);
-        }finally {
+        } finally {
             this.lock.unlock();
         }
     }

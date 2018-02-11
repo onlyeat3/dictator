@@ -33,7 +33,7 @@ public class ConfigGetParam extends CommonParam {
         return configGetParam;
     }
 
-    public static ConfigGetParam from(@NonNull BaseProperties source){
+    public static ConfigGetParam from(@NonNull BaseProperties source) {
         ConfigGetParam target = new ConfigGetParam();
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());

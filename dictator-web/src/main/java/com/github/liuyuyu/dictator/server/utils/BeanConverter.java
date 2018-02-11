@@ -16,19 +16,19 @@ import org.springframework.beans.BeanUtils;
 public class BeanConverter {
     private Object source;
 
-    public static BeanConverter from(@NonNull Object source){
+    public static BeanConverter from(@NonNull Object source) {
         BeanConverter beanConverter = new BeanConverter();
         beanConverter.setSource(source);
         return beanConverter;
     }
 
-    public <T> T to(@NonNull Class<T> targetClass){
+    public <T> T to(@NonNull Class<T> targetClass) {
         try {
             T t = targetClass.newInstance();
-            BeanUtils.copyProperties(this.source,t);
+            BeanUtils.copyProperties(this.source, t);
             return t;
         } catch (InstantiationException | IllegalAccessException e) {
-            log.error("new instance fail",e);
+            log.error("new instance fail", e);
         }
         return null;
     }

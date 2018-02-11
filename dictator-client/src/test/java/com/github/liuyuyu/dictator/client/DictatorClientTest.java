@@ -3,9 +3,7 @@ package com.github.liuyuyu.dictator.client;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /*
  * @author liuyuyu
@@ -15,7 +13,7 @@ public class DictatorClientTest {
     private DictatorClient dictatorClient;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         DictatorClientProperties properties = new DictatorClientProperties();
         properties.setAppId("app");
         properties.setDeploymentId("dev/db");

@@ -32,8 +32,9 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @Order(1)
-public class ZookeeperConfigService implements ConfigWriteService,ConfigReadService, Closeable {
-    @Autowired private ZkProperties zkProperties;
+public class ZookeeperConfigService implements ConfigWriteService, ConfigReadService, Closeable {
+    @Autowired
+    private ZkProperties zkProperties;
     private CuratorFramework zkClient;
     /**
      * path分隔符
@@ -67,12 +68,12 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
         String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
         try {
             byte[] zkValueBytes = this.zkClient.getData().forPath(fullPath);
-            if(zkValueBytes != null && zkValueBytes.length > 0){
+            if (zkValueBytes != null && zkValueBytes.length > 0) {
                 finalValue = new String(zkValueBytes);
             }
-        }catch (KeeperException.NoNodeException e){
+        } catch (KeeperException.NoNodeException e) {
             //ignore
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
@@ -127,24 +128,24 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
     public Map<String, String> findAll(CommonParam commonParam) {
         String fullPath = this.seperator + commonParam.toFullKey(this.seperator);
         log.debug("find node appId:{}", fullPath);
-        Map<String,String> configMap = new HashMap<>();
+        Map<String, String> configMap = new HashMap<>();
         try {
-            this.getChildren(fullPath,configMap);
-        }catch (KeeperException.NoNodeException e){
+            this.getChildren(fullPath, configMap);
+        } catch (KeeperException.NoNodeException e) {
             //ignore
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, configMap);
         return configMap;
     }
 
-    private void getChildren(@NonNull String parentNodePath, @NonNull Map<String,String> nodeMap) throws Exception {
+    private void getChildren(@NonNull String parentNodePath, @NonNull Map<String, String> nodeMap) throws Exception {
         List<String> childNodeNameList = this.zkClient.getChildren().forPath(parentNodePath);
         for (String childNodePath : childNodeNameList) {
             byte[] zkValueBytes = this.zkClient.getData().forPath(parentNodePath + this.seperator + childNodePath);
-            if(zkValueBytes != null && zkValueBytes.length > 0){
-                nodeMap.put(childNodePath,new String(zkValueBytes));
+            if (zkValueBytes != null && zkValueBytes.length > 0) {
+                nodeMap.put(childNodePath, new String(zkValueBytes));
             }
         }
     }
@@ -161,10 +162,10 @@ public class ZookeeperConfigService implements ConfigWriteService,ConfigReadServ
     public boolean delete(CommonParam commonParam) {
         try {
             boolean exists = this.exists(commonParam);
-            if(exists){
+            if (exists) {
                 this.zkClient.delete()
                         .forPath(this.seperator + commonParam.toFullKey(this.seperator));
-                log.debug("delete {} success.",commonParam);
+                log.debug("delete {} success.", commonParam);
                 return true;
             }
         } catch (Exception e) {

@@ -6,7 +6,7 @@ import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
  * @author liuyuyu
  */
 public class ParamBuilder {
-    public static ConfigGetParam buildCommonParam(){
+    public static ConfigGetParam buildCommonParam() {
         ConfigGetParam param = new ConfigGetParam();
         param.setAppId("app");
         param.setDeploymentId("db");

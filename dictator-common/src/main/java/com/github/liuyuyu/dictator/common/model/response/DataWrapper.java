@@ -39,7 +39,7 @@ public class DataWrapper {
         return dataWrapper;
     }
 
-    public <T> T getData(Class<T> clazz){
+    public <T> T getData(Class<T> clazz) {
         return clazz.cast(this.data);
     }
 }
