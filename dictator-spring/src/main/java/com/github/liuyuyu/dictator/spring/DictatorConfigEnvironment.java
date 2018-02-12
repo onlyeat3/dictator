@@ -18,14 +18,8 @@ public class DictatorConfigEnvironment extends StandardEnvironment {
     public DictatorConfigEnvironment() {
     }
 
-    public DictatorConfigEnvironment(DictatorClient dictatorClient) {
-        this.dictatorPropertySource.setDictatorClient(dictatorClient);
-        //初始化
-        this.dictatorPropertySource.refreshCache();
-    }
-
-    public static DictatorConfigEnvironment from(@NonNull DictatorClient dictatorClient) {
-        return new DictatorConfigEnvironment(dictatorClient);
+    public static DictatorConfigEnvironment of() {
+        return new DictatorConfigEnvironment();
     }
 
     @Override

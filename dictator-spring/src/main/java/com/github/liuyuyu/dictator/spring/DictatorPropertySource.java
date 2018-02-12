@@ -1,24 +1,12 @@
 package com.github.liuyuyu.dictator.spring;
 
-import com.github.liuyuyu.dictator.client.DictatorClient;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.core.env.PropertySource;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author liuyuyu
  */
 public class DictatorPropertySource extends PropertySource<String> {
     public static final String NAME = "dictatorPropertySource";
-    @Setter
-    private DictatorClient dictatorClient;
-    @Getter
-    private Map<String, String> configCache = new HashMap<>();
-    private ReentrantLock lock = new ReentrantLock();
 
     public DictatorPropertySource() {
         super(NAME);
@@ -30,28 +18,7 @@ public class DictatorPropertySource extends PropertySource<String> {
 
     @Override
     public String getProperty(String name) {
-        this.lock.lock();
-        try {
-            String cachedValue = this.configCache.get(name);
-            if (cachedValue != null) {
-                return cachedValue;
-            } else {
-                return null;
-            }
-        } finally {
-            this.lock.unlock();
-        }
-    }
-
-    public void refreshCache() {
-        this.lock.lock();
-        try {
-            Map<String, String> currentConfigMap = this.dictatorClient.reload();
-            this.configCache.clear();
-            this.configCache.putAll(currentConfigMap);
-        } finally {
-            this.lock.unlock();
-        }
+        return DictatorPropertyManager.getProperty(name);
     }
 
     @Override

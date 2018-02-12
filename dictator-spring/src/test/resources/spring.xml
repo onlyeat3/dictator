@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:context="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:task="http://www.springframework.org/schema/task" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dictator="http://www.github.com/liuyuyu/dictator"
        xsi:schemaLocation="http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd
     http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd
+    http://www.github.com/liuyuyu/dictator
+    http://www.github.com/liuyuyu/dictator.xsd
+">
     <context:component-scan base-package="com.github.liuyuyu.dictator"/>
     <task:annotation-driven/>
-    <bean class="com.github.liuyuyu.dictator.spring.DictatorPropertySourcesPlaceholderConfigurer">
-        <property name="dictatorClient">
-            <bean class="com.github.liuyuyu.dictator.client.DictatorClient">
-                <property name="dictatorClientProperties">
-                    <bean class="com.github.liuyuyu.dictator.client.DictatorClientProperties">
-                        <property name="appId" value="app"/>
-                        <property name="deploymentId" value="dev/db"/>
-                        <property name="serverUrl" value="http://localhost:8080"/>
-                    </bean>
-                </property>
-            </bean>
-        </property>
+    <dictator:config/>
+    <bean id="jdbcDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="${spring.datasource.url}"/>
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
     </bean>
 </beans>
