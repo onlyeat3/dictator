@@ -24,15 +24,15 @@ import java.util.concurrent.locks.ReentrantLock;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorPropertyManager {
     private static DictatorClient DICTATOR_CLIENT;
-    private static final Map<String, String> CONFIG_CACHE = new HashMap<>();
+    public static final Map<String, Object> CONFIG_CACHE = new HashMap<>();
     private static final ReentrantLock LOCK = new ReentrantLock();
 
     public static String getProperty(@NonNull String name) {
         LOCK.lock();
         try {
-            String cachedValue = CONFIG_CACHE.get(name);
+            Object cachedValue = CONFIG_CACHE.get(name);
             if (cachedValue != null) {
-                return cachedValue;
+                return String.valueOf(cachedValue);
             } else {
                 return null;
             }
@@ -62,5 +62,9 @@ public class DictatorPropertyManager {
         } catch (IOException e) {
             log.error("dictator init load fail",e);
         }
+    }
+
+    public static boolean containsName(@NonNull String name) {
+        return CONFIG_CACHE.containsKey(name);
     }
 }

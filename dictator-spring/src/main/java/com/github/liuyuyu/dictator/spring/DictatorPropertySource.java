@@ -1,19 +1,31 @@
 package com.github.liuyuyu.dictator.spring;
 
-import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.MapPropertySource;
+
+import java.util.Map;
 
 /**
  * @author liuyuyu
  */
-public class DictatorPropertySource extends PropertySource<String> {
+public class DictatorPropertySource extends MapPropertySource {
     public static final String NAME = "dictatorPropertySource";
 
     public DictatorPropertySource() {
-        super(NAME);
+        this(NAME,DictatorPropertyManager.CONFIG_CACHE);
     }
 
-    public DictatorPropertySource(String name) {
-        super(name);
+    public DictatorPropertySource(String name, Map<String, Object> source) {
+        super(name, source);
+    }
+
+    @Override
+    public boolean containsProperty(String name) {
+        return DictatorPropertyManager.containsName(name);
+    }
+
+    @Override
+    public String[] getPropertyNames() {
+        return super.getPropertyNames();
     }
 
     @Override
