@@ -1,18 +1,19 @@
 package com.github.liuyuyu.dictator.springboot;
 
-import com.github.liuyuyu.dictator.spring.DictatorConfigEnvironment;
 import com.github.liuyuyu.dictator.spring.DictatorPropertyManager;
+import com.github.liuyuyu.dictator.spring.DictatorPropertySource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @author liuyuyu
  */
 @Slf4j
-public class DictatorSpringBootStartEventListener implements SpringApplicationRunListener {
+public class DictatorSpringBootStartEventListener implements SpringApplicationRunListener, Ordered {
 
     public DictatorSpringBootStartEventListener() {
     }
@@ -28,25 +29,21 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment configurableEnvironment) {
+        configurableEnvironment.getPropertySources().addFirst(new DictatorPropertySource());
     }
 
     @Override
-    public void contextPrepared(ConfigurableApplicationContext applicationContext) {
-        DictatorPropertyManager.init(applicationContext);
-        ConfigurableEnvironment environment = applicationContext.getEnvironment();
-        DictatorConfigEnvironment dictatorConfigEnvironment = DictatorConfigEnvironment.of();
-        environment.merge(dictatorConfigEnvironment);
+    public void contextPrepared(ConfigurableApplicationContext configurableApplicationContext) {
+        DictatorPropertyManager.init(configurableApplicationContext);
         log.info("dictator loaded.");
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext configurableApplicationContext) {
-
     }
 
     @Override
     public void finished(ConfigurableApplicationContext configurableApplicationContext, Throwable throwable) {
-
     }
 
     private void printBanner() {
@@ -60,5 +57,10 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
                 "    `\"yong\"zhe ge  `kuangjia\"'  \"de `\"doushi     \"dashuaibi `\"!!!!!\"'            \n" +
                 "                                                                                ";
         System.out.println("\n" + banner);
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }
