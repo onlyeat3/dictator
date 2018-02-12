@@ -1,17 +1,12 @@
 package com.github.liuyuyu.dictator.springboot;
 
-import com.github.liuyuyu.dictator.client.DictatorClient;
-import com.github.liuyuyu.dictator.client.DictatorClientProperties;
 import com.github.liuyuyu.dictator.spring.DictatorConfigEnvironment;
+import com.github.liuyuyu.dictator.spring.DictatorPropertyManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-
-import java.io.IOException;
 
 /**
  * @author liuyuyu
@@ -37,20 +32,11 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext applicationContext) {
-        Resource resource = applicationContext.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "dictator.properties");
-        try {
-            DictatorClientProperties dictatorClientProperties = DictatorBootstrapPropertiesLoader.from(resource);
-            DictatorClient dictatorClient = DictatorClient.of(dictatorClientProperties);
-
-            ConfigurableEnvironment environment = applicationContext.getEnvironment();
-            if (environment != null) {
-                DictatorConfigEnvironment dictatorConfigEnvironment = DictatorConfigEnvironment.from(dictatorClient);
-                environment.merge(dictatorConfigEnvironment);
-            }
-            log.info("dictator loaded.");
-        } catch (IOException e) {
-            log.error("dictator load fail", e);
-        }
+        DictatorPropertyManager.init(applicationContext);
+        ConfigurableEnvironment environment = applicationContext.getEnvironment();
+        DictatorConfigEnvironment dictatorConfigEnvironment = DictatorConfigEnvironment.of();
+        environment.merge(dictatorConfigEnvironment);
+        log.info("dictator loaded.");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.springboot;
+package com.github.liuyuyu.dictator.spring.loader;
 
 import com.github.liuyuyu.dictator.client.DictatorClientProperties;
 import lombok.NonNull;
@@ -27,4 +27,5 @@ public class DictatorBootstrapPropertiesLoader {
 
         return dictatorClientProperties;
     }
+
 }

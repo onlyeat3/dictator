@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.github.com/liuyuyu/dictator"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.github.com/liuyuyu/dictator"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
+    <xsd:element name="config">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[ 配置启用Dictator作为配置中心]]>
+            </xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+</xsd:schema>
