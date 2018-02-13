@@ -61,3 +61,58 @@ CREATE TABLE dictator_config_environment
   ENGINE = InnoDB
   COMMENT '配置的环境';
 
+create table dictator_user
+(
+  id bigint primary key auto_increment comment '自增主键',
+  user_name varchar(50) not null comment '管理员姓名',
+  email varchar(50) not null comment '联系邮箱',
+  mobile varchar(20) not null comment '联系手机',
+  created_at datetime default current_timestamp not null comment '创建时间',
+  updated_at datetime default current_timestamp comment '最后更新时间' on update current_timestamp,
+  operator_id bigint not null comment '后台操作人ID',
+  operator_ip varchar(20) not null comment '操作者IP',
+  KEY `ix_created_at` (`created_at`),
+  KEY `ix_updated_at` (`updated_at`)
+)engine=InnoDB comment '后台管理员';
+
+create table dictator_user_role
+(
+  admin_id bigint not null comment '管理员ID',
+  role_id bigint not null comment '角色ID',
+  primary key (admin_id,role_id)
+)engine=InnoDB comment '管理员-角色关联表';
+
+create table dictator_role
+(
+  id bigint primary key auto_increment comment '自增主键',
+  role_name varchar(20) not null comment '角色名',
+  created_at datetime default current_timestamp not null comment '创建时间',
+  updated_at datetime default current_timestamp comment '最后更新时间' on update current_timestamp,
+  operator_id bigint not null comment '后台操作人ID',
+  operator_ip varchar(20) not null comment '操作者IP',
+  KEY `ix_created_at` (`created_at`),
+  KEY `ix_updated_at` (`updated_at`)
+)engine=InnoDB comment '后台角色';
+
+create table dictator_role_resource(
+  role_id bigint not null comment '角色ID',
+  resource_id bigint not null comment '资源ID',
+  primary key (role_id,resource_id)
+)engine=InnoDB comment '角色-资源关联表';
+
+create table dictator_resource
+(
+  id bigint primary key auto_increment comment '自增主键',
+  resource_name varchar(20) not null comment '资源名',
+  resource_type tinyint not null comment '资源类型：菜单、按钮',
+  parent_id bigint not null comment '父节点ID',
+  parent_ids varchar(200) not null comment '所有上级节点',
+  target_uri varchar(200) not null comment '目标URI',
+  created_at datetime default current_timestamp not null comment '创建时间',
+  updated_at datetime default current_timestamp comment '最后更新时间' on update current_timestamp,
+  operator_id bigint not null comment '后台操作人ID',
+  operator_ip varchar(20) not null comment '操作者IP',
+  unique(resource_name),
+  KEY `ix_created_at` (`created_at`),
+  KEY `ix_updated_at` (`updated_at`)
+)engine=InnoDB comment '系统资源';
