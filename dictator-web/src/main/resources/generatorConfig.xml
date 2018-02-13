@@ -12,7 +12,7 @@
         <plugin type="com.github.liuyuyu.mbg.plus.ClearResultMapPlugin"/>
         <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin"/>
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <property name="mappers" value="com.github.liuyuyu.dictator.server.mapper.SimpleMapper"/>
         </plugin>
 
         <commentGenerator type="com.github.liuyuyu.mbg.plus.DatabaseCommentGenerator"/>
@@ -29,9 +29,15 @@
         <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
                              type="XMLMAPPER"/>
 
-        <table tableName="dictator_config"/>
-        <table tableName="dictator_config_environment"/>
-        <table tableName="dictator_config_history"/>
-        <table tableName="dictator_user"/>
+        <table tableName="dictator_config" />
+        <table tableName="dictator_config_group" />
+        <table tableName="dictator_config_history" />
+        <table tableName="dictator_config_profile" />
+        <table tableName="dictator_resource" />
+        <table tableName="dictator_role" />
+        <table tableName="dictator_role_group" />
+        <table tableName="dictator_role_resource" />
+        <table tableName="dictator_user" />
+        <table tableName="dictator_user_role" />
     </context>
 </generatorConfiguration>

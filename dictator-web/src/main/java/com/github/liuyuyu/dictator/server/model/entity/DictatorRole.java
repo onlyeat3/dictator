@@ -5,28 +5,18 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
-@Table(name = "dictator_user")
-public class DictatorUser {
+@Table(name = "dictator_role")
+public class DictatorRole {
     /**
      * 自增主键
      */
     private Long id;
 
     /**
-     * 管理员姓名
+     * 角色名
      */
-    @Column(name = "user_name")
-    private String userName;
-
-    /**
-     * 联系邮箱
-     */
-    private String email;
-
-    /**
-     * 联系手机
-     */
-    private String mobile;
+    @Column(name = "role_name")
+    private String roleName;
 
     /**
      * 创建时间

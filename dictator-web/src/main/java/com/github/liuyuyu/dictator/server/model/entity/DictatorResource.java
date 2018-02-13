@@ -5,28 +5,42 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
-@Table(name = "dictator_user")
-public class DictatorUser {
+@Table(name = "dictator_resource")
+public class DictatorResource {
     /**
      * 自增主键
      */
     private Long id;
 
     /**
-     * 管理员姓名
+     * 资源名
      */
-    @Column(name = "user_name")
-    private String userName;
+    @Column(name = "resource_name")
+    private String resourceName;
 
     /**
-     * 联系邮箱
+     * 资源类型：菜单、按钮
      */
-    private String email;
+    @Column(name = "resource_type")
+    private Byte resourceType;
 
     /**
-     * 联系手机
+     * 父节点ID
      */
-    private String mobile;
+    @Column(name = "parent_id")
+    private Long parentId;
+
+    /**
+     * 所有上级节点
+     */
+    @Column(name = "parent_ids")
+    private String parentIds;
+
+    /**
+     * 目标URI
+     */
+    @Column(name = "target_uri")
+    private String targetUri;
 
     /**
      * 创建时间

@@ -1,10 +1,8 @@
 package com.github.liuyuyu.dictator.server.model.entity;
 
-import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.*;
+import lombok.*;
 
 @Data
 @Table(name = "dictator_config")
@@ -27,7 +25,7 @@ public class DictatorConfig {
     private String deploymentId;
 
     /**
-     * 环境
+     * 环境名
      */
     private String profile;
 
@@ -71,4 +69,16 @@ public class DictatorConfig {
      */
     @Column(name = "operator_ip")
     private String operatorIp;
+
+    /**
+     * profile_id
+     */
+    @Column(name = "profile_id")
+    private String profileId;
+
+    /**
+     * 分组ID
+     */
+    @Column(name = "group_id")
+    private String groupId;
 }
