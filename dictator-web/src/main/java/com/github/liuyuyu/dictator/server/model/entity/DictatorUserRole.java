@@ -7,10 +7,10 @@ import lombok.*;
 @Table(name = "dictator_user_role")
 public class DictatorUserRole {
     /**
-     * 管理员ID
+     * 用户ID
      */
-    @Column(name = "admin_id")
-    private Long adminId;
+    @Column(name = "user_id")
+    private Long userId;
 
     /**
      * 角色ID

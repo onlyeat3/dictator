@@ -80,7 +80,8 @@ CREATE TABLE dictator_config_profile
 create table dictator_user
 (
   id bigint primary key auto_increment comment '自增主键',
-  user_name varchar(50) not null comment '管理员姓名',
+  user_name varchar(50) not null comment '用户姓名',
+  password VARCHAR(200) NOT NULL COMMENT '密码',
   email varchar(50) not null comment '联系邮箱',
   mobile varchar(20) not null comment '联系手机',
   created_at datetime default current_timestamp not null comment '创建时间',
@@ -89,14 +90,14 @@ create table dictator_user
   operator_ip varchar(20) not null comment '操作者IP',
   KEY `ix_created_at` (`created_at`),
   KEY `ix_updated_at` (`updated_at`)
-)engine=InnoDB comment '后台管理员';
+)engine=InnoDB comment '后台用户';
 
 create table dictator_user_role
 (
-  admin_id bigint not null comment '管理员ID',
+  user_id bigint not null comment '用户ID',
   role_id bigint not null comment '角色ID',
-  primary key (admin_id,role_id)
-)engine=InnoDB comment '管理员-角色关联表';
+  primary key (user_id,role_id)
+)engine=InnoDB comment '用户-角色关联表';
 
 create table dictator_role
 (

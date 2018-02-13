@@ -1,6 +1,6 @@
 package com.github.liuyuyu.dictator.server;
 
-import com.github.liuyuyu.dictator.server.service.zookeeper.ZkProperties;
+import com.github.liuyuyu.dictator.server.core.service.zookeeper.ZkProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
