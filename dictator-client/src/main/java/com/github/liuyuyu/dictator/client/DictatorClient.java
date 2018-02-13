@@ -78,6 +78,7 @@ public class DictatorClient {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     public Map<String, String> reload() {
         BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
         Request request = new Request.Builder()
