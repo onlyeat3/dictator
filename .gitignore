@@ -8,3 +8,5 @@ target/
 .vscode
 
 pom.xml.versionsBackup
+
+package-lock.json
