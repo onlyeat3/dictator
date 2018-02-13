@@ -21,8 +21,7 @@
           登录
         </el-button>
       </el-form-item>
-      <div class='tips'>账号:admin 密码随便填</div>
-      <div class='tips'>账号:editor  密码随便填</div>
+      <div class='tips'>需要先初始化数据库脚本才能登录</div>
     </el-form>
   </div>
 </template>
@@ -65,10 +64,10 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.loading = false
+            // this.loading = false
             this.$router.push({ path: '/' })
           }).catch(() => {
-            this.loading = false
+            // this.loading = false
           })
         } else {
           console.log('error submit!!')
