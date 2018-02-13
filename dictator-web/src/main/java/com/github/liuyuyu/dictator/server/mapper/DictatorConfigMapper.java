@@ -2,8 +2,8 @@ package com.github.liuyuyu.dictator.server.mapper;
 
 import com.github.liuyuyu.dictator.server.mapper.weekend.DictatorConfigWeekend;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
-import com.github.liuyuyu.dictator.server.service.param.CommonParam;
-import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
+import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 

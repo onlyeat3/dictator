@@ -17,6 +17,10 @@ public class DictatorUser {
      */
     @Column(name = "user_name")
     private String userName;
+    /**
+     * 密码
+     */
+    private String password;
 
     /**
      * 联系邮箱

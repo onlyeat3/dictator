@@ -13,7 +13,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("http://localhost:9528")
-                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedMethods("HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(false).maxAge(3600);
     }
 }

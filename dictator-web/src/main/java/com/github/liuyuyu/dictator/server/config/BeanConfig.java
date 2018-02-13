@@ -1,6 +1,6 @@
 package com.github.liuyuyu.dictator.server.config;
 
-import com.github.liuyuyu.dictator.server.service.zookeeper.ZookeeperConfigService;
+import com.github.liuyuyu.dictator.server.core.service.zookeeper.ZookeeperConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;

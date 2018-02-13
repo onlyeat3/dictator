@@ -1,8 +1,8 @@
 package com.github.liuyuyu.dictator.server.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
-import com.github.liuyuyu.dictator.server.model.response.MenuMetaResponse;
-import com.github.liuyuyu.dictator.server.model.response.ResourceResponse;
+import com.github.liuyuyu.dictator.server.common.model.response.MenuMetaResponse;
+import com.github.liuyuyu.dictator.server.common.model.response.ResourceResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

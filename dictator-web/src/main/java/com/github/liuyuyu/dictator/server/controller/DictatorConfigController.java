@@ -2,9 +2,9 @@ package com.github.liuyuyu.dictator.server.controller;
 
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
-import com.github.liuyuyu.dictator.server.service.ListableConfigReadService;
-import com.github.liuyuyu.dictator.server.service.param.CommonParam;
-import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.server.core.service.ListableConfigReadService;
+import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
+import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

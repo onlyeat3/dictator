@@ -1,6 +1,6 @@
 package com.github.liuyuyu.dictator.server.utils;
 
-import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
+import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 
 /**
  * @author liuyuyu
