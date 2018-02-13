@@ -5,10 +5,10 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.liuyuyu.dictator.server.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.service.param.ConfigGetParam;
 import lombok.NonNull;
-import tk.mybatis.mapper.common.Mapper;
+import org.apache.ibatis.annotations.Mapper;
 
-@org.apache.ibatis.annotations.Mapper
-public interface DictatorConfigMapper extends Mapper<DictatorConfig> {
+@Mapper
+public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
     default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam) {
         return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam));
     }

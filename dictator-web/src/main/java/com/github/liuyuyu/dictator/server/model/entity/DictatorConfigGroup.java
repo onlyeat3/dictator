@@ -5,28 +5,18 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
-@Table(name = "dictator_user")
-public class DictatorUser {
+@Table(name = "dictator_config_group")
+public class DictatorConfigGroup {
     /**
      * 自增主键
      */
     private Long id;
 
     /**
-     * 管理员姓名
+     * 分组名
      */
-    @Column(name = "user_name")
-    private String userName;
-
-    /**
-     * 联系邮箱
-     */
-    private String email;
-
-    /**
-     * 联系手机
-     */
-    private String mobile;
+    @Column(name = "group_name")
+    private String groupName;
 
     /**
      * 创建时间
