@@ -6,7 +6,7 @@ import com.github.liuyuyu.dictator.server.core.service.ListableConfigWriteServic
 import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
-import com.github.liuyuyu.dictator.server.utils.BeanConverter;
+import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

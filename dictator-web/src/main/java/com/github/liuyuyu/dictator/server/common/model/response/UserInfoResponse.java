@@ -1,5 +1,8 @@
 package com.github.liuyuyu.dictator.server.common.model.response;
 
+import com.github.liuyuyu.dictator.common.Convertible;
+import com.github.liuyuyu.dictator.server.common.model.dto.DictatorResourceDto;
+import com.github.liuyuyu.dictator.server.common.model.dto.DictatorUserDto;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -8,8 +11,8 @@ import java.util.List;
 /**
  * @author liuyuyu
  */
-@Data(staticConstructor = "of")
-public class UserInfoResponse {
+@Data
+public class UserInfoResponse implements Convertible<DictatorUserDto> {
     /**
      * 用户名
      */
@@ -21,5 +24,9 @@ public class UserInfoResponse {
     /**
      * 拥有角色
      */
-    private List<String> roles = new ArrayList<>();
+    private List<DictatorResourceDto> resourceList = new ArrayList<>();
+
+    public static UserInfoResponse of(){
+        return new UserInfoResponse();
+    }
 }

@@ -55,5 +55,9 @@ export const asyncRouterMap = [
     children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['admin'] }}]
   },
 
-  { path: '*', redirect: '/404', hidden: true }
+  { 
+    path: '*', 
+    redirect: '/404', 
+    hidden: true 
+  }
 ]

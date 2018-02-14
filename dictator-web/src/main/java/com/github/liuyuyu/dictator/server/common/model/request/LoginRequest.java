@@ -1,12 +1,14 @@
 package com.github.liuyuyu.dictator.server.common.model.request;
 
+import com.github.liuyuyu.dictator.common.Convertible;
+import com.github.liuyuyu.dictator.server.common.model.param.LoginParam;
 import lombok.Data;
 
 /**
  * @author liuyuyu
  */
 @Data
-public class LoginRequest {
+public class LoginRequest implements Convertible<LoginParam> {
     /**
      * 用户名
      */
@@ -15,4 +17,5 @@ public class LoginRequest {
      * 密码
      */
     private String password;
+
 }

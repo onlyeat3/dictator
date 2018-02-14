@@ -2,12 +2,15 @@ import { asyncRouterMap, constantRouterMap } from '@/router/index'
 
 /**
  * 通过meta.role判断是否与当前用户权限匹配
- * @param roles
+ * @param resourceList
  * @param route
  */
-function hasPermission(roles, route) {
-  if (route.meta && route.meta.role) {
-    return roles.some(role => route.meta.role.indexOf(role) >= 0)
+function hasPermission(resourceList, route) {
+  console.log(route)
+  if (route.path) {
+    var some = resourceList.some(resource => route.path == resource.targetUri)
+    console.log(some)
+    return some;
   } else {
     return true
   }
@@ -16,13 +19,13 @@ function hasPermission(roles, route) {
 /**
  * 递归过滤异步路由表，返回符合用户角色权限的路由表
  * @param asyncRouterMap
- * @param roles
+ * @param resourceList
  */
-function filterAsyncRouter(asyncRouterMap, roles) {
+function filterAsyncRouter(asyncRouterMap, resourceList) {
   const accessedRouters = asyncRouterMap.filter(route => {
-    if (hasPermission(roles, route)) {
+    if (hasPermission(resourceList, route)) {
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+        route.children = filterAsyncRouter(route.children, resourceList)
       }
       return true
     }
@@ -45,13 +48,9 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const { roles } = data
+        let {resourceList} = data.data;
         let accessedRouters
-        if (roles.indexOf('admin') >= 0) {
-          accessedRouters = asyncRouterMap
-        } else {
-          accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
-        }
+        accessedRouters = filterAsyncRouter(asyncRouterMap, resourceList)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

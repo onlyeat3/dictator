@@ -3,6 +3,8 @@ package com.github.liuyuyu.dictator.common.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.github.liuyuyu.dictator.common.jackson.NamedValueSerializer;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -18,6 +20,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    static {
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(new NamedValueSerializer());
+        OBJECT_MAPPER.registerModule(simpleModule);
+    }
 
     public static String toJson(Object object) {
         if (object == null) {
