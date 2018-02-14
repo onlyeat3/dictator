@@ -10,6 +10,7 @@ public class DictatorUser {
     /**
      * 自增主键
      */
+    @Id
     private Long id;
 
     /**

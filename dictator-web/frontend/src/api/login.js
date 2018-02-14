@@ -14,7 +14,7 @@ export function login(username, password) {
 export function getInfo(token) {
   return fetch({
     url: '/user/info',
-    method: 'get',
+    method: 'post',
     params: { token }
   })
 }
