@@ -155,6 +155,7 @@
                     <version>1.6.7</version>
                     <extensions>true</extensions>
                     <configuration>
+                        <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
                         <serverId>ossrh</serverId>
                         <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                         <autoReleaseAfterClose>true</autoReleaseAfterClose>
