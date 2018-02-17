@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.controller;
+package com.github.liuyuyu.dictator.server.common.controller;
 
 import com.github.liuyuyu.dictator.common.NamedValue;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;

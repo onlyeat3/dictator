@@ -11,7 +11,7 @@ import java.util.List;
  * @author liuyuyu
  */
 @Data
-public class DictatorUserDto implements Convertible<DictatorUser>{
+public class DictatorUserDto implements Convertible<DictatorUserDto,DictatorUser>{
     /**
      * 自增主键
      */

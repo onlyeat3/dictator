@@ -12,7 +12,7 @@ import java.util.List;
  * @author liuyuyu
  */
 @Data
-public class UserInfoResponse implements Convertible<DictatorUserDto> {
+public class UserInfoResponse implements Convertible<UserInfoResponse,DictatorUserDto> {
     /**
      * 用户名
      */

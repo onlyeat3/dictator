@@ -130,6 +130,12 @@
         </dependency>
     </dependencies>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -165,6 +171,21 @@
         </pluginManagement>
     </build>
     <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activatedProperties>dev</activatedProperties>
+            </properties>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <activatedProperties>product</activatedProperties>
+            </properties>
+        </profile>
         <profile>
             <id>ossrh</id>
             <build>

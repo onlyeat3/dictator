@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.mapper.weekend;
 
-import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
+import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -21,5 +21,9 @@ public class DictatorConfigWeekend {
                 .andEqualTo(DictatorConfig::getProfile, commonParam.getProfile())
                 .andEqualTo(DictatorConfig::getConfigName, commonParam.getKey());
         return weekend;
+    }
+
+    public static Weekend<DictatorConfig> of() {
+        return Weekend.of(DictatorConfig.class);
     }
 }

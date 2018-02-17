@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.server.exception.advice;
 
 import com.github.liuyuyu.dictator.common.ErrorCodeEnum;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
+import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -28,13 +29,23 @@ public class ExceptionAdvice {
         return dataWrapper;
     }
 
+    @ExceptionHandler(ServiceException.class)
+    public DataWrapper handleServiceException(ServiceException ex) {
+        DataWrapper dataWrapper = DataWrapper.of();
+        dataWrapper.setSuccess(false);
+        dataWrapper.setCode(ex.getCode());
+        dataWrapper.setMsg(ex.getMessage());
+        log.warn("service exception code={},msg={}", ex.getCode(),ex.getMessage());
+        return dataWrapper;
+    }
+
     @ExceptionHandler(Throwable.class)
     public DataWrapper handleThrowable(Throwable ex) {
         DataWrapper dataWrapper = DataWrapper.of();
         dataWrapper.setMsg(ex.getMessage());
         dataWrapper.setCode("FAIL");
         dataWrapper.setSuccess(Boolean.FALSE);
-        log.warn("ex", ex);
+        log.error("ex", ex);
         return dataWrapper;
     }
 }
