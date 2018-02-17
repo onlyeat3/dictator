@@ -13,7 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class ConfigSetParam extends CommonParam implements Convertible<CommonParam> {
+public class ConfigSetParam extends CommonParam implements Convertible<ConfigSetParam,CommonParam> {
     /**
      * 配置值
      */

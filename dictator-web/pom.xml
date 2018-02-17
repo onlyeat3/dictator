@@ -27,6 +27,7 @@
         <mbg.version>1.0</mbg.version>
 
         <commons-io.version>2.6</commons-io.version>
+        <pagehelper-spring-start.version>1.2.3</pagehelper-spring-start.version>
     </properties>
     <dependencies>
         <dependency>
@@ -63,6 +64,12 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper-spring-start.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.github.liuyuyu</groupId>
             <artifactId>dictator-common</artifactId>

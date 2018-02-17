@@ -36,13 +36,15 @@ export default new Router({
 
 export const asyncRouterMap = [
   {
-    path: '/example',
+    path: '/index',
     component: Layout,
     redirect: 'noredirect',
-    name: 'Example',
+    name: '首页',
     icon: 'zujian',
     children: [
-      { path: 'index', name: 'Form', icon: 'zonghe', component: _import('page/form') }
+      { path: 'index', name: '配置分组', icon: 'zonghe', component: _import('page/group') },
+      { path: 'config', name: '配置', icon: 'zonghe', component: _import('page/config') },
+      { path: 'config_history', name: '历史配置', icon: 'zonghe', component: _import('page/config_history') }
     ]
   },
 

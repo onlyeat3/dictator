@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message } from 'element-ui'
+import { Message,MessageBox } from 'element-ui'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 
@@ -14,11 +14,16 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  config.headers['Content-Type'] = "Application/Json;charset=UTF-8"
+  //Spring MVC 接收的json不能是空串
+  if(!config.data){
+    config.data = '{}'
+  }
+  config.method = 'post'
   return config
 }, error => {
   // Do something with request error
   console.log(error) // for debug
-  Promise.reject(error)
 })
 
 // respone拦截器
@@ -29,12 +34,6 @@ service.interceptors.response.use(
   */
     const res = response.data
     if (!res.success) {
-      Message({
-        message: res.msg,
-        type: 'error',
-        duration: 5 * 1000
-      })
-
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       if (res.code === 'INVALID_TOKEN' || res.code === 'KICKED_OUT') {
         MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '确定登出', {
@@ -45,6 +44,12 @@ service.interceptors.response.use(
           store.dispatch('FedLogOut').then(() => {
             location.reload()// 为了重新实例化vue-router对象 避免bug
           })
+        })
+      }else{
+        Message({
+          message: res.msg,
+          type: 'error',
+          duration: 5 * 1000
         })
       }
       return Promise.reject('error')
