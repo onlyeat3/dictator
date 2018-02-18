@@ -1,1 +1,0 @@
-from https://github.com/PanJiaChen/vueAdmin-template
