@@ -140,3 +140,5 @@ create table dictator_resource
   KEY `ix_created_at` (`created_at`),
   KEY `ix_updated_at` (`updated_at`)
 )engine=InnoDB comment '系统资源';
+
+ALTER TABLE `dictator_config` ADD UNIQUE INDEX `uq_config` (`app_id`, `deployment_id`, `profile_id`, `group_id`, `config_name`);
