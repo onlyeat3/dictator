@@ -11,5 +11,5 @@ public class UserConstants {
     /**
      * 认证用的token参数名
      */
-    public static final String TOKEN_NAME = "X-Token";
+    public static final String TOKEN_NAME = "token";
 }
