@@ -14,11 +14,10 @@ import java.util.Map;
  * @author liuyuyu
  */
 @Component
-public class ListableConfigReadService implements ConfigReadService {
+public class ListableConfigReadService {
     @Autowired
     private List<ConfigReadService> configReadServiceList = new ArrayList<>();
 
-    @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
         for (ConfigReadService configReadService : this.configReadServiceList) {
             DictatorValueResponse dictatorValueResponse = configReadService.find(configGetParam);
@@ -29,7 +28,6 @@ public class ListableConfigReadService implements ConfigReadService {
         return null;
     }
 
-    @Override
     public boolean exists(CommonParam commonParam) {
         for (ConfigReadService configReadService : this.configReadServiceList) {
             boolean isExists = configReadService.exists(commonParam);
@@ -40,7 +38,6 @@ public class ListableConfigReadService implements ConfigReadService {
         return false;
     }
 
-    @Override
     public Map<String, String> findAll(CommonParam commonParam) {
         for (ConfigReadService configReadService : this.configReadServiceList) {
             Map<String, String> configMap = configReadService.findAll(commonParam);
