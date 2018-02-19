@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.model.entity;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class DictatorConfig {
     /**
      * 自增主键
      */
+    @Id
     private Long id;
 
     /**

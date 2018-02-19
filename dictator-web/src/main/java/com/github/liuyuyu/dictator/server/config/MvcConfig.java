@@ -3,10 +3,12 @@ package com.github.liuyuyu.dictator.server.config;
 import com.github.liuyuyu.dictator.server.common.mvc.CurrentUserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,12 +17,15 @@ import java.util.List;
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Autowired private CurrentUserArgumentResolver currentUserArgumentResolver;
+    @Autowired private Environment environment;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:9528")
-                .allowedMethods("HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowCredentials(false).maxAge(3600);
+        boolean isDev = Arrays.asList(environment.getActiveProfiles()).contains("dev");
+        if(isDev){
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:9527");
+        }
     }
 
     @Override
