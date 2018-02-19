@@ -38,6 +38,7 @@ CREATE TABLE dictator_config_history
 (
   id                   BIGINT PRIMARY KEY    AUTO_INCREMENT COMMENT '自增主键',
   app_id               VARCHAR(100) NOT NULL COMMENT '应用（服务）ID',
+  config_id            BIGINT       NOT NULL COMMENT '配置表ID',
   deployment_id        VARCHAR(100) NOT NULL COMMENT '部署的ID（例如：机器名+环境名）',
   profile_id           LONG         NOT NULL COMMENT 'profile_id',
   profile              VARCHAR(20)  NOT NULL DEFAULT '' COMMENT '环境名',

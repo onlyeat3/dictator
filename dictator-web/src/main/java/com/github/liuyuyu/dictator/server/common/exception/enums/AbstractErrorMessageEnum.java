@@ -1,5 +1,7 @@
 package com.github.liuyuyu.dictator.server.common.exception.enums;
 
+import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
+
 /**
  * @author liuyuyu
  */
@@ -12,6 +14,8 @@ public interface AbstractErrorMessageEnum {
         }else {
             throw new IllegalArgumentException("illegal argument " + this);
         }
-
+    }
+    default ServiceException getServiceException(){
+        return ServiceException.from(this);
     }
 }

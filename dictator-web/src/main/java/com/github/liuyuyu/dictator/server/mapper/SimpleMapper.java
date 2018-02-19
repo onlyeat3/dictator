@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.mapper;
 import com.github.liuyuyu.dictator.server.utils.PageInfoUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.weekend.Weekend;
@@ -24,6 +25,19 @@ public interface SimpleMapper<T> extends Mapper<T> {
             }
             return Optional.ofNullable(ts.get(0));
         }
+    }
+
+    default Optional<T> findFirst(Weekend<T> weekend){
+        List<T> ts = this.selectByExample(weekend);
+        if (ts.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(ts.get(0));
+    }
+
+    default Optional<T> findById(@NonNull Long id){
+        T ts = this.selectByPrimaryKey(id);
+        return Optional.ofNullable(ts);
     }
 
     default <R> PageInfo<R> findPage(Weekend<T> weekend,Class<R> clazz){
