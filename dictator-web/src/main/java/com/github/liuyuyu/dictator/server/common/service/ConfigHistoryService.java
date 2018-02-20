@@ -34,7 +34,7 @@ public class ConfigHistoryService {
 
     public PageInfo<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam) {
         configListParam.startPage();
-        return this.configHistoryMapper.findPageValid(configListParam);
+        return this.configHistoryMapper.findPageValid(configListParam).toPageInfo();
     }
 
     public List<DictatorConfigHistoryDto> findAllByConfigId(@NonNull Long configId) {
