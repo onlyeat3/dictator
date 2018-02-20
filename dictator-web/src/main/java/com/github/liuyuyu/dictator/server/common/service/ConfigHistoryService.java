@@ -45,13 +45,23 @@ public class ConfigHistoryService {
 
     @TransactionalAutoRollback
     public void recovery(@NonNull Long id) {
-        DictatorConfigHistory dictatorConfigHistory = this.configHistoryMapper.findById(id)
+        DictatorConfigHistory oldConfigHistory = this.configHistoryMapper.findById(id)
                 .orElseThrow(ConfigErrorMessageEnum.CONFIG_HISTORY_NOT_EXISTS::getServiceException);
-        DictatorConfig dictatorConfig = BeanConverter.from(dictatorConfigHistory)
-                .to(DictatorConfig.class);
-        dictatorConfig.setId(dictatorConfigHistory.getConfigId());
-
+        DictatorConfig currentConfig = this.dictatorConfigMapper.findById(oldConfigHistory.getConfigId())
+                .orElseThrow(ConfigErrorMessageEnum.CONFIG_NOT_EXISTS::getServiceException);
+        currentConfig.setId(oldConfigHistory.getConfigId());
+        if(currentConfig.getVersion().equals(oldConfigHistory.getVersion())){
+            return;
+        }
+        //当前有效配置和历史配置交换
+        this.dictatorConfigMapper.deleteByPrimaryKey(oldConfigHistory.getConfigId());
         this.configHistoryMapper.deleteByPrimaryKey(id);
-        this.dictatorConfigMapper.insertSelective(dictatorConfig);
+
+        DictatorConfigHistory newConfigHistory = BeanConverter.from(currentConfig).to(DictatorConfigHistory.class);
+        newConfigHistory.setConfigId(currentConfig.getId());
+        this.configHistoryMapper.insertSelective(newConfigHistory);
+        DictatorConfig newConfig = BeanConverter.from(oldConfigHistory).to(DictatorConfig.class);
+        newConfig.setId(oldConfigHistory.getConfigId());
+        this.dictatorConfigMapper.insertSelective(newConfig);
     }
 }
