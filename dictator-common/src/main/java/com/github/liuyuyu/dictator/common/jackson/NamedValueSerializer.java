@@ -19,4 +19,9 @@ public class NamedValueSerializer extends JsonSerializer<NamedValue> {
         jsonGenerator.writeString(String.valueOf(namedValue.get()));
         jsonGenerator.writeEndObject();
     }
+
+    @Override
+    public Class<NamedValue> handledType() {
+        return NamedValue.class;
+    }
 }
