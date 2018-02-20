@@ -85,7 +85,7 @@ public class DataBaseConfigReadService implements ConfigReadService {
                     .map(DictatorConfigDto::getProfileId)
                     .collect(Collectors.toList());
             Map<Long, String> profileIdNameMap = this.profileMapper.findProfileNameByIdList(profileIdList);
-            pageValid.getList().stream()
+            pageValid.getList()
                     .forEach(e->{
                         String groupName = configIdConfigMap.getOrDefault(e.getGroupId(), StringUtils.EMPTY);
                         e.setGroupName(groupName);
