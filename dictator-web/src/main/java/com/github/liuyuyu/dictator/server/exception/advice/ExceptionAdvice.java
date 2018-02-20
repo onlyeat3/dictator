@@ -42,7 +42,7 @@ public class ExceptionAdvice {
     @ExceptionHandler(Throwable.class)
     public DataWrapper handleThrowable(Throwable ex) {
         DataWrapper dataWrapper = DataWrapper.of();
-        dataWrapper.setMsg(ex.getMessage());
+        dataWrapper.setMsg("服务器错误");
         dataWrapper.setCode("FAIL");
         dataWrapper.setSuccess(Boolean.FALSE);
         log.error("ex", ex);

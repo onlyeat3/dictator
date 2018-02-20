@@ -34,11 +34,6 @@ public class DictatorConfigHistory {
     private String deploymentId;
 
     /**
-     * 环境名
-     */
-    private String profile;
-
-    /**
      * 配置名
      */
     @Column(name = "config_name")

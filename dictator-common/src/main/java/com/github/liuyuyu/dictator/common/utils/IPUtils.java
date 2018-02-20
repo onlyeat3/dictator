@@ -17,7 +17,7 @@ import java.util.List;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IPUtils {
-    public static String getIP() {
+    public static String getLocalIP() {
         Enumeration<?> netInterfaces;
         List<NetworkInterface> netlist = new ArrayList<>();
         try {
@@ -60,6 +60,6 @@ public class IPUtils {
     }
 
     public static void main(String[] args) {
-        System.out.println(IPUtils.getIP());
+        System.out.println(IPUtils.getLocalIP());
     }
 }

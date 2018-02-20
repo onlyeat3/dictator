@@ -13,12 +13,12 @@ import tk.mybatis.mapper.weekend.Weekend;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorConfigWeekend {
 
-    public static Weekend<DictatorConfig> from(@NonNull CommonParam commonParam) {
+    public static Weekend<DictatorConfig> from(@NonNull CommonParam commonParam,@NonNull Long profileId) {
         Weekend<DictatorConfig> weekend = Weekend.of(DictatorConfig.class);
         weekend.weekendCriteria()
                 .andEqualTo(DictatorConfig::getAppId, commonParam.getAppId())
                 .andEqualTo(DictatorConfig::getDeploymentId, commonParam.getDeploymentId())
-                .andEqualTo(DictatorConfig::getProfile, commonParam.getProfile())
+                .andEqualTo(DictatorConfig::getProfileId, profileId)
                 .andEqualTo(DictatorConfig::getConfigName, commonParam.getKey());
         return weekend;
     }

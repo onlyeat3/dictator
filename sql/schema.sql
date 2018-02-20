@@ -4,7 +4,6 @@ CREATE TABLE dictator_config
   app_id        VARCHAR(100) NOT NULL COMMENT '应用（服务）ID',
   deployment_id VARCHAR(100) NOT NULL COMMENT '部署的ID（例如：机器名+环境名）',
   profile_id    LONG         NOT NULL COMMENT 'profile_id',
-  profile       VARCHAR(20)  NOT NULL DEFAULT '' COMMENT '环境名',
   group_id      LONG         NOT NULL COMMENT '分组ID',
   config_name   VARCHAR(100) NOT NULL COMMENT '配置名',
   config_value  VARCHAR(500) NOT NULL COMMENT '配置值',
@@ -41,7 +40,6 @@ CREATE TABLE dictator_config_history
   config_id            BIGINT       NOT NULL COMMENT '配置表ID',
   deployment_id        VARCHAR(100) NOT NULL COMMENT '部署的ID（例如：机器名+环境名）',
   profile_id           LONG         NOT NULL COMMENT 'profile_id',
-  profile              VARCHAR(20)  NOT NULL DEFAULT '' COMMENT '环境名',
   group_id             LONG         NOT NULL COMMENT '分组ID',
   config_name          VARCHAR(100) NOT NULL COMMENT '配置名',
   config_value         VARCHAR(500) NOT NULL COMMENT '配置值',
@@ -142,3 +140,4 @@ create table dictator_resource
 )engine=InnoDB comment '系统资源';
 
 ALTER TABLE `dictator_config` ADD UNIQUE INDEX `uq_config` (`app_id`, `deployment_id`, `profile_id`, `group_id`, `config_name`);
+ALTER TABLE `dictator_config_history` ADD UNIQUE INDEX `uq_config` (`app_id`, `deployment_id`, `profile_id`, `group_id`, `config_name`,`version`);

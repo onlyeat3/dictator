@@ -21,7 +21,7 @@ public class BaseProperties {
     @NotBlank
     private String deploymentId;
     /**
-     * 环境区分
+     * profile code
      */
     private String profile = StringUtils.EMPTY;
 

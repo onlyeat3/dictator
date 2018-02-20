@@ -5,6 +5,7 @@ import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.common.exception.enums.UserErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.common.security.TokenManger;
+import com.github.liuyuyu.dictator.server.utils.ServletUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -39,6 +40,10 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
         }
         DictatorUserDto dictatorUserDto = TokenManger.get(token);
         if(dictatorUserDto != null){
+            if(dictatorUserDto.getLoginIp() == null){
+                String ip = ServletUtils.getRemoteAddress(request);
+                dictatorUserDto.setLoginIp(ip);
+            }
             return dictatorUserDto;
         }else{
             if(currentUserAnnotation.required()){
