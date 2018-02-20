@@ -38,6 +38,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(LoginInterceptor.of())
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/dictator/config/**");
     }
 }
