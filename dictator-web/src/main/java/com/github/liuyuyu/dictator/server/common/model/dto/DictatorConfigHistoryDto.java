@@ -28,7 +28,7 @@ public class DictatorConfigHistoryDto {
     /**
      * 环境名
      */
-    private String profile;
+    private String profileName;
 
     /**
      * 配置名
@@ -73,12 +73,12 @@ public class DictatorConfigHistoryDto {
     /**
      * profile_id
      */
-    private String profileId;
+    private Long profileId;
 
     /**
      * 分组ID
      */
-    private String groupId;
+    private Long groupId;
     /**
      * 分组名
      */

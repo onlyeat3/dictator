@@ -84,11 +84,11 @@ public class DictatorConfigHistory {
      * profile_id
      */
     @Column(name = "profile_id")
-    private String profileId;
+    private Long profileId;
 
     /**
      * 分组ID
      */
     @Column(name = "group_id")
-    private String groupId;
+    private Long groupId;
 }
