@@ -72,7 +72,8 @@ public class DataBaseConfigReadService implements ConfigReadService {
     }
 
     public PageInfo<DictatorConfigDto> findPageValid(ConfigListParam configListParam) {
-        PageInfo<DictatorConfigDto> pageValid = this.configMapper.findPageValid(configListParam, DictatorConfigDto.class);
+        configListParam.startPage();
+        PageInfo<DictatorConfigDto> pageValid = this.configMapper.findPageValid(configListParam).toPageInfo();
         if(pageValid.getList().isEmpty()){
             return pageValid;
         }else{

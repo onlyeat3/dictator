@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.mapper;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigHistoryDto;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigListParam;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,11 +22,7 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
         return this.selectByExample(weekend);
     }
 
-    default PageInfo<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam){
-        configListParam.startPage();
-        Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
-        return this.findPage(weekend, DictatorConfigHistoryDto.class);
-    }
+    Page<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam);
 
     default Optional<DictatorConfigHistory> findLastByConfigId(@NonNull Long configId){
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
