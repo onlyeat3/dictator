@@ -35,6 +35,10 @@ public interface SimpleMapper<T> extends Mapper<T> {
         return Optional.ofNullable(ts.get(0));
     }
 
+    default List<T> findAll(){
+        return this.selectAll();
+    }
+
     default Optional<T> findById(@NonNull Long id){
         T ts = this.selectByPrimaryKey(id);
         return Optional.ofNullable(ts);

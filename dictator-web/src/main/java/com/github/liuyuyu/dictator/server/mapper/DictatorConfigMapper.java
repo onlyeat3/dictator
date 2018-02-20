@@ -14,12 +14,12 @@ import java.util.List;
 
 @Mapper
 public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
-    default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam) {
-        return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam));
+    default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam,@NonNull Long profileId) {
+        return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam,profileId));
     }
 
-    default int countByParam(@NonNull CommonParam commonParam) {
-        return this.selectCountByExample(DictatorConfigWeekend.from(commonParam));
+    default int countByParam(@NonNull CommonParam commonParam,@NonNull Long profileId) {
+        return this.selectCountByExample(DictatorConfigWeekend.from(commonParam,profileId));
     }
 
     default <C> PageInfo<C> findPageValid(@NonNull ConfigListParam configListParam,Class<C> targetClass){

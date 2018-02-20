@@ -30,7 +30,7 @@ public class DictatorConfigDto {
     /**
      * 环境名
      */
-    private String profile;
+    private String profileName;
 
     /**
      * 配置名

@@ -39,4 +39,8 @@ public class DictatorUserDto implements Convertible<DictatorUserDto,DictatorUser
      * 拥有的资源
      */
     private List<DictatorResourceDto> resourceList = new ArrayList<>();
+    /**
+     * 登录IP
+     */
+    private String loginIp;
 }

@@ -31,7 +31,9 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
         weekend.weekendCriteria()
                 .andEqualTo(DictatorConfigHistory::getConfigId,configId);
-        weekend.orderBy("version desc");
+        weekend.orderBy("version").desc();
+        weekend.orderBy("updatedTime").desc();
+        weekend.orderBy("createdTime").desc();
         return this.findFirst(weekend);
     }
 

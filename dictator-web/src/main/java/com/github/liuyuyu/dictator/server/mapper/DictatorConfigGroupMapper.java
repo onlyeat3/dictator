@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Mapper
 public interface DictatorConfigGroupMapper extends SimpleMapper<DictatorConfigGroup> {
-    default Map<Long,String> findConfigNameMapByConfigIdList(@NonNull List<Long> configIdList){
+    default Map<Long,String> findConfigNameMapByGroupIdList(@NonNull List<Long> configIdList){
         Weekend<DictatorConfigGroup> weekend = Weekend.of(DictatorConfigGroup.class);
         weekend.weekendCriteria()
                 .andIn(DictatorConfigGroup::getId,configIdList);
