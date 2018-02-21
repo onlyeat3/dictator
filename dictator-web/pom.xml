@@ -83,6 +83,7 @@
     </dependencies>
 
     <build>
+        <finalName>dictator-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
