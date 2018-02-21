@@ -6,7 +6,7 @@
 
     <groupId>com.github.liuyuyu</groupId>
     <artifactId>dictator</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>pom</packaging>
     <name>dictator</name>
     <description>轻量的的配置中心实现</description>
@@ -14,11 +14,9 @@
 
     <modules>
         <module>dictator-common</module>
-        <module>dictator-web</module>
         <module>dictator-client</module>
         <module>dictator-spring</module>
         <module>dictator-spring-boot-starter</module>
-        <module>dictator-spring-boot-starter-demo</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -155,18 +153,6 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.7</version>
-                    <extensions>true</extensions>
-                    <configuration>
-                        <skipNexusStagingDeployMojo>false</skipNexusStagingDeployMojo>
-                        <serverId>ossrh</serverId>
-                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -176,12 +162,20 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <modules>
+                <module>dictator-web</module>
+                <module>dictator-spring-boot-starter-demo</module>
+            </modules>
             <properties>
                 <activatedProperties>dev</activatedProperties>
             </properties>
         </profile>
         <profile>
             <id>product</id>
+            <modules>
+                <module>dictator-web</module>
+                <module>dictator-spring-boot-starter-demo</module>
+            </modules>
             <properties>
                 <activatedProperties>product</activatedProperties>
             </properties>
@@ -231,6 +225,17 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
