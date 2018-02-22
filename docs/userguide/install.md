@@ -33,10 +33,10 @@ java -jar dictator-web.jar --dictator.zk.enable=true --dictator.zk.address=local
 ```
 到此，服务端完成。
 打开浏览器输入```http://localhost:3399```
-![登录页面截图](../images/snapshot/login.png)
+![登录页面截图](/images/snapshot/login.png)
 输入账号密码```admin 123456```
 点击登录后跳转到
-![当前配置页面截图](../images/snapshot/current-config.png)
+![当前配置页面截图](/images/snapshot/current-config.png)
 安装完成！
 
 ## 集成客户端
