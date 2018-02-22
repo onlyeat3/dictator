@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigProfile;
+import com.google.common.collect.Maps;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 import tk.mybatis.mapper.weekend.Weekend;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @Mapper
 public interface DictatorConfigProfileMapper extends SimpleMapper<DictatorConfigProfile> {
     default Map<Long, String> findProfileNameByIdList(@NonNull List<Long> profileIdList) {
+        if(profileIdList.isEmpty()){
+            return Maps.newHashMap();
+        }
         Weekend<DictatorConfigProfile> weekend = Weekend.of(DictatorConfigProfile.class);
         weekend.weekendCriteria()
                 .andIn(DictatorConfigProfile::getId,profileIdList);
