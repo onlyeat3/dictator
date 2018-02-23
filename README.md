@@ -1,19 +1,27 @@
 ```
-            88 88                                                              
-            88 ""              ,d                 ,d                           
-            88                 88                 88                           
-    ,adPPYb,88 88  ,adPPYba, MM88MMM ,adPPYYba, MM88MMM ,adPPYba,  8b,dPPYba,  
-   a8"    `Y88 88 a8"     ""   88    ""     `Y8   88   a8"     "8a 88P'   "Y8  
-   8b       88 88 8b           88    ,adPPPPP88   88   8b       d8 88          
-   "8a,   ,d88 88 "8a,   ,aa   88,   88,    ,88   88,  "8a,   ,a8" 88          
-    `"yong"zhe ge  `kuangjia"'  "de `"doushi     "dashuaibi `"!!!!!"'            
+                            88 88                                                              
+                            88 ""              ,d                 ,d                           
+                            88                 88                 88                           
+                    ,adPPYb,88 88  ,adPPYba, MM88MMM ,adPPYYba, MM88MMM ,adPPYba,  8b,dPPYba,  
+                   a8"    `Y88 88 a8"     ""   88    ""     `Y8   88   a8"     "8a 88P'   "Y8  
+                   8b       88 88 8b           88    ,adPPPPP88   88   8b       d8 88          
+                   "8a,   ,d88 88 "8a,   ,aa   88,   88,    ,88   88,  "8a,   ,a8" 88          
+                    `"yong"zhe ge  `kuangjia"'  "de `"doushi     "dashuaibi `"!!!!!"'            
 ```
-[![Build Status](https://travis-ci.org/liuyuyu/dictator.svg?branch=master)](https://travis-ci.org/liuyuyu/dictator)
-[![GitHub stars](https://img.shields.io/github/stars/liuyuyu/dictator.svg)](https://github.com/liuyuyu/dictator/stargazers) 
-[![GitHub issues](https://img.shields.io/github/issues/liuyuyu/dictator.svg)](https://github.com/liuyuyu/dictator/issues)
-[![GitHub forks](https://img.shields.io/github/forks/liuyuyu/dictator.svg)](https://github.com/liuyuyu/dictator/network)
-[![GitHub license](https://img.shields.io/github/license/liuyuyu/dictator.svg)](https://github.com/liuyuyu/dictator/blob/master/LICENSE)
-
+<p align="center">
+    <a href="https://travis-ci.org/liuyuyu/dictator">
+		<img src="https://travis-ci.org/liuyuyu/dictator.svg?branch=master" alt="Build Status">
+	</a>
+    <a href="https://github.com/liuyuyu/dictator/stargazers">
+		<img src="https://img.shields.io/github/stars/liuyuyu/dictator.svg" alt="GitHub stars">
+	</a>
+    <a href="https://github.com/liuyuyu/dictator/issues">
+		<img src="https://img.shields.io/github/issues/liuyuyu/dictator.svg" alt="GitHub issues">
+	</a>
+    <a href="https://github.com/liuyuyu/dictator/blob/master/LICENSE">
+		<img src="https://img.shields.io/github/license/liuyuyu/dictator.svg" alt="GitHub license">
+	</a>
+</p>
 中心化的配置管理组件。建立这个项目是为了解决同一公司多个项目多个环境配置不统一、修改麻烦的问题。
 
 ### 开始使用
