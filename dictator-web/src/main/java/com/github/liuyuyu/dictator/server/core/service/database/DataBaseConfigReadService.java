@@ -59,7 +59,9 @@ public class DataBaseConfigReadService implements ConfigReadService {
 
     @Override
     public Map<String, String> findAll(CommonParam commonParam) {
-        return this.findAllValid().stream()
+        DictatorConfigProfile dictatorConfigProfile = this.profileMapper.findByCode(commonParam.getProfile())
+                .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
+        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId()).stream()
                 .collect(Collectors.toMap(DictatorConfig::getConfigName, DictatorConfig::getConfigValue));
     }
 

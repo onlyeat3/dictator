@@ -11,6 +11,8 @@ import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
     default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam,@NonNull Long profileId) {
@@ -22,4 +24,8 @@ public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
     }
 
     Page<DictatorConfigDto> findPageValid(@NonNull ConfigListParam configListParam);
+
+    default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId) {
+        return this.selectByExample(DictatorConfigWeekend.from(configGetParam,profileId));
+    }
 }
