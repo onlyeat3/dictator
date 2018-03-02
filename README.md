@@ -55,3 +55,8 @@
 ### License
 
 dictator 是一个使用[MIT协议](LICENSE)的开源项目
+
+### 开源地址
+
+[GitHub](https://github.com/liuyuyu/dictator)
+[OSC](https://gitee.com/liuyuyu/dictator.git)
