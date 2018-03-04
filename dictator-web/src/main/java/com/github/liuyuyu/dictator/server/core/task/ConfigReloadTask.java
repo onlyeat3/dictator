@@ -1,12 +1,12 @@
 package com.github.liuyuyu.dictator.server.core.task;
 
-import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
-import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
+import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import com.github.liuyuyu.dictator.server.core.service.ListableConfigWriteService;
 import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
-import com.github.liuyuyu.dictator.common.utils.BeanConverter;
+import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
+import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -46,6 +46,7 @@ public class ConfigReloadTask {
                             .to(ConfigSetParam.class);
                     configSetParam.setKey(d.getConfigName());
                     configSetParam.setValue(d.getConfigValue());
+                    configSetParam.setLastUpdatedTime(d.getUpdatedTime().toInstant().toEpochMilli());
                     return configSetParam;
                 })
                 .forEach(c -> this.listableConfigWriteService.saveOrModify(c));

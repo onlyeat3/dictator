@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.core.service.zookeeper;
 
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
+import com.github.liuyuyu.dictator.common.utils.JsonUtils;
 import com.github.liuyuyu.dictator.server.core.service.ConfigReadService;
 import com.github.liuyuyu.dictator.server.core.service.ConfigWriteService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
@@ -63,7 +64,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
 
     @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
-        String fullPath = this.seperator + configGetParam.toFullKey(this.seperator);
+        String fullPath = this.appendPathPrefix(configGetParam.toFullKey(this.seperator));
         log.debug("find node appId:{}", fullPath);
         String finalValue = configGetParam.getDefaultValue();//有默认值返回默认值;
         try {
@@ -77,20 +78,26 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
             throw ZKForPathException.of(e);
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
-        DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
-        dictatorValueResponse.setValue(finalValue);
-        dictatorValueResponse.setVersion("unknown");
-        return dictatorValueResponse;
+        ZookeeperConfigInfo zookeeperConfigInfo = JsonUtils.toObject(finalValue, ZookeeperConfigInfo.class);
+        if(zookeeperConfigInfo != null){
+            DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
+            dictatorValueResponse.setValue(zookeeperConfigInfo.getValue());
+            dictatorValueResponse.setVersion("unknown");
+            return dictatorValueResponse;
+        }else{
+            return null;
+        }
     }
 
     @Override
     public void save(ConfigSetParam configSetParam) {
-        String fullPath = this.seperator + configSetParam.toFullKey(this.seperator);
-        log.debug("save node appId:{},value:{}", fullPath, configSetParam.getValue());
+        String fullPath = this.appendPathPrefix(configSetParam.toFullKey(this.seperator));
+        String value = configSetParam.toJson();
+        log.debug("save node appId:{},value:{}", fullPath, value);
         try {
             this.zkClient.create()
                     .creatingParentsIfNeeded()
-                    .forPath(fullPath, configSetParam.getValue().getBytes());
+                    .forPath(fullPath, value.getBytes());
         } catch (Exception e) {
             throw ZKForPathException.of(e);
         }
@@ -100,9 +107,10 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
     public void saveOrModify(ConfigSetParam configSetParam) {
         boolean exists = this.exists(configSetParam);
         if (exists) {
+            String value = configSetParam.toJson();
             try {
                 this.zkClient.setData()
-                        .forPath(this.seperator + configSetParam.toFullKey(this.seperator), configSetParam.getValue().getBytes());
+                        .forPath(this.appendPathPrefix(configSetParam.toFullKey(this.seperator)), value.getBytes());
             } catch (Exception e) {
                 throw ZKForPathException.of(e);
             }
@@ -116,7 +124,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         try {
             Stat stat = this.zkClient.checkExists()
                     .creatingParentContainersIfNeeded()
-                    .forPath(this.seperator + commonParam.toFullKey(this.seperator));
+                    .forPath(this.appendPathPrefix(commonParam.toFullKey(this.seperator)));
             return stat != null;
         } catch (Exception e) {
             log.warn("exists", e);
@@ -126,7 +134,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
 
     @Override
     public Map<String, String> findAll(CommonParam commonParam) {
-        String fullPath = this.seperator + commonParam.toFullKey(this.seperator);
+        String fullPath = this.appendPathPrefix(commonParam.toFullKey(this.seperator));
         log.debug("find node appId:{}", fullPath);
         Map<String, String> configMap = new HashMap<>();
         try {
@@ -143,9 +151,12 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
     private void getChildren(@NonNull String parentNodePath, @NonNull Map<String, String> nodeMap) throws Exception {
         List<String> childNodeNameList = this.zkClient.getChildren().forPath(parentNodePath);
         for (String childNodePath : childNodeNameList) {
-            byte[] zkValueBytes = this.zkClient.getData().forPath(parentNodePath + this.seperator + childNodePath);
+            byte[] zkValueBytes = this.zkClient.getData().forPath(this.appendPathPrefix(parentNodePath + this.seperator + childNodePath));
             if (zkValueBytes != null && zkValueBytes.length > 0) {
-                nodeMap.put(childNodePath, new String(zkValueBytes));
+                ZookeeperConfigInfo zookeeperConfigInfo = JsonUtils.toObject(new String(zkValueBytes), ZookeeperConfigInfo.class);
+                if(zookeeperConfigInfo != null){
+                    nodeMap.put(childNodePath,zookeeperConfigInfo.getValue());
+                }
             }
         }
     }
@@ -164,7 +175,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
             boolean exists = this.exists(commonParam);
             if (exists) {
                 this.zkClient.delete()
-                        .forPath(this.seperator + commonParam.toFullKey(this.seperator));
+                        .forPath(this.appendPathPrefix(commonParam.toFullKey(this.seperator)));
                 log.debug("delete {} success.", commonParam);
                 return true;
             }
@@ -172,5 +183,9 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
             log.warn("delete", e);
         }
         return false;
+    }
+
+    private String appendPathPrefix(String path){
+        return this.zkProperties.getBasePath() + this.seperator + path;
     }
 }

@@ -79,8 +79,9 @@ public class DictatorClient {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<String, String> reload() {
+    public Map<String, String> reload(Long lastUpdatedTime) {
         BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
+        batchRequest.setLastUpdatedTime(lastUpdatedTime);
         Request request = new Request.Builder()
                 .url(String.format("%s/%s", this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_BATCH_GET_URI))
                 .post(RequestBody.create(MediaTypeConstants.APPLICATION_JSON_UTF8, JsonUtils.toJson(batchRequest)))
