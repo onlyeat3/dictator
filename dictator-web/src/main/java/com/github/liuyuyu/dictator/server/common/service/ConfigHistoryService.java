@@ -18,8 +18,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /*
@@ -69,21 +71,25 @@ public class ConfigHistoryService {
     public void recovery(@NonNull Long id) {
         DictatorConfigHistory oldConfigHistory = this.configHistoryMapper.findById(id)
                 .orElseThrow(ConfigErrorMessageEnum.CONFIG_HISTORY_NOT_EXISTS::getServiceException);
-        DictatorConfig currentConfig = this.dictatorConfigMapper.findById(oldConfigHistory.getConfigId())
-                .orElseThrow(ConfigErrorMessageEnum.CONFIG_NOT_EXISTS::getServiceException);
-        currentConfig.setId(oldConfigHistory.getConfigId());
-        if(currentConfig.getVersion().equals(oldConfigHistory.getVersion())){
-            return;
+        Optional<DictatorConfig> currentConfigOptional = this.dictatorConfigMapper.findById(oldConfigHistory.getConfigId());
+        //当前配置存在才加入到历史
+        if(currentConfigOptional.isPresent()){
+            DictatorConfig currentConfig = currentConfigOptional.get();
+            currentConfig.setId(oldConfigHistory.getConfigId());
+            if(currentConfig.getVersion().equals(oldConfigHistory.getVersion())){
+                return;
+            }
+            DictatorConfigHistory newConfigHistory = BeanConverter.from(currentConfig).to(DictatorConfigHistory.class);
+            newConfigHistory.setConfigId(currentConfig.getId());
+            this.configHistoryMapper.insertSelective(newConfigHistory);
         }
         //当前有效配置和历史配置交换
         this.dictatorConfigMapper.deleteByPrimaryKey(oldConfigHistory.getConfigId());
         this.configHistoryMapper.deleteByPrimaryKey(id);
 
-        DictatorConfigHistory newConfigHistory = BeanConverter.from(currentConfig).to(DictatorConfigHistory.class);
-        newConfigHistory.setConfigId(currentConfig.getId());
-        this.configHistoryMapper.insertSelective(newConfigHistory);
         DictatorConfig newConfig = BeanConverter.from(oldConfigHistory).to(DictatorConfig.class);
         newConfig.setId(oldConfigHistory.getConfigId());
+        newConfig.setUpdatedTime(new Date());
         this.dictatorConfigMapper.insertSelective(newConfig);
     }
 }

@@ -20,21 +20,30 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JsonUtils {
     public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     static {
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(new NamedValueSerializer());
         OBJECT_MAPPER.registerModule(simpleModule);
     }
 
-    public static String toJson(Object object) {
+    public static String toJson(Object object, boolean prettyFormat) {
         if (object == null) {
             return StringUtils.EMPTY;
         }
         try {
-            return OBJECT_MAPPER.writeValueAsString(object);
+            if (prettyFormat) {
+                return OBJECT_MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(object);
+            } else {
+                return OBJECT_MAPPER.writeValueAsString(object);
+            }
         } catch (JsonProcessingException e) {
             return StringUtils.EMPTY;
         }
+    }
+
+    public static String toJson(Object object) {
+        return toJson(object, false);
     }
 
     public static <T> T toObject(@NonNull String jsonString, Class<T> targetClass) {

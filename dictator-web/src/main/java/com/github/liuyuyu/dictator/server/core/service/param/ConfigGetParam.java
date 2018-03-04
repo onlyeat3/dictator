@@ -38,7 +38,7 @@ public class ConfigGetParam extends CommonParam {
         target.setAppId(source.getAppId());
         target.setDeploymentId(source.getDeploymentId());
         target.setProfile(source.getProfile());
-        target.setVersion(source.getVersion());
+        target.setLastUpdatedTime(source.getLastUpdatedTime());
         return target;
     }
 }
