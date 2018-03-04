@@ -30,4 +30,12 @@ public interface DictatorConfigProfileMapper extends SimpleMapper<DictatorConfig
                 .andEqualTo(DictatorConfigProfile::getProfileCode,profileCode);
         return this.findOne(weekend);
     }
+
+    default Map<Long, DictatorConfigProfile> findMapByIdList(@NonNull List<Long> profileIdList){
+        Weekend<DictatorConfigProfile> weekend = Weekend.of(DictatorConfigProfile.class);
+        weekend.weekendCriteria()
+                .andIn(DictatorConfigProfile::getId,profileIdList);
+        return this.findAll(weekend).stream()
+                .collect(Collectors.toMap(DictatorConfigProfile::getId, e->e));
+    }
 }

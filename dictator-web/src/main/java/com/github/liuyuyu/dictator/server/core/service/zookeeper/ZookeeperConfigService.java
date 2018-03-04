@@ -138,7 +138,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         log.debug("find node appId:{}", fullPath);
         Map<String, String> configMap = new HashMap<>();
         try {
-            this.getChildren(fullPath, configMap);
+            this.getChildren(fullPath, configMap,commonParam.getLastUpdatedTime());
         } catch (KeeperException.NoNodeException e) {
             //ignore
         } catch (Exception e) {
@@ -148,13 +148,16 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         return configMap;
     }
 
-    private void getChildren(@NonNull String parentNodePath, @NonNull Map<String, String> nodeMap) throws Exception {
+    private void getChildren(@NonNull String parentNodePath, @NonNull Map<String, String> nodeMap, Long lastUpdatedTime) throws Exception {
         List<String> childNodeNameList = this.zkClient.getChildren().forPath(parentNodePath);
         for (String childNodePath : childNodeNameList) {
-            byte[] zkValueBytes = this.zkClient.getData().forPath(this.appendPathPrefix(parentNodePath + this.seperator + childNodePath));
+            byte[] zkValueBytes = this.zkClient.getData().forPath(parentNodePath + this.seperator + childNodePath);
             if (zkValueBytes != null && zkValueBytes.length > 0) {
                 ZookeeperConfigInfo zookeeperConfigInfo = JsonUtils.toObject(new String(zkValueBytes), ZookeeperConfigInfo.class);
                 if(zookeeperConfigInfo != null){
+                    if(lastUpdatedTime != null && zookeeperConfigInfo.getLastUpdatedTime() != null && zookeeperConfigInfo.getLastUpdatedTime() < lastUpdatedTime){
+                        continue;
+                    }
                     nodeMap.put(childNodePath,zookeeperConfigInfo.getValue());
                 }
             }

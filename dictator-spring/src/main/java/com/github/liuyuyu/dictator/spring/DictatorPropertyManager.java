@@ -15,7 +15,6 @@ import org.springframework.util.Assert;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -27,7 +26,7 @@ public class DictatorPropertyManager {
     private static DictatorClient DICTATOR_CLIENT;
     public static final Map<String, Object> CONFIG_CACHE = new HashMap<>();
     private static final ReentrantLock LOCK = new ReentrantLock();
-    private static final AtomicLong LAST_UPDATED_TIME = new AtomicLong();
+    private static Long LAST_UPDATED_TIME;
 
     static String getProperty(@NonNull String name) {
         LOCK.lock();
@@ -47,8 +46,8 @@ public class DictatorPropertyManager {
         Assert.notNull(DICTATOR_CLIENT,"DICTATOR_CLIENT not found.");
         LOCK.lock();
         try {
-            Map<String, String> currentConfigMap = DICTATOR_CLIENT.reload(LAST_UPDATED_TIME.get());
-            LAST_UPDATED_TIME.set(System.currentTimeMillis());
+            Map<String, String> currentConfigMap = DICTATOR_CLIENT.reload(LAST_UPDATED_TIME);
+            LAST_UPDATED_TIME = System.currentTimeMillis();
             CONFIG_CACHE.clear();
             CONFIG_CACHE.putAll(currentConfigMap);
         } finally {

@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,7 +63,7 @@ public class DataBaseConfigReadService implements ConfigReadService {
     public Map<String, String> findAll(CommonParam commonParam) {
         DictatorConfigProfile dictatorConfigProfile = this.profileMapper.findByCode(commonParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
-        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId()).stream()
+        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId(),new Date(commonParam.getLastUpdatedTime())).stream()
                 .collect(Collectors.toMap(DictatorConfig::getConfigName, DictatorConfig::getConfigValue));
     }
 
