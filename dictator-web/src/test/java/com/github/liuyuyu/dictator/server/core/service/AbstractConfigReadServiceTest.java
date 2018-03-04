@@ -1,17 +1,15 @@
 package com.github.liuyuyu.dictator.server.core.service;
 
-import com.github.liuyuyu.dictator.server.core.service.ConfigReadService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /*
  * @author liuyuyu

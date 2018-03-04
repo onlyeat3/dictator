@@ -1,9 +1,11 @@
 package com.github.liuyuyu.dictator.server.model.entity;
 
-import java.util.Date;
-import javax.persistence.*;
+import lombok.Data;
 
-import lombok.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Table(name = "dictator_user")

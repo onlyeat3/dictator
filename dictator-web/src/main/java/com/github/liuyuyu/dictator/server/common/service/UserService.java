@@ -1,7 +1,6 @@
 package com.github.liuyuyu.dictator.server.common.service;
 
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
-import com.github.liuyuyu.dictator.common.utils.DigestUtils;
 import com.github.liuyuyu.dictator.common.utils.UUIDUtils;
 import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.common.exception.enums.UserErrorMessageEnum;

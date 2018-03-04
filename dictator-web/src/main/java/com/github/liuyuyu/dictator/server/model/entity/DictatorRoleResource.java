@@ -1,8 +1,9 @@
 package com.github.liuyuyu.dictator.server.model.entity;
 
-import javax.persistence.*;
+import lombok.Data;
 
-import lombok.*;
+import javax.persistence.Column;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "dictator_role_resource")
