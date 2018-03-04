@@ -7,25 +7,25 @@ import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.mapper.weekend.DictatorConfigWeekend;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.pagehelper.Page;
-import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
     default DictatorConfig findByGetParam(@NonNull ConfigGetParam configGetParam,@NonNull Long profileId) {
-        return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam,profileId));
+        return this.selectOneByExample(DictatorConfigWeekend.from(configGetParam,profileId, null));
     }
 
     default int countByParam(@NonNull CommonParam commonParam,@NonNull Long profileId) {
-        return this.selectCountByExample(DictatorConfigWeekend.from(commonParam,profileId));
+        return this.selectCountByExample(DictatorConfigWeekend.from(commonParam,profileId, null));
     }
 
     Page<DictatorConfigDto> findPageValid(@NonNull ConfigListParam configListParam);
 
-    default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId) {
-        return this.selectByExample(DictatorConfigWeekend.from(configGetParam,profileId));
+    default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId, @NonNull Date lastUpdatedTime) {
+        return this.selectByExample(DictatorConfigWeekend.from(configGetParam,profileId,lastUpdatedTime));
     }
 }

@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import tk.mybatis.mapper.weekend.Weekend;
+import tk.mybatis.mapper.weekend.WeekendCriteria;
+
+import java.util.Date;
 
 /**
  * @author liuyuyu
@@ -13,13 +16,17 @@ import tk.mybatis.mapper.weekend.Weekend;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorConfigWeekend {
 
-    public static Weekend<DictatorConfig> from(@NonNull CommonParam commonParam,@NonNull Long profileId) {
+    public static Weekend<DictatorConfig> from(@NonNull CommonParam commonParam, @NonNull Long profileId, Date lastUpdatedTime) {
         Weekend<DictatorConfig> weekend = Weekend.of(DictatorConfig.class);
-        weekend.weekendCriteria()
+        WeekendCriteria<DictatorConfig, Object> dictatorConfigObjectWeekendCriteria = weekend.weekendCriteria();
+        dictatorConfigObjectWeekendCriteria
                 .andEqualTo(DictatorConfig::getAppId, commonParam.getAppId())
                 .andEqualTo(DictatorConfig::getDeploymentId, commonParam.getDeploymentId())
                 .andEqualTo(DictatorConfig::getProfileId, profileId)
                 .andEqualTo(DictatorConfig::getConfigName, commonParam.getKey());
+        if(lastUpdatedTime != null){
+            dictatorConfigObjectWeekendCriteria.andGreaterThanOrEqualTo(DictatorConfig::getUpdatedTime,lastUpdatedTime);
+        }
         return weekend;
     }
 

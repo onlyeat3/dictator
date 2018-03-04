@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /*
  * @author liuyuyu
@@ -20,5 +21,9 @@ public class ProfileService {
         List<DictatorConfigProfile> configProfileList = this.profileMapper.selectAll();
         return BeanConverter.from(configProfileList)
                 .toList(ConfigProfileDto.class);
+    }
+
+    public Map<Long, DictatorConfigProfile> findMapById(List<Long> profileIdList) {
+        return this.profileMapper.findMapByIdList(profileIdList);
     }
 }
