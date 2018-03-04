@@ -63,7 +63,12 @@ public class DataBaseConfigReadService implements ConfigReadService {
     public Map<String, String> findAll(CommonParam commonParam) {
         DictatorConfigProfile dictatorConfigProfile = this.profileMapper.findByCode(commonParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
-        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId(),new Date(commonParam.getLastUpdatedTime())).stream()
+        Long lastUpdatedTimeLong = commonParam.getLastUpdatedTime();
+        Date lastUpdatedTime = null;
+        if(lastUpdatedTimeLong != null){
+            lastUpdatedTime = new Date(lastUpdatedTimeLong);
+        }
+        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId(),lastUpdatedTime).stream()
                 .collect(Collectors.toMap(DictatorConfig::getConfigName, DictatorConfig::getConfigValue));
     }
 

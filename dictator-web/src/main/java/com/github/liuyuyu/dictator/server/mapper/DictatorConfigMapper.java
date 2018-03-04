@@ -25,7 +25,7 @@ public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
 
     Page<DictatorConfigDto> findPageValid(@NonNull ConfigListParam configListParam);
 
-    default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId, @NonNull Date lastUpdatedTime) {
+    default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId, Date lastUpdatedTime) {
         return this.selectByExample(DictatorConfigWeekend.from(configGetParam,profileId,lastUpdatedTime));
     }
 }

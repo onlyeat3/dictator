@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.core.service.database;
 
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
+import com.github.liuyuyu.dictator.server.core.service.AbstractConfigReadServiceTest;
 import com.github.liuyuyu.dictator.server.utils.ParamBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DataBaseConfigReadServiceTest {
+public class DataBaseConfigReadServiceTest extends AbstractConfigReadServiceTest {
     @Autowired
     private DataBaseConfigReadService dataBaseConfigService;
 
@@ -33,4 +34,13 @@ public class DataBaseConfigReadServiceTest {
         assertTrue(isExists);
     }
 
+    @Test
+    public void findAll(){
+        super.findAll();
+    }
+
+    @Override
+    public void setConfigReadService() {
+        super.configReadService = this.dataBaseConfigService;
+    }
 }
