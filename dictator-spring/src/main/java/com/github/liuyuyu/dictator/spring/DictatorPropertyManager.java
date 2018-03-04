@@ -47,8 +47,10 @@ public class DictatorPropertyManager {
         LOCK.lock();
         try {
             Map<String, String> currentConfigMap = DICTATOR_CLIENT.reload(LAST_UPDATED_TIME);
+            if(currentConfigMap.isEmpty()){
+                return;
+            }
             LAST_UPDATED_TIME = System.currentTimeMillis();
-            CONFIG_CACHE.clear();
             CONFIG_CACHE.putAll(currentConfigMap);
         } finally {
             LOCK.unlock();
