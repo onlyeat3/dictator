@@ -11,15 +11,15 @@ import java.util.Map;
 public class HashMapTest {
 
     @Test
-    public void testPutAll(){
+    public void testPutAll() {
         Map<String, String> mapA = new HashMap<>();
-        mapA.put("a","1");
+        mapA.put("a", "1");
         Map<String, String> mapB = new HashMap<>();
-        mapB.put("a","2");
-        mapB.put("b","3");
+        mapB.put("a", "2");
+        mapB.put("b", "3");
         mapA.putAll(mapB);
         for (Map.Entry<String, String> codeMap : mapA.entrySet()) {
-            System.out.println(codeMap.getKey()+":"+codeMap.getValue());
+            System.out.println(codeMap.getKey() + ":" + codeMap.getValue());
         }
     }
 }

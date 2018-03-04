@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PageInfoUtils {
-    public static <A,B> PageInfo<B> to(@NonNull PageInfo<A> sourcePageInfo, @NonNull Class<B> targetClass){
+    public static <A, B> PageInfo<B> to(@NonNull PageInfo<A> sourcePageInfo, @NonNull Class<B> targetClass) {
         PageInfo<B> resultPageInfo = new PageInfo<>();
-        BeanUtils.copyProperties(sourcePageInfo,resultPageInfo);
+        BeanUtils.copyProperties(sourcePageInfo, resultPageInfo);
         List<B> list = BeanConverter.from(sourcePageInfo.getList())
                 .toList(targetClass);
         resultPageInfo.setList(list);
         return resultPageInfo;
     }
 
-    public static <A,B> PageInfo<B> to(@NonNull PageInfo<A> sourcePageInfo, Function<A, B> mapFunction){
+    public static <A, B> PageInfo<B> to(@NonNull PageInfo<A> sourcePageInfo, Function<A, B> mapFunction) {
         PageInfo<B> resultPageInfo = new PageInfo<>();
-        BeanUtils.copyProperties(sourcePageInfo,resultPageInfo);
+        BeanUtils.copyProperties(sourcePageInfo, resultPageInfo);
         List<B> collect = sourcePageInfo.getList().stream()
                 .map(mapFunction)
                 .collect(Collectors.toList());

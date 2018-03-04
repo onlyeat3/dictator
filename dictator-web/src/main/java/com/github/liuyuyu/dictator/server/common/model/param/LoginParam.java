@@ -16,7 +16,7 @@ public class LoginParam {
      */
     private String password;
 
-    public static LoginParam of(){
+    public static LoginParam of() {
         return new LoginParam();
     }
 }

@@ -29,7 +29,8 @@ public class ConfigReloadTask {
     private DataBaseConfigReadService dataBaseConfigReadService;
     @Autowired
     private ListableConfigWriteService listableConfigWriteService;
-    @Autowired private ProfileService profileService;
+    @Autowired
+    private ProfileService profileService;
 
     @Scheduled(fixedRateString = "${dictator.server.refresh.rate:5000}")
     public void refresh() {
@@ -45,7 +46,7 @@ public class ConfigReloadTask {
 
         //刷新新的
         List<DictatorConfig> dictatorConfigList = this.dataBaseConfigReadService.findAllValid();
-        if(!dictatorConfigList.isEmpty()){
+        if (!dictatorConfigList.isEmpty()) {
             List<Long> profileIdList = dictatorConfigList.stream()
                     .map(DictatorConfig::getProfileId)
                     .collect(Collectors.toList());
@@ -55,7 +56,7 @@ public class ConfigReloadTask {
                         ConfigSetParam configSetParam = BeanConverter.from(d)
                                 .to(ConfigSetParam.class);
                         DictatorConfigProfile dictatorConfigProfileEntity = profileIdEntityMap.get(d.getProfileId());
-                        if(dictatorConfigProfileEntity != null){
+                        if (dictatorConfigProfileEntity != null) {
                             configSetParam.setProfile(dictatorConfigProfileEntity.getProfileCode());
                         }
                         configSetParam.setKey(d.getConfigName());

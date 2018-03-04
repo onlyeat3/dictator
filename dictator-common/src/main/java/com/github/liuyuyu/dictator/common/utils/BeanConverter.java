@@ -39,9 +39,9 @@ public class BeanConverter {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<T> toList(@NonNull Class<T> targetClass){
-        return (List<T>) ((List)(this.source)).stream()
-                .map(e->{
+    public <T> List<T> toList(@NonNull Class<T> targetClass) {
+        return (List<T>) ((List) (this.source)).stream()
+                .map(e -> {
                     try {
                         T t = targetClass.newInstance();
                         BeanUtils.copyProperties(t, e);

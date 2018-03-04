@@ -15,7 +15,8 @@ import java.sql.SQLException;
  */
 @ContextConfiguration("classpath:/spring.xml")
 public class DataSourceTest extends AbstractJUnit4SpringContextTests {
-    @Autowired private DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
     @Test
     public void testDataSource() throws SQLException {

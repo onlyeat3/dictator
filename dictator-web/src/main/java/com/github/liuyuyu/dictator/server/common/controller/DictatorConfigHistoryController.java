@@ -22,7 +22,8 @@ import java.util.List;
 @RequestMapping("/configHistory")
 public class DictatorConfigHistoryController {
 
-    @Autowired private ConfigHistoryService configHistoryService;
+    @Autowired
+    private ConfigHistoryService configHistoryService;
 
     @RequestMapping("/list")
     public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam) {
@@ -31,13 +32,13 @@ public class DictatorConfigHistoryController {
     }
 
     @RequestMapping("/listByConfigId")
-    public DataWrapper listByConfigId(@RequestBody @Valid ConfigIdRequest configIdRequest){
+    public DataWrapper listByConfigId(@RequestBody @Valid ConfigIdRequest configIdRequest) {
         List<DictatorConfigHistoryDto> historyDtoList = this.configHistoryService.findAllByConfigId(configIdRequest.getConfigId());
         return DataWrapper.from(historyDtoList);
     }
 
     @RequestMapping("/recovery")
-    public DataWrapper recovery(@RequestBody @Valid IdRequest idRequest){
+    public DataWrapper recovery(@RequestBody @Valid IdRequest idRequest) {
         this.configHistoryService.recovery(idRequest.getId());
         return DataWrapper.of();
     }

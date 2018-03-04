@@ -14,12 +14,12 @@ import java.security.NoSuchAlgorithmException;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DigestUtils {
 
-    public static String encrypt(@NonNull String plain){
+    public static String encrypt(@NonNull String plain) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(plain.getBytes());
             byte[] digest = messageDigest.digest();
-            return new BigInteger(1,digest).toString(16);
+            return new BigInteger(1, digest).toString(16);
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalStateException("Could not find MessageDigest with algorithm MD5", e);
         }

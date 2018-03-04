@@ -23,9 +23,9 @@ import java.util.concurrent.locks.ReentrantLock;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorPropertyManager {
-    private static DictatorClient DICTATOR_CLIENT;
     public static final Map<String, Object> CONFIG_CACHE = new HashMap<>();
     private static final ReentrantLock LOCK = new ReentrantLock();
+    private static DictatorClient DICTATOR_CLIENT;
     private static Long LAST_UPDATED_TIME;
 
     static String getProperty(@NonNull String name) {
@@ -43,11 +43,11 @@ public class DictatorPropertyManager {
     }
 
     public static void refreshCache() {
-        Assert.notNull(DICTATOR_CLIENT,"DICTATOR_CLIENT not found.");
+        Assert.notNull(DICTATOR_CLIENT, "DICTATOR_CLIENT not found.");
         LOCK.lock();
         try {
             Map<String, String> currentConfigMap = DICTATOR_CLIENT.reload(LAST_UPDATED_TIME);
-            if(currentConfigMap.isEmpty()){
+            if (currentConfigMap.isEmpty()) {
                 return;
             }
             LAST_UPDATED_TIME = System.currentTimeMillis();
@@ -64,7 +64,7 @@ public class DictatorPropertyManager {
             DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
             DictatorPropertyManager.refreshCache();
         } catch (IOException e) {
-            log.error("dictator init load fail",e);
+            log.error("dictator init load fail", e);
         }
     }
 

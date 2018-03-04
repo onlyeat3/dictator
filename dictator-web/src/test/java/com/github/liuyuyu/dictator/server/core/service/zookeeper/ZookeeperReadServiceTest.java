@@ -17,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class ZookeeperReadServiceTest extends AbstractConfigReadServiceTest {
 
-    @Autowired private ZookeeperConfigService zookeeperConfigService;
+    @Autowired
+    private ZookeeperConfigService zookeeperConfigService;
 
     @Override
     public void setConfigReadService() {

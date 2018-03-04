@@ -35,7 +35,7 @@ public class DataBaseConfigReadServiceTest extends AbstractConfigReadServiceTest
     }
 
     @Test
-    public void findAll(){
+    public void findAll() {
         super.findAll();
     }
 

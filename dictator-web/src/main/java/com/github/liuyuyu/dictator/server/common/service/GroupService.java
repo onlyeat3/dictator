@@ -15,9 +15,10 @@ import java.util.List;
 @Service
 public class GroupService {
 
-    @Autowired private DictatorConfigGroupMapper groupMapper;
+    @Autowired
+    private DictatorConfigGroupMapper groupMapper;
 
-    public List<ConfigGroupDto> findAll(){
+    public List<ConfigGroupDto> findAll() {
         List<DictatorConfigGroup> dictatorConfigGroupList = this.groupMapper.findAll();
         return BeanConverter.from(dictatorConfigGroupList)
                 .toList(ConfigGroupDto.class);

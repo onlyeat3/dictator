@@ -16,17 +16,17 @@ import java.util.Set;
  */
 @JsonSerialize(using = NamedValueSerializer.class)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class NamedValue<K,V> implements Map<K,V> {
+public class NamedValue<K, V> implements Map<K, V> {
     private K k;
     private V v;
 
     public static Map<String, String> from(String... pairs) {
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         if (pairs.length % 2 == 0) {
             for (int i = 0; i < pairs.length; i += 2) {
                 String name = pairs[i];
                 String value = pairs[i + 1];
-                NamedValue<String,String> namedValue = new NamedValue<>();
+                NamedValue<String, String> namedValue = new NamedValue<>();
                 namedValue.k = name;
                 namedValue.v = value;
                 map.putAll(namedValue);
@@ -37,14 +37,14 @@ public class NamedValue<K,V> implements Map<K,V> {
         return map;
     }
 
-    public static NamedValue<String, String> of(String... pairs){
+    public static NamedValue<String, String> of(String... pairs) {
         if (pairs.length == 2) {
-                String name = pairs[0];
-                String value = pairs[1];
-                NamedValue<String,String> namedValue = new NamedValue<>();
-                namedValue.k = name;
-                namedValue.v = value;
-                return namedValue;
+            String name = pairs[0];
+            String value = pairs[1];
+            NamedValue<String, String> namedValue = new NamedValue<>();
+            namedValue.k = name;
+            namedValue.v = value;
+            return namedValue;
         } else {
             throw new IllegalArgumentException("参数数量不能是奇数");
         }
@@ -52,7 +52,7 @@ public class NamedValue<K,V> implements Map<K,V> {
 
     @Override
     public int size() {
-        return k != null ? 1:0;
+        return k != null ? 1 : 0;
     }
 
     @Override
@@ -110,11 +110,11 @@ public class NamedValue<K,V> implements Map<K,V> {
         throw IgnoredFunctionException.of("entrySet");
     }
 
-    public V get(){
+    public V get() {
         return this.v;
     }
 
-    public K getKey(){
+    public K getKey() {
         return this.k;
     }
 }

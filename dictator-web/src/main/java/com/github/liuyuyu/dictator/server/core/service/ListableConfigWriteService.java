@@ -16,28 +16,28 @@ public class ListableConfigWriteService {
     private ConfigWriteService configWriteService;
 
     public void save(ConfigSetParam configSetParam) {
-        if(this.configWriteService == null){
+        if (this.configWriteService == null) {
             return;
         }
         this.configWriteService.save(configSetParam);
     }
 
     public void saveOrModify(ConfigSetParam configSetParam) {
-        if(this.configWriteService == null){
+        if (this.configWriteService == null) {
             return;
         }
         this.configWriteService.saveOrModify(configSetParam);
     }
 
     public void saveIfNotExists(ConfigSetParam configSetParam) {
-        if(this.configWriteService == null){
+        if (this.configWriteService == null) {
             return;
         }
         this.configWriteService.saveIfNotExists(configSetParam);
     }
 
     public boolean delete(CommonParam commonParam) {
-        if(this.configWriteService == null){
+        if (this.configWriteService == null) {
             return false;
         }
         return this.configWriteService.delete(commonParam);

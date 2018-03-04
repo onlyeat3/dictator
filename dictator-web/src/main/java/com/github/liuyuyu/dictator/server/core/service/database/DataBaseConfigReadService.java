@@ -36,14 +36,16 @@ public class DataBaseConfigReadService implements ConfigReadService {
     private DictatorConfigMapper configMapper;
     @Autowired
     private DictatorConfigHistoryMapper configHistoryMapper;
-    @Autowired private DictatorConfigGroupMapper configGroupMapper;
-    @Autowired private DictatorConfigProfileMapper profileMapper;
+    @Autowired
+    private DictatorConfigGroupMapper configGroupMapper;
+    @Autowired
+    private DictatorConfigProfileMapper profileMapper;
 
     @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
         DictatorConfigProfile profile = this.profileMapper.findByCode(configGetParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
-        DictatorConfig dictatorConfigEntity = this.configMapper.findByGetParam(configGetParam,profile.getId());
+        DictatorConfig dictatorConfigEntity = this.configMapper.findByGetParam(configGetParam, profile.getId());
         DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
         if (dictatorConfigEntity != null) {
             dictatorValueResponse.setValue(dictatorConfigEntity.getConfigValue());
@@ -56,7 +58,7 @@ public class DataBaseConfigReadService implements ConfigReadService {
     public boolean exists(CommonParam commonParam) {
         DictatorConfigProfile profile = this.profileMapper.findByCode(commonParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
-        return this.configMapper.countByParam(commonParam,profile.getId()) > 0;
+        return this.configMapper.countByParam(commonParam, profile.getId()) > 0;
     }
 
     @Override
@@ -65,10 +67,10 @@ public class DataBaseConfigReadService implements ConfigReadService {
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
         Long lastUpdatedTimeLong = commonParam.getLastUpdatedTime();
         Date lastUpdatedTime = null;
-        if(lastUpdatedTimeLong != null){
+        if (lastUpdatedTimeLong != null) {
             lastUpdatedTime = new Date(lastUpdatedTimeLong);
         }
-        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam),dictatorConfigProfile.getId(),lastUpdatedTime).stream()
+        return this.configMapper.findAllByGetParam(ConfigGetParam.from(commonParam), dictatorConfigProfile.getId(), lastUpdatedTime).stream()
                 .collect(Collectors.toMap(DictatorConfig::getConfigName, DictatorConfig::getConfigValue));
     }
 
@@ -83,9 +85,9 @@ public class DataBaseConfigReadService implements ConfigReadService {
     public PageInfo<DictatorConfigDto> findPageValid(ConfigListParam configListParam) {
         configListParam.startPage();
         PageInfo<DictatorConfigDto> pageValid = this.configMapper.findPageValid(configListParam).toPageInfo();
-        if(pageValid.getList().isEmpty()){
+        if (pageValid.getList().isEmpty()) {
             return pageValid;
-        }else{
+        } else {
             List<Long> groupIdList = pageValid.getList().stream()
                     .map(DictatorConfigDto::getGroupId)
                     .collect(Collectors.toList());
@@ -95,7 +97,7 @@ public class DataBaseConfigReadService implements ConfigReadService {
                     .collect(Collectors.toList());
             Map<Long, String> profileIdNameMap = this.profileMapper.findProfileNameByIdList(profileIdList);
             pageValid.getList()
-                    .forEach(e->{
+                    .forEach(e -> {
                         String groupName = configIdConfigMap.getOrDefault(e.getGroupId(), StringUtils.EMPTY);
                         e.setGroupName(groupName);
                         String profileName = profileIdNameMap.get(e.getProfileId());

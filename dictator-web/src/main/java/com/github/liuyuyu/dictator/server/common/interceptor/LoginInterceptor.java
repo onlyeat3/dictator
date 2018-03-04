@@ -24,20 +24,20 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         //OPTIONS返回true
-        if(httpServletRequest.getMethod().equalsIgnoreCase(HttpMethod.OPTIONS.name())){
+        if (httpServletRequest.getMethod().equalsIgnoreCase(HttpMethod.OPTIONS.name())) {
             return true;
         }
         String token = httpServletRequest.getHeader(UserConstants.TOKEN_NAME);
-        if(token == null){
+        if (token == null) {
             token = httpServletRequest.getParameter(UserConstants.TOKEN_NAME);
         }
-        if(token == null){
+        if (token == null) {
             throw UserErrorMessageEnum.MISS_TOKEN.getServiceException();
         }
         DictatorUserDto dictatorUserDto = TokenManger.get(token);
-        if(dictatorUserDto == null){
+        if (dictatorUserDto == null) {
             throw UserErrorMessageEnum.INVALID_TOKEN.getServiceException();
-        }else{
+        } else {
             return true;
         }
     }

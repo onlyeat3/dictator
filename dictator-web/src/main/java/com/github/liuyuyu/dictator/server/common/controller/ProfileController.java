@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/profile")
 public class ProfileController {
 
-    @Autowired private ProfileService profileService;
+    @Autowired
+    private ProfileService profileService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    public DataWrapper list(){
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public DataWrapper list() {
         return DataWrapper.from(this.profileService.findAll());
     }
 }

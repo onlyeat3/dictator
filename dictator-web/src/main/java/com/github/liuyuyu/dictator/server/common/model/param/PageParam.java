@@ -17,7 +17,7 @@ public class PageParam {
      */
     private Integer pageSize = 20;
 
-    public void startPage(){
-        PageHelper.startPage(this.pageNum,this.pageSize);
+    public void startPage() {
+        PageHelper.startPage(this.pageNum, this.pageSize);
     }
 }

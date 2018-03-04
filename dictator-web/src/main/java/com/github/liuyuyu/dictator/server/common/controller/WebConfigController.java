@@ -26,7 +26,8 @@ public class WebConfigController {
 
     @Autowired
     private DataBaseConfigReadService configReadService;
-    @Autowired private ConfigService configService;
+    @Autowired
+    private ConfigService configService;
 
     @RequestMapping("/list")
     public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam) {
@@ -35,14 +36,14 @@ public class WebConfigController {
     }
 
     @RequestMapping("/saveOrUpdate")
-    public DataWrapper saveOrUpdate(@RequestBody @Valid ConfigSaveUpdateParam configSaveUpdateParam, @CurrentUser DictatorUserDto currentUser){
+    public DataWrapper saveOrUpdate(@RequestBody @Valid ConfigSaveUpdateParam configSaveUpdateParam, @CurrentUser DictatorUserDto currentUser) {
         configSaveUpdateParam.join(currentUser);
         this.configService.saveOrUpdate(configSaveUpdateParam);
         return DataWrapper.of();
     }
 
     @RequestMapping("/delete")
-    public DataWrapper delete(@RequestBody @Valid IdRequest idRequest){
+    public DataWrapper delete(@RequestBody @Valid IdRequest idRequest) {
         this.configService.delete(idRequest.getId());
         return DataWrapper.of();
     }

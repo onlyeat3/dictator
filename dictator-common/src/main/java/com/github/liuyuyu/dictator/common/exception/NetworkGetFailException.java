@@ -14,11 +14,11 @@ public class NetworkGetFailException extends RuntimeException {
         super(message);
     }
 
-    public static NetworkGetFailException from(Exception e){
+    public static NetworkGetFailException from(Exception e) {
         return new NetworkGetFailException(e);
     }
 
-    public static NetworkGetFailException from(@NonNull String msg){
+    public static NetworkGetFailException from(@NonNull String msg) {
         return new NetworkGetFailException(msg);
     }
 }

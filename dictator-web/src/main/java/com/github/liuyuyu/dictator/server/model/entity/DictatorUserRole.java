@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.model.entity;
 
 import javax.persistence.*;
+
 import lombok.*;
 
 @Data

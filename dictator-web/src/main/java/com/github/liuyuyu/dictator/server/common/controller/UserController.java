@@ -25,14 +25,15 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 @RestController
 public class UserController {
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public DataWrapper login(@RequestBody @Valid LoginRequest loginRequest, HttpSession session) {
         DictatorUserDto dictatorUserDto = this.userService.login(loginRequest.to(LoginParam.class));
-        session.setAttribute(UserConstants.CURRENT_USER,dictatorUserDto);
+        session.setAttribute(UserConstants.CURRENT_USER, dictatorUserDto);
         TokenManger.put(dictatorUserDto);
-        return DataWrapper.from(NamedValue.of("token",dictatorUserDto.getToken()));
+        return DataWrapper.from(NamedValue.of("token", dictatorUserDto.getToken()));
     }
 
     @RequestMapping("/info")
