@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/group")
 public class GroupController {
 
-    @Autowired private GroupService groupService;
+    @Autowired
+    private GroupService groupService;
 
-    @RequestMapping(value = "/list",method = RequestMethod.POST)
-    public DataWrapper list(){
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public DataWrapper list() {
         return DataWrapper.from(this.groupService.findAll());
     }
 }

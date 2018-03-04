@@ -11,7 +11,7 @@ import lombok.NonNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PasswordUtils {
 
-    public static String encrypt(@NonNull String plainPassword){
+    public static String encrypt(@NonNull String plainPassword) {
         return DigestUtils.encrypt(DigestUtils.encrypt(plainPassword + "dictator"));
     }
 

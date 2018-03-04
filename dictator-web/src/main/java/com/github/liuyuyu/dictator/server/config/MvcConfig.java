@@ -18,13 +18,15 @@ import java.util.List;
  */
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
-    @Autowired private CurrentUserArgumentResolver currentUserArgumentResolver;
-    @Autowired private Environment environment;
+    @Autowired
+    private CurrentUserArgumentResolver currentUserArgumentResolver;
+    @Autowired
+    private Environment environment;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         boolean isDev = Arrays.asList(environment.getActiveProfiles()).contains("dev");
-        if(isDev){
+        if (isDev) {
             registry.addMapping("/**")
                     .allowedOrigins("http://localhost:9527");
         }

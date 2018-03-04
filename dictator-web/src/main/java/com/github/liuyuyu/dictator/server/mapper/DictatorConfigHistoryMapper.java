@@ -24,20 +24,20 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
 
     Page<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam);
 
-    default Optional<DictatorConfigHistory> findLastByConfigId(@NonNull Long configId){
+    default Optional<DictatorConfigHistory> findLastByConfigId(@NonNull Long configId) {
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
         weekend.weekendCriteria()
-                .andEqualTo(DictatorConfigHistory::getConfigId,configId);
+                .andEqualTo(DictatorConfigHistory::getConfigId, configId);
         weekend.orderBy("version").desc();
         weekend.orderBy("updatedTime").desc();
         weekend.orderBy("createdTime").desc();
         return this.findFirst(weekend);
     }
 
-    default List<DictatorConfigHistory> findByConfigId(@NonNull Long configId){
+    default List<DictatorConfigHistory> findByConfigId(@NonNull Long configId) {
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
         weekend.weekendCriteria()
-                .andEqualTo(DictatorConfigHistory::getConfigId,configId);
+                .andEqualTo(DictatorConfigHistory::getConfigId, configId);
         return this.findAll(weekend);
     }
 }

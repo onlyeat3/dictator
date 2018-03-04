@@ -20,8 +20,10 @@ import java.util.Optional;
  */
 @Service
 public class ConfigService {
-    @Autowired private DictatorConfigMapper configMapper;
-    @Autowired private DictatorConfigHistoryMapper configHistoryMapper;
+    @Autowired
+    private DictatorConfigMapper configMapper;
+    @Autowired
+    private DictatorConfigHistoryMapper configHistoryMapper;
 
     /**
      * 移动到历史表
@@ -45,18 +47,18 @@ public class ConfigService {
         //版本上升
         Optional<DictatorConfigHistory> lastByConfig = this.configHistoryMapper.findLastByConfigId(configSaveUpdateParam.getId());
         Long version = 0L;
-        if(lastByConfig.isPresent()){
+        if (lastByConfig.isPresent()) {
             version = lastByConfig.get().getVersion() + 1L;
         }
         dictatorConfig.setVersion(version);
         //没有ID,insert
-        if(configSaveUpdateParam.getId() == null || configSaveUpdateParam.getId() == -1L){
+        if (configSaveUpdateParam.getId() == null || configSaveUpdateParam.getId() == -1L) {
             dictatorConfig.setId(null);
             this.configMapper.insertSelective(dictatorConfig);
-        }else{
+        } else {
             //先保存历史记录再更新
             Optional<DictatorConfig> optionalDictatorConfig = this.configMapper.findById(configSaveUpdateParam.getId());
-            if(optionalDictatorConfig.isPresent()){
+            if (optionalDictatorConfig.isPresent()) {
                 DictatorConfig oldDictatorConfig = optionalDictatorConfig.get();
                 DictatorConfigHistory configHistory = BeanConverter.from(oldDictatorConfig)
                         .to(DictatorConfigHistory.class);

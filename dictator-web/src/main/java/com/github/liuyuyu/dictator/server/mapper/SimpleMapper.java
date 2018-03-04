@@ -15,19 +15,19 @@ import java.util.Optional;
  * @author liuyuyu
  */
 public interface SimpleMapper<T> extends Mapper<T> {
-    default Optional<T> findOne(Weekend<T> weekend){
+    default Optional<T> findOne(Weekend<T> weekend) {
         List<T> ts = this.selectByExample(weekend);
-        if(ts.size() > 1){
+        if (ts.size() > 1) {
             throw new TooManyResultsException();
-        }else{
-            if(ts.isEmpty()){
+        } else {
+            if (ts.isEmpty()) {
                 return Optional.empty();
             }
             return Optional.ofNullable(ts.get(0));
         }
     }
 
-    default Optional<T> findFirst(Weekend<T> weekend){
+    default Optional<T> findFirst(Weekend<T> weekend) {
         List<T> ts = this.selectByExample(weekend);
         if (ts.isEmpty()) {
             return Optional.empty();
@@ -35,21 +35,21 @@ public interface SimpleMapper<T> extends Mapper<T> {
         return Optional.ofNullable(ts.get(0));
     }
 
-    default List<T> findAll(){
+    default List<T> findAll() {
         return this.selectAll();
     }
 
-    default Optional<T> findById(@NonNull Long id){
+    default Optional<T> findById(@NonNull Long id) {
         T ts = this.selectByPrimaryKey(id);
         return Optional.ofNullable(ts);
     }
 
-    default <R> PageInfo<R> findPage(Weekend<T> weekend,Class<R> clazz){
+    default <R> PageInfo<R> findPage(Weekend<T> weekend, Class<R> clazz) {
         Page<T> page = (Page<T>) this.selectByExample(weekend);
-        return PageInfoUtils.to(page.toPageInfo(),clazz);
+        return PageInfoUtils.to(page.toPageInfo(), clazz);
     }
 
-    default List<T> findAll(Weekend<T> weekend){
+    default List<T> findAll(Weekend<T> weekend) {
         return this.selectByExample(weekend);
     }
 }

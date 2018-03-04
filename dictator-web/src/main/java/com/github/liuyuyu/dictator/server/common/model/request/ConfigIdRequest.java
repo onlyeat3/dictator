@@ -9,12 +9,13 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class ConfigIdRequest {
-    public static ConfigIdRequest of() {
-        return new ConfigIdRequest();
-    }
-
     /**
      * 配置ID
      */
-    @NotNull private Long configId;
+    @NotNull
+    private Long configId;
+
+    public static ConfigIdRequest of() {
+        return new ConfigIdRequest();
+    }
 }

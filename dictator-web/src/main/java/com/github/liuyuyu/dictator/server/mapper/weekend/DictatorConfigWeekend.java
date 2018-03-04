@@ -24,8 +24,8 @@ public class DictatorConfigWeekend {
                 .andEqualTo(DictatorConfig::getDeploymentId, commonParam.getDeploymentId())
                 .andEqualTo(DictatorConfig::getProfileId, profileId)
                 .andEqualTo(DictatorConfig::getConfigName, commonParam.getKey());
-        if(lastUpdatedTime != null){
-            dictatorConfigObjectWeekendCriteria.andGreaterThanOrEqualTo(DictatorConfig::getUpdatedTime,lastUpdatedTime);
+        if (lastUpdatedTime != null) {
+            dictatorConfigObjectWeekendCriteria.andGreaterThanOrEqualTo(DictatorConfig::getUpdatedTime, lastUpdatedTime);
         }
         return weekend;
     }

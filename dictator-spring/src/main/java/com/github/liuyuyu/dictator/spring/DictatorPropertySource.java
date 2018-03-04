@@ -11,7 +11,7 @@ public class DictatorPropertySource extends MapPropertySource {
     public static final String NAME = "dictatorPropertySource";
 
     public DictatorPropertySource() {
-        this(NAME,DictatorPropertyManager.CONFIG_CACHE);
+        this(NAME, DictatorPropertyManager.CONFIG_CACHE);
     }
 
     public DictatorPropertySource(String name, Map<String, Object> source) {

@@ -79,12 +79,12 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         }
         log.debug("find node appId:{},value:{}", fullPath, finalValue);
         ZookeeperConfigInfo zookeeperConfigInfo = JsonUtils.toObject(finalValue, ZookeeperConfigInfo.class);
-        if(zookeeperConfigInfo != null){
+        if (zookeeperConfigInfo != null) {
             DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
             dictatorValueResponse.setValue(zookeeperConfigInfo.getValue());
             dictatorValueResponse.setVersion("unknown");
             return dictatorValueResponse;
-        }else{
+        } else {
             return null;
         }
     }
@@ -138,7 +138,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         log.debug("find node appId:{}", fullPath);
         Map<String, String> configMap = new HashMap<>();
         try {
-            this.getChildren(fullPath, configMap,commonParam.getLastUpdatedTime());
+            this.getChildren(fullPath, configMap, commonParam.getLastUpdatedTime());
         } catch (KeeperException.NoNodeException e) {
             //ignore
         } catch (Exception e) {
@@ -154,11 +154,11 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
             byte[] zkValueBytes = this.zkClient.getData().forPath(parentNodePath + this.seperator + childNodePath);
             if (zkValueBytes != null && zkValueBytes.length > 0) {
                 ZookeeperConfigInfo zookeeperConfigInfo = JsonUtils.toObject(new String(zkValueBytes), ZookeeperConfigInfo.class);
-                if(zookeeperConfigInfo != null){
-                    if(lastUpdatedTime != null && zookeeperConfigInfo.getLastUpdatedTime() != null && zookeeperConfigInfo.getLastUpdatedTime() < lastUpdatedTime){
+                if (zookeeperConfigInfo != null) {
+                    if (lastUpdatedTime != null && zookeeperConfigInfo.getLastUpdatedTime() != null && zookeeperConfigInfo.getLastUpdatedTime() < lastUpdatedTime) {
                         continue;
                     }
-                    nodeMap.put(childNodePath,zookeeperConfigInfo.getValue());
+                    nodeMap.put(childNodePath, zookeeperConfigInfo.getValue());
                 }
             }
         }
@@ -188,7 +188,7 @@ public class ZookeeperConfigService implements ConfigWriteService, ConfigReadSer
         return false;
     }
 
-    private String appendPathPrefix(String path){
+    private String appendPathPrefix(String path) {
         return this.zkProperties.getBasePath() + this.seperator + path;
     }
 }

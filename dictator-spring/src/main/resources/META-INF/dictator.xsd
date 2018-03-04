@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="http://www.github.com/liuyuyu/dictator"
-            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://www.github.com/liuyuyu/dictator"
             targetNamespace="http://www.github.com/liuyuyu/dictator"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified">

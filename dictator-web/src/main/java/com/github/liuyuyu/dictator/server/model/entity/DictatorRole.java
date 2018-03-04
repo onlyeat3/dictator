@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.server.model.entity;
 
 import java.util.Date;
 import javax.persistence.*;
+
 import lombok.*;
 
 @Data

@@ -17,7 +17,7 @@ import java.util.Properties;
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements InitializingBean,ApplicationContextAware {
+public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements InitializingBean, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     @Override

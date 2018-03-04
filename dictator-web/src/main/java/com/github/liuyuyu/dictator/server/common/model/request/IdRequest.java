@@ -9,9 +9,10 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 public class IdRequest {
+    @NotNull
+    private Long id;
+
     public static IdRequest of() {
         return new IdRequest();
     }
-
-    @NotNull private Long id;
 }

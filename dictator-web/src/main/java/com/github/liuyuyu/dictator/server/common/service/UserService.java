@@ -49,9 +49,9 @@ public class UserService {
         return dictatorUserDto;
     }
 
-    public DictatorUserDto findUserInfo(@NonNull Long userId){
+    public DictatorUserDto findUserInfo(@NonNull Long userId) {
         DictatorUser dictatorUser = this.userMapper.selectByPrimaryKey(userId);
-        if(dictatorUser != null){
+        if (dictatorUser != null) {
             DictatorUserDto dictatorUserDto = new DictatorUserDto().from(dictatorUser);
             List<Long> roleIdList = this.roleMapper.findByUserId(dictatorUserDto.getId()).stream()
                     .map(DictatorRole::getId)
@@ -63,7 +63,7 @@ public class UserService {
                 dictatorUserDto.setResourceList(resourceList);
             }
             return dictatorUserDto;
-        }else{
+        } else {
             return null;
         }
     }

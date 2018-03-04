@@ -31,9 +31,12 @@ import java.util.stream.Collectors;
 public class ConfigHistoryService {
     @Autowired
     private DictatorConfigHistoryMapper configHistoryMapper;
-    @Autowired private DictatorConfigMapper dictatorConfigMapper;
-    @Autowired private DictatorConfigProfileMapper profileMapper;
-    @Autowired private DictatorConfigGroupMapper configGroupMapper;
+    @Autowired
+    private DictatorConfigMapper dictatorConfigMapper;
+    @Autowired
+    private DictatorConfigProfileMapper profileMapper;
+    @Autowired
+    private DictatorConfigGroupMapper configGroupMapper;
 
     public void save(HistoryConfigUpdateParam historyConfigUpdateParam) {
         DictatorConfigHistory configHistory = historyConfigUpdateParam.to(DictatorConfigHistory.class);
@@ -52,7 +55,7 @@ public class ConfigHistoryService {
                 .collect(Collectors.toList());
         Map<Long, String> profileIdNameMap = this.profileMapper.findProfileNameByIdList(profileIdList);
         pageValid.getList().stream()
-                .forEach(e->{
+                .forEach(e -> {
                     String groupName = configIdConfigMap.getOrDefault(e.getGroupId(), StringUtils.EMPTY);
                     e.setGroupName(groupName);
                     String profileName = profileIdNameMap.get(e.getProfileId());
@@ -73,10 +76,10 @@ public class ConfigHistoryService {
                 .orElseThrow(ConfigErrorMessageEnum.CONFIG_HISTORY_NOT_EXISTS::getServiceException);
         Optional<DictatorConfig> currentConfigOptional = this.dictatorConfigMapper.findById(oldConfigHistory.getConfigId());
         //当前配置存在才加入到历史
-        if(currentConfigOptional.isPresent()){
+        if (currentConfigOptional.isPresent()) {
             DictatorConfig currentConfig = currentConfigOptional.get();
             currentConfig.setId(oldConfigHistory.getConfigId());
-            if(currentConfig.getVersion().equals(oldConfigHistory.getVersion())){
+            if (currentConfig.getVersion().equals(oldConfigHistory.getVersion())) {
                 return;
             }
             DictatorConfigHistory newConfigHistory = BeanConverter.from(currentConfig).to(DictatorConfigHistory.class);

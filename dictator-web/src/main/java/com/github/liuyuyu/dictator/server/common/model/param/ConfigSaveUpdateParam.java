@@ -9,28 +9,32 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ConfigSaveUpdateParam implements Convertible<DictatorConfigDto,DictatorConfig>,OperatorParam {
+public class ConfigSaveUpdateParam implements Convertible<DictatorConfigDto, DictatorConfig>, OperatorParam {
     private Long id;
 
     /**
      * 应用（服务）ID
      */
-    @NotBlank private String appId;
+    @NotBlank
+    private String appId;
 
     /**
      * 部署的ID（例如：机器名+环境名）
      */
-    @NotBlank private String deploymentId;
+    @NotBlank
+    private String deploymentId;
 
     /**
      * 配置名
      */
-    @NotBlank private String configName;
+    @NotBlank
+    private String configName;
 
     /**
      * 配置值
      */
-    @NotBlank private String configValue;
+    @NotBlank
+    private String configValue;
 
     /**
      * 操作者ID
@@ -45,7 +49,8 @@ public class ConfigSaveUpdateParam implements Convertible<DictatorConfigDto,Dict
     /**
      * profile_id
      */
-    @NotNull private Long profileId;
+    @NotNull
+    private Long profileId;
 
     /**
      * 分组ID

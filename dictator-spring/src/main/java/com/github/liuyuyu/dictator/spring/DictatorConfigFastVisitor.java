@@ -9,7 +9,7 @@ import lombok.NonNull;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorConfigFastVisitor {
-    public static String get(@NonNull String name){
+    public static String get(@NonNull String name) {
         return DictatorPropertyManager.getProperty(name);
     }
 }

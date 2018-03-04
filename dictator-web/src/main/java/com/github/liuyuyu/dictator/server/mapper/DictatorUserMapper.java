@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Mapper
 public interface DictatorUserMapper extends SimpleMapper<DictatorUser> {
-    default Optional<DictatorUser> findByUsername(@NonNull String username){
+    default Optional<DictatorUser> findByUsername(@NonNull String username) {
         Weekend<DictatorUser> weekend = Weekend.of(DictatorUser.class);
         weekend.weekendCriteria()
-                .andEqualTo(DictatorUser::getUserName,username);
+                .andEqualTo(DictatorUser::getUserName, username);
         return this.findOne(weekend);
     }
 }

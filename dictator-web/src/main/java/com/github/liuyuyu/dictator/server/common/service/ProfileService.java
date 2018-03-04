@@ -15,9 +15,10 @@ import java.util.Map;
  */
 @Service
 public class ProfileService {
-    @Autowired private DictatorConfigProfileMapper profileMapper;
+    @Autowired
+    private DictatorConfigProfileMapper profileMapper;
 
-    public List<ConfigProfileDto> findAll(){
+    public List<ConfigProfileDto> findAll() {
         List<DictatorConfigProfile> configProfileList = this.profileMapper.selectAll();
         return BeanConverter.from(configProfileList)
                 .toList(ConfigProfileDto.class);

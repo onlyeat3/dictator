@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UUIDUtils {
-    public static String next(){
-        return UUID.randomUUID().toString().replaceAll("-","");
+    public static String next() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 }

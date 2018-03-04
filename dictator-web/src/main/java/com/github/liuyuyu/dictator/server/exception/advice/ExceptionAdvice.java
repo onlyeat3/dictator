@@ -35,7 +35,7 @@ public class ExceptionAdvice {
         dataWrapper.setSuccess(false);
         dataWrapper.setCode(ex.getCode());
         dataWrapper.setMsg(ex.getMessage());
-        log.warn("service exception code={},msg={}", ex.getCode(),ex.getMessage());
+        log.warn("service exception code={},msg={}", ex.getCode(), ex.getMessage());
         return dataWrapper;
     }
 

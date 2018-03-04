@@ -14,28 +14,28 @@ import java.util.stream.Collectors;
 @Mapper
 public interface DictatorConfigProfileMapper extends SimpleMapper<DictatorConfigProfile> {
     default Map<Long, String> findProfileNameByIdList(@NonNull List<Long> profileIdList) {
-        if(profileIdList.isEmpty()){
+        if (profileIdList.isEmpty()) {
             return Maps.newHashMap();
         }
         Weekend<DictatorConfigProfile> weekend = Weekend.of(DictatorConfigProfile.class);
         weekend.weekendCriteria()
-                .andIn(DictatorConfigProfile::getId,profileIdList);
+                .andIn(DictatorConfigProfile::getId, profileIdList);
         return this.findAll(weekend).stream()
                 .collect(Collectors.toMap(DictatorConfigProfile::getId, DictatorConfigProfile::getProfileName));
     }
 
-    default Optional<DictatorConfigProfile> findByCode(@NonNull String profileCode){
+    default Optional<DictatorConfigProfile> findByCode(@NonNull String profileCode) {
         Weekend<DictatorConfigProfile> weekend = Weekend.of(DictatorConfigProfile.class);
         weekend.weekendCriteria()
-                .andEqualTo(DictatorConfigProfile::getProfileCode,profileCode);
+                .andEqualTo(DictatorConfigProfile::getProfileCode, profileCode);
         return this.findOne(weekend);
     }
 
-    default Map<Long, DictatorConfigProfile> findMapByIdList(@NonNull List<Long> profileIdList){
+    default Map<Long, DictatorConfigProfile> findMapByIdList(@NonNull List<Long> profileIdList) {
         Weekend<DictatorConfigProfile> weekend = Weekend.of(DictatorConfigProfile.class);
         weekend.weekendCriteria()
-                .andIn(DictatorConfigProfile::getId,profileIdList);
+                .andIn(DictatorConfigProfile::getId, profileIdList);
         return this.findAll(weekend).stream()
-                .collect(Collectors.toMap(DictatorConfigProfile::getId, e->e));
+                .collect(Collectors.toMap(DictatorConfigProfile::getId, e -> e));
     }
 }

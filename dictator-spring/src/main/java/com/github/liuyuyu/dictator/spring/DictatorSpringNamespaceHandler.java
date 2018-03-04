@@ -14,7 +14,7 @@ public class DictatorSpringNamespaceHandler extends NamespaceHandlerSupport {
 
     @Override
     public void init() {
-        super.registerBeanDefinitionParser("config",new DictatorBeanParser());
+        super.registerBeanDefinitionParser("config", new DictatorBeanParser());
     }
 
     class DictatorBeanParser extends AbstractBeanDefinitionParser {

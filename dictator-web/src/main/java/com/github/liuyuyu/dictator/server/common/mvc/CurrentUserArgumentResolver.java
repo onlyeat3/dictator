@@ -31,24 +31,24 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
         CurrentUser currentUserAnnotation = methodParameter.getParameterAnnotation(CurrentUser.class);
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         String token = request.getHeader(UserConstants.TOKEN_NAME);
-        if(token == null){
+        if (token == null) {
             token = request.getParameter(UserConstants.TOKEN_NAME);
         }
 
-        if(token == null){
+        if (token == null) {
             throw ServiceException.from(UserErrorMessageEnum.TOKEN_PARAM_NOT_FOUND);
         }
         DictatorUserDto dictatorUserDto = TokenManger.get(token);
-        if(dictatorUserDto != null){
-            if(dictatorUserDto.getLoginIp() == null){
+        if (dictatorUserDto != null) {
+            if (dictatorUserDto.getLoginIp() == null) {
                 String ip = ServletUtils.getRemoteAddress(request);
                 dictatorUserDto.setLoginIp(ip);
             }
             return dictatorUserDto;
-        }else{
-            if(currentUserAnnotation.required()){
+        } else {
+            if (currentUserAnnotation.required()) {
                 throw ServiceException.from(UserErrorMessageEnum.INVALID_TOKEN);
-            }else{
+            } else {
                 return null;
             }
         }

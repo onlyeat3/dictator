@@ -29,15 +29,15 @@
         <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
                              type="XMLMAPPER"/>
 
-        <table tableName="dictator_config" />
-        <table tableName="dictator_config_group" />
-        <table tableName="dictator_config_history" />
-        <table tableName="dictator_config_profile" />
-        <table tableName="dictator_resource" />
-        <table tableName="dictator_role" />
-        <table tableName="dictator_role_group" />
-        <table tableName="dictator_role_resource" />
-        <table tableName="dictator_user" />
-        <table tableName="dictator_user_role" />
+        <table tableName="dictator_config"/>
+        <table tableName="dictator_config_group"/>
+        <table tableName="dictator_config_history"/>
+        <table tableName="dictator_config_profile"/>
+        <table tableName="dictator_resource"/>
+        <table tableName="dictator_role"/>
+        <table tableName="dictator_role_group"/>
+        <table tableName="dictator_role_resource"/>
+        <table tableName="dictator_user"/>
+        <table tableName="dictator_user_role"/>
     </context>
 </generatorConfiguration>

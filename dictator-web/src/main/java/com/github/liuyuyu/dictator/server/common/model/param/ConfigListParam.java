@@ -11,10 +11,6 @@ import lombok.ToString;
 @Data
 @ToString(callSuper = true)
 public class ConfigListParam extends PageParam {
-    public static ConfigListParam of() {
-        return new ConfigListParam();
-    }
-
     /**
      * 应用ID
      */
@@ -35,4 +31,8 @@ public class ConfigListParam extends PageParam {
      * 配置名
      */
     private String configName;
+
+    public static ConfigListParam of() {
+        return new ConfigListParam();
+    }
 }

@@ -7,15 +7,17 @@ import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
  */
 public interface AbstractErrorMessageEnum {
     String getErrorMessage();
-    default String getName(){
-        if(this instanceof Enum){
+
+    default String getName() {
+        if (this instanceof Enum) {
             Enum thisEnum = (Enum) this;
             return thisEnum.name();
-        }else {
+        } else {
             throw new IllegalArgumentException("illegal argument " + this);
         }
     }
-    default ServiceException getServiceException(){
+
+    default ServiceException getServiceException() {
         return ServiceException.from(this);
     }
 }
