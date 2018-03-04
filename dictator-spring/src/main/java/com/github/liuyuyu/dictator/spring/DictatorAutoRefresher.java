@@ -24,7 +24,6 @@ public class DictatorAutoRefresher implements ApplicationContextAware {
     @Scheduled(fixedRateString = "${dictator.client.refresh.rate:1000}")
     public void refresh() {
         //刷新缓存
-        Environment environment = applicationContext.getEnvironment();
         DictatorPropertyManager.refreshCache();
         //触发bean更新
         applicationContext.getBeansWithAnnotation(AutoRefreshValue.class)
