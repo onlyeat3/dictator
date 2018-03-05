@@ -1,3 +1,5 @@
+create database dictator;
+use dictator;
 CREATE TABLE dictator_config
 (
   id            BIGINT PRIMARY KEY    AUTO_INCREMENT
