@@ -14,15 +14,15 @@
 -- 正在导出表  dictator.dictator_config 的数据：~4 rows (大约)
 /*!40000 ALTER TABLE `dictator_config`
   DISABLE KEYS */;
-INSERT INTO `dictator_config` (`id`, `app_id`, `deployment_id`, `profile_id`, `profile`, `group_id`, `config_name`, `config_value`, `version`, `created_time`, `updated_time`, `operator_id`, `operator_ip`)
+INSERT INTO `dictator_config` (`id`, `app_id`, `deployment_id`, `profile_id`, `group_id`, `config_name`, `config_value`, `version`, `created_time`, `updated_time`, `operator_id`, `operator_ip`)
 VALUES
-  (34, 'dictator-demo', 'db', 1, '', 1, 'spring.datasource.url', 'jdbc:mysql://test', 2, '2018-02-17 12:33:10',
+  (34, 'dictator-demo', 'db', 1, 1, 'spring.datasource.url', 'jdbc:mysql://test', 2, '2018-02-17 12:33:10',
        '2018-03-03 21:30:43', 1, '0:0:0:0:0:0:0:1'),
-  (35, 'dictator-demo', 'db', 1, '', 1, 'spring.datasource.username', 'root', 0, '2018-03-03 21:31:05',
+  (35, 'dictator-demo', 'db', 1,  1, 'spring.datasource.username', 'root', 0, '2018-03-03 21:31:05',
        '2018-03-03 21:31:05', 1, '0:0:0:0:0:0:0:1'),
-  (36, 'dictator-demo', 'db', 1, '', 1, 'spring.datasource.driver-class-name', 'com.mysql.jdbc.Driver', 0,
+  (36, 'dictator-demo', 'db', 1, 1, 'spring.datasource.driver-class-name', 'com.mysql.jdbc.Driver', 0,
        '2018-03-03 21:32:00', '2018-03-03 21:32:00', 1, '0:0:0:0:0:0:0:1'),
-  (37, 'dictator-demo', 'db', 1, '', 1, 'spring.datasource.password', 'root', 0, '2018-03-03 21:32:21',
+  (37, 'dictator-demo', 'db', 1, 1, 'spring.datasource.password', 'root', 0, '2018-03-03 21:32:21',
        '2018-03-03 21:32:21', 1, '0:0:0:0:0:0:0:1');
 /*!40000 ALTER TABLE `dictator_config`
   ENABLE KEYS */;
