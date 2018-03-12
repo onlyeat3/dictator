@@ -1,8 +1,8 @@
 package com.github.liuyuyu.dictator.server.common.model.response;
 
 import com.github.liuyuyu.dictator.common.Convertible;
+import com.github.liuyuyu.dictator.common.Resolvable;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorResourceDto;
-import com.github.liuyuyu.dictator.server.common.model.dto.DictatorUserDto;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author liuyuyu
  */
 @Data
-public class UserInfoResponse implements Convertible<UserInfoResponse, DictatorUserDto> {
+public class UserInfoResponse implements Convertible,Resolvable {
     /**
      * 用户名
      */

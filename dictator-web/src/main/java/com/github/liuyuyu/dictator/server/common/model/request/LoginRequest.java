@@ -8,7 +8,7 @@ import lombok.Data;
  * @author liuyuyu
  */
 @Data
-public class LoginRequest implements Convertible<LoginRequest, LoginParam> {
+public class LoginRequest implements Convertible {
     /**
      * 用户名
      */

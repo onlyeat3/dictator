@@ -33,9 +33,18 @@ public class BeanConverter {
             BeanUtils.copyProperties(t, this.source);
             return t;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
-            log.error("new instance fail", e);
+            log.error(String.format("to instance %s fail",targetClass), e);
         }
         return null;
+    }
+
+    public <T> T assign(T t){
+        try {
+            BeanUtils.copyProperties(t,this.source);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            log.error(String.format("to instance %s fail",t.getClass()), e);
+        }
+        return t;
     }
 
     @SuppressWarnings("unchecked")

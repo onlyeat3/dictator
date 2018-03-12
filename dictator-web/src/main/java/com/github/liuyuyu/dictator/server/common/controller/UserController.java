@@ -39,7 +39,8 @@ public class UserController {
     @RequestMapping("/info")
     public DataWrapper showInfo(@CurrentUser DictatorUserDto userDto) {
         DictatorUserDto userInfo = this.userService.findUserInfo(userDto.getId());
-        UserInfoResponse userInfoResponse = UserInfoResponse.of().from(userInfo);
+        UserInfoResponse userInfoResponse = UserInfoResponse.of();
+        userInfoResponse.from(userInfo);
         return DataWrapper.from(userInfoResponse);
     }
 }

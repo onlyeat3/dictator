@@ -39,4 +39,11 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
                 .andEqualTo(DictatorConfigHistory::getConfigId, configId);
         return this.findAll(weekend);
     }
+
+    default int countByProfileId(@NonNull Long profileId){
+        Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
+        weekend.weekendCriteria()
+                .andEqualTo(DictatorConfigHistory::getProfileId,profileId);
+        return this.selectCountByExample(weekend);
+    }
 }

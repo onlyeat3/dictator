@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class ConfigSaveUpdateParam implements Convertible<DictatorConfigDto, DictatorConfig>, OperatorParam {
+public class ConfigSaveUpdateParam implements Convertible, OperatorParam {
     private Long id;
 
     /**
