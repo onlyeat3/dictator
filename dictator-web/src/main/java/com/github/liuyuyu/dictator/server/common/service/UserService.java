@@ -43,7 +43,8 @@ public class UserService {
         if (!StringUtils.equalsIgnoreCase(dictatorUser.getPassword(), encryptedPassword)) {
             throw ServiceException.from(UserErrorMessageEnum.INCORRECT_PASSWORD);
         }
-        DictatorUserDto dictatorUserDto = new DictatorUserDto().from(dictatorUser);
+        DictatorUserDto dictatorUserDto = new DictatorUserDto();
+        dictatorUserDto.from(dictatorUser);
         dictatorUserDto.setToken(UUIDUtils.next());
         return dictatorUserDto;
     }
@@ -51,7 +52,8 @@ public class UserService {
     public DictatorUserDto findUserInfo(@NonNull Long userId) {
         DictatorUser dictatorUser = this.userMapper.selectByPrimaryKey(userId);
         if (dictatorUser != null) {
-            DictatorUserDto dictatorUserDto = new DictatorUserDto().from(dictatorUser);
+            DictatorUserDto dictatorUserDto = new DictatorUserDto();
+            dictatorUserDto.from(dictatorUser);
             List<Long> roleIdList = this.roleMapper.findByUserId(dictatorUserDto.getId()).stream()
                     .map(DictatorRole::getId)
                     .collect(Collectors.toList());

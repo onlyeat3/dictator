@@ -15,19 +15,11 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class ConfigSetParam extends CommonParam implements Convertible<ConfigSetParam, CommonParam> {
+public class ConfigSetParam extends CommonParam implements Convertible {
     /**
      * 配置值
      */
     private String value;
-
-    @Override
-    public CommonParam to(Class<CommonParam> clazz) {
-        CommonParam commonParam = new CommonParam();
-        commonParam.setKey(this.getKey());
-        commonParam.setAppId(this.getAppId());
-        return commonParam;
-    }
 
     public String toJson() {
         ZookeeperConfigInfo zookeeperConfigInfo = new ZookeeperConfigInfo();

@@ -97,22 +97,15 @@ CREATE TABLE dictator_config_history
 
 CREATE TABLE dictator_config_profile
 (
-  id           BIGINT PRIMARY KEY    AUTO_INCREMENT
-  COMMENT '自增主键',
-  profile_name VARCHAR(50)  NOT NULL
-  COMMENT '环境名',
-  profile_code VARCHAR(20)  NOT NULL
-  COMMENT '环境代码',
-  profile_desc VARCHAR(200) NOT NULL DEFAULT ''
-  COMMENT '环境描述',
-  created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
-  COMMENT '创建时间',
-  updated_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-  COMMENT '修改时间',
-  operator_id  BIGINT       NOT NULL
-  COMMENT '操作者ID',
-  operator_ip  VARCHAR(50)  NOT NULL
-  COMMENT '操作者IP',
+  id           BIGINT PRIMARY KEY    AUTO_INCREMENT COMMENT '自增主键',
+  profile_name VARCHAR(50)  NOT NULL COMMENT '环境名',
+  profile_code VARCHAR(20)  NOT NULL COMMENT '环境代码',
+  profile_desc VARCHAR(200) NOT NULL DEFAULT '' COMMENT '环境描述',
+  enable       bit(1)       not null comment '是否启用',
+  created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  updated_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  operator_id  BIGINT       NOT NULL COMMENT '操作者ID',
+  operator_ip  VARCHAR(50)  NOT NULL COMMENT '操作者IP',
   INDEX `idx_created_time` (`created_time`),
   INDEX `idx_updated_time` (`updated_time`),
   INDEX `idx_operator_id` (`operator_id`)

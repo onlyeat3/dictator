@@ -5,7 +5,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import lombok.Data;
 
 @Data
-public class HistoryConfigUpdateParam implements Convertible<HistoryConfigUpdateParam, DictatorConfigHistory> {
+public class HistoryConfigUpdateParam implements Convertible {
 
     /**
      * 应用（服务）ID

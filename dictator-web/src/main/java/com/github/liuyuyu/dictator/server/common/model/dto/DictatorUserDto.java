@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.common.model.dto;
 
 import com.github.liuyuyu.dictator.common.Convertible;
+import com.github.liuyuyu.dictator.common.Resolvable;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @author liuyuyu
  */
 @Data
-public class DictatorUserDto implements Convertible<DictatorUserDto, DictatorUser> {
+public class DictatorUserDto implements Convertible,Resolvable {
     /**
      * 自增主键
      */

@@ -42,7 +42,7 @@ public class DataBaseConfigReadService implements ConfigReadService {
 
     @Override
     public DictatorValueResponse find(ConfigGetParam configGetParam) {
-        DictatorConfigProfile profile = this.profileMapper.findByCode(configGetParam.getProfile())
+        DictatorConfigProfile profile = this.profileMapper.findByCodeAndEnable(configGetParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
         DictatorConfig dictatorConfigEntity = this.configMapper.findByGetParam(configGetParam, profile.getId());
         DictatorValueResponse dictatorValueResponse = DictatorValueResponse.of();
@@ -55,14 +55,14 @@ public class DataBaseConfigReadService implements ConfigReadService {
 
     @Override
     public boolean exists(CommonParam commonParam) {
-        DictatorConfigProfile profile = this.profileMapper.findByCode(commonParam.getProfile())
+        DictatorConfigProfile profile = this.profileMapper.findByCodeAndEnable(commonParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
         return this.configMapper.countByParam(commonParam, profile.getId()) > 0;
     }
 
     @Override
     public Map<String, String> findAll(CommonParam commonParam) {
-        DictatorConfigProfile dictatorConfigProfile = this.profileMapper.findByCode(commonParam.getProfile())
+        DictatorConfigProfile dictatorConfigProfile = this.profileMapper.findByCodeAndEnable(commonParam.getProfile())
                 .orElseThrow(ConfigErrorMessageEnum.PROFILE_NOT_EXISTS::getServiceException);
         Long lastUpdatedTimeLong = commonParam.getLastUpdatedTime();
         Date lastUpdatedTime = null;

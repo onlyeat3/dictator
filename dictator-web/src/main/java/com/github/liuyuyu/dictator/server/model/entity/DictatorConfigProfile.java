@@ -35,6 +35,12 @@ public class DictatorConfigProfile {
     private String profileDesc;
 
     /**
+     * 是否启用
+     */
+    @Column(name = "enable")
+    private Boolean enable;
+
+    /**
      * 创建时间
      */
     @Column(name = "created_time")

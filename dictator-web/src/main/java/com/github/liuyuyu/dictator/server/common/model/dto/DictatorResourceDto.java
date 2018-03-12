@@ -8,7 +8,7 @@ import lombok.Data;
  * @author liuyuyu
  */
 @Data
-public class DictatorResourceDto implements Convertible<DictatorResourceDto, DictatorResource> {
+public class DictatorResourceDto implements Convertible {
     /**
      * 自增主键
      */

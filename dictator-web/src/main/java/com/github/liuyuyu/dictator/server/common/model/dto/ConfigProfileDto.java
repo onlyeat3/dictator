@@ -45,4 +45,8 @@ public class ConfigProfileDto {
      * 操作者IP
      */
     private String operatorIp;
+    /**
+     * 启用
+     */
+    private Boolean enable;
 }

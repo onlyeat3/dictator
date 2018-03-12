@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /*
  * @author liuyuyu
  */
-@EnableScheduling
 @SpringBootApplication(scanBasePackages = "com.github.liuyuyu.dictator")
 public class DictatorSpringBootStarterDemoApplication {
 
