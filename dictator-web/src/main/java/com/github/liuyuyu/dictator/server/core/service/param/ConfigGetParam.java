@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.server.core.service.param;
 
 import com.github.liuyuyu.dictator.common.BaseProperties;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
+import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import lombok.*;
 
 /*
@@ -18,27 +19,17 @@ public class ConfigGetParam extends CommonParam {
     private String defaultValue;
 
     public static ConfigGetParam from(CommonParam commonParam) {
-        ConfigGetParam configGetParam = new ConfigGetParam();
-        configGetParam.setKey(commonParam.getKey());
-        configGetParam.setAppId(commonParam.getAppId());
-        return configGetParam;
+        return BeanConverter.from(commonParam)
+                .to(ConfigGetParam.class);
     }
 
     public static ConfigGetParam from(PropertyGetRequest propertyGetRequest) {
-        ConfigGetParam configGetParam = new ConfigGetParam();
-        configGetParam.setAppId(propertyGetRequest.getAppId());
-        configGetParam.setDeploymentId(propertyGetRequest.getDeploymentId());
-        configGetParam.setProfile(propertyGetRequest.getProfile());
-        configGetParam.setKey(propertyGetRequest.getPropertyName());
-        return configGetParam;
+        return BeanConverter.from(propertyGetRequest)
+                .to(ConfigGetParam.class);
     }
 
     public static ConfigGetParam from(@NonNull BaseProperties source) {
-        ConfigGetParam target = new ConfigGetParam();
-        target.setAppId(source.getAppId());
-        target.setDeploymentId(source.getDeploymentId());
-        target.setProfile(source.getProfile());
-        target.setLastUpdatedTime(source.getLastUpdatedTime());
-        return target;
+        return BeanConverter.from(source)
+                .to(ConfigGetParam.class);
     }
 }

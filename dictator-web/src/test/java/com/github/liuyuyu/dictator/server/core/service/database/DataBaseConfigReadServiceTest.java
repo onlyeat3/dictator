@@ -2,12 +2,15 @@ package com.github.liuyuyu.dictator.server.core.service.database;
 
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.server.core.service.AbstractConfigReadServiceTest;
+import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.utils.ParamBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -42,5 +45,28 @@ public class DataBaseConfigReadServiceTest extends AbstractConfigReadServiceTest
     @Override
     public void setConfigReadService() {
         super.configReadService = this.dataBaseConfigService;
+    }
+
+    @Test
+    public void findAllValid() {
+    }
+
+    @Test
+    public void findLastHourInvalid() {
+    }
+
+    @Test
+    public void findPageValid() {
+        CommonParam commParam = new CommonParam();
+        commParam.setAppId("app");
+        commParam.setDeploymentId("db");
+        commParam.setProfile("dev");
+        Map<String, String> all = this.dataBaseConfigService.findAll(commParam);
+        all.keySet()
+                .forEach(k->{
+                    String v = all.get(k);
+                    System.out.println(k+":"+v);
+                });
+
     }
 }

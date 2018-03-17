@@ -34,8 +34,4 @@ public class ConfigProfileRequest {
      * 操作者IP
      */
     private String operatorIp;
-    /**
-     * 是否启用
-     */
-    private Boolean enable;
 }
