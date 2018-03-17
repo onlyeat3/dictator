@@ -37,6 +37,9 @@ public class DictatorConfigHistoryController {
         return DataWrapper.from(historyDtoList);
     }
 
+    /**
+     * 从历史恢复配置
+     */
     @RequestMapping("/recovery")
     public DataWrapper recovery(@RequestBody @Valid IdRequest idRequest) {
         this.configHistoryService.recovery(idRequest.getId());

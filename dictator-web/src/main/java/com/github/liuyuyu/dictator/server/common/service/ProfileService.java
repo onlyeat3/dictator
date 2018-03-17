@@ -1,9 +1,10 @@
 package com.github.liuyuyu.dictator.server.common.service;
 
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
+import com.github.liuyuyu.dictator.server.common.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.common.model.dto.ConfigProfileDto;
+import com.github.liuyuyu.dictator.server.common.model.param.ConfigProfileDeleteParam;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigProfileParam;
-import com.github.liuyuyu.dictator.server.mapper.DictatorConfigHistoryMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigProfileMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ import java.util.Map;
 public class ProfileService {
     @Autowired
     private DictatorConfigProfileMapper profileMapper;
+    @Autowired
+    private ConfigService configService;
+    @Autowired
+    private ConfigHistoryService historyService;
 
     public List<ConfigProfileDto> findAll() {
         List<DictatorConfigProfile> configProfileList = this.profileMapper.selectAll();
@@ -32,10 +37,19 @@ public class ProfileService {
 
     public void saveOrUpdate(ConfigProfileParam configProfileParam) {
         DictatorConfigProfile configProfile = configProfileParam.to(DictatorConfigProfile.class);
-        if(configProfileParam.getId() != null){
+        if (configProfileParam.getId() != null) {
             this.profileMapper.updateByPrimaryKeySelective(configProfile);
-        }else{
+        } else {
             this.profileMapper.insertSelective(configProfile);
         }
+    }
+
+    /**
+     * 删除-profile直接删除，配置移动到历史记录
+     */
+    @TransactionalAutoRollback
+    public void delete(ConfigProfileDeleteParam configProfileDeleteParam) {
+        this.profileMapper.deleteByPrimaryKey(configProfileDeleteParam.getId());
+        this.configService.deleteByProfileId(configProfileDeleteParam.getId());
     }
 }

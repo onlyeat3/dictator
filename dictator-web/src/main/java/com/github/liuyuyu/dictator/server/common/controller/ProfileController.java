@@ -2,12 +2,12 @@ package com.github.liuyuyu.dictator.server.common.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorUserDto;
+import com.github.liuyuyu.dictator.server.common.model.param.ConfigProfileDeleteParam;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigProfileParam;
+import com.github.liuyuyu.dictator.server.common.model.request.ConfigProfileDeleteRequest;
 import com.github.liuyuyu.dictator.server.common.model.request.ConfigProfileRequest;
-import com.github.liuyuyu.dictator.server.common.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.common.mvc.CurrentUser;
 import com.github.liuyuyu.dictator.server.common.service.ProfileService;
-import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +38,17 @@ public class ProfileController {
         configProfileParam.setOperatorId(currentUser.getId());
         configProfileParam.setOperatorIp(currentUser.getLoginIp());
         this.profileService.saveOrUpdate(configProfileParam);
+        return DataWrapper.of();
+    }
+
+    /**
+     * 删除环境
+     */
+    @RequestMapping("/delete")
+    public DataWrapper delete(@RequestBody @Valid ConfigProfileDeleteRequest profileEnableUpdateRequest, @CurrentUser DictatorUserDto currentUser){
+        ConfigProfileDeleteParam configProfileDeleteParam = profileEnableUpdateRequest.to(ConfigProfileDeleteParam.class);
+        configProfileDeleteParam.join(currentUser);
+        this.profileService.delete(configProfileDeleteParam);
         return DataWrapper.of();
     }
 }

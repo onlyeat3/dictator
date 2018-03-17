@@ -9,6 +9,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.pagehelper.Page;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
+import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.Date;
 import java.util.List;
@@ -27,5 +28,19 @@ public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
 
     default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId, Date lastUpdatedTime) {
         return this.selectByExample(DictatorConfigWeekend.from(configGetParam, profileId, lastUpdatedTime));
+    }
+
+    default List<DictatorConfig> findByProfileId(@NonNull Long profileId){
+        Weekend<DictatorConfig> weekend = DictatorConfigWeekend.of();
+        weekend.weekendCriteria()
+                .andEqualTo(DictatorConfig::getProfileId,profileId);
+        return this.findAll(weekend);
+    }
+
+    default void deleteByIdList(List<Long> idList){
+            Weekend<DictatorConfig> weekend = Weekend.of(DictatorConfig.class);
+            weekend.weekendCriteria()
+                    .andIn(DictatorConfig::getId,idList);
+            this.deleteByExample(weekend);
     }
 }

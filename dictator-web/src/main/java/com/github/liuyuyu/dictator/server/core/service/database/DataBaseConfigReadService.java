@@ -97,9 +97,9 @@ public class DataBaseConfigReadService implements ConfigReadService {
             Map<Long, String> profileIdNameMap = this.profileMapper.findProfileNameByIdList(profileIdList);
             pageValid.getList()
                     .forEach(e -> {
-                        String groupName = configIdConfigMap.getOrDefault(e.getGroupId(), StringUtils.EMPTY);
+                        String groupName = configIdConfigMap.getOrDefault(e.getGroupId(), "缺失");
                         e.setGroupName(groupName);
-                        String profileName = profileIdNameMap.get(e.getProfileId());
+                        String profileName = profileIdNameMap.getOrDefault(e.getProfileId(),"缺失");
                         e.setProfileName(profileName);
                     });
             return pageValid;

@@ -84,6 +84,7 @@ public class ConfigHistoryService {
             }
             DictatorConfigHistory newConfigHistory = BeanConverter.from(currentConfig).to(DictatorConfigHistory.class);
             newConfigHistory.setConfigId(currentConfig.getId());
+            newConfigHistory.setId(null);
             this.configHistoryMapper.insertSelective(newConfigHistory);
         }
         //当前有效配置和历史配置交换

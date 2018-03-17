@@ -4,6 +4,7 @@ import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import com.github.liuyuyu.dictator.server.common.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.common.exception.enums.ConfigErrorMessageEnum;
+import com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigDto;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigSaveUpdateParam;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigHistoryMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigMapper;
@@ -13,7 +14,9 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /*
  * @author liuyuyu
@@ -71,5 +74,24 @@ public class ConfigService {
                 this.configHistoryMapper.insertSelective(configHistory);
             }
         }
+    }
+
+    @TransactionalAutoRollback
+    public void deleteByProfileId(@NonNull Long profileId) {
+        List<DictatorConfig> configList = this.configMapper.findByProfileId(profileId);
+        BeanConverter.from(configList)
+                .toList(DictatorConfigHistory.class)
+                .forEach(e->{
+                    e.setConfigId(e.getId());
+                    e.setId(null);
+                    this.configHistoryMapper.insertSelective(e);
+                });
+        if(configList.isEmpty()){
+            return;
+        }
+        List<Long> configIdList = configList.stream()
+                .map(DictatorConfig::getId)
+                .collect(Collectors.toList());
+        this.configMapper.deleteByIdList(configIdList);
     }
 }

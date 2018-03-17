@@ -101,7 +101,7 @@ CREATE TABLE dictator_config_profile
   profile_name VARCHAR(50)  NOT NULL COMMENT '环境名',
   profile_code VARCHAR(20)  NOT NULL COMMENT '环境代码',
   profile_desc VARCHAR(200) NOT NULL DEFAULT '' COMMENT '环境描述',
-  enable       bit(1)       not null comment '是否启用',
+  enable       bit(1)       not null default true comment '是否启用',
   created_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   updated_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   operator_id  BIGINT       NOT NULL COMMENT '操作者ID',
