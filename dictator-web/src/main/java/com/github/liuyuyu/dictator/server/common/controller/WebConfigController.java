@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.common.controller;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigDto;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorUserDto;
+import com.github.liuyuyu.dictator.server.common.model.param.ConfigBatchImportParam;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigListParam;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigSaveUpdateParam;
 import com.github.liuyuyu.dictator.server.common.model.request.IdRequest;
@@ -39,6 +40,13 @@ public class WebConfigController {
     public DataWrapper saveOrUpdate(@RequestBody @Valid ConfigSaveUpdateParam configSaveUpdateParam, @CurrentUser DictatorUserDto currentUser) {
         configSaveUpdateParam.join(currentUser);
         this.configService.saveOrUpdate(configSaveUpdateParam);
+        return DataWrapper.of();
+    }
+
+    @RequestMapping("/batchAdd")
+    public DataWrapper batchAdd(@RequestBody @Valid ConfigBatchImportParam configBatchImportParam, @CurrentUser DictatorUserDto currentUser) {
+        configBatchImportParam.join(currentUser);
+        this.configService.batchAdd(configBatchImportParam);
         return DataWrapper.of();
     }
 
