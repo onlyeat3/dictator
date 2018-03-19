@@ -1,10 +1,12 @@
 package com.github.liuyuyu.dictator.server.common.service;
 
+import com.github.liuyuyu.dictator.common.exception.ExceptionWrapper;
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import com.github.liuyuyu.dictator.server.common.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.common.exception.enums.ConfigErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigDto;
+import com.github.liuyuyu.dictator.server.common.model.param.ConfigBatchImportParam;
 import com.github.liuyuyu.dictator.server.common.model.param.ConfigSaveUpdateParam;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigHistoryMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigMapper;
@@ -14,8 +16,12 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /*
@@ -48,17 +54,21 @@ public class ConfigService {
     public void saveOrUpdate(ConfigSaveUpdateParam configSaveUpdateParam) {
         DictatorConfig dictatorConfig = configSaveUpdateParam.to(DictatorConfig.class);
         //版本上升
-        Optional<DictatorConfigHistory> lastByConfig = this.configHistoryMapper.findLastByConfigId(configSaveUpdateParam.getId());
         Long version = 0L;
-        if (lastByConfig.isPresent()) {
-            version = lastByConfig.get().getVersion() + 1L;
-        }
-        dictatorConfig.setVersion(version);
         //没有ID,insert
         if (configSaveUpdateParam.getId() == null || configSaveUpdateParam.getId() == -1L) {
+            dictatorConfig.setVersion(version);
             dictatorConfig.setId(null);
             this.configMapper.insertSelective(dictatorConfig);
         } else {
+            if(configSaveUpdateParam.getId() != null){
+                Optional<DictatorConfigHistory> lastByConfig = this.configHistoryMapper.findLastByConfigId(configSaveUpdateParam.getId());
+                if (lastByConfig.isPresent()) {
+                    version = lastByConfig.get().getVersion() + 1L;
+                }
+            }
+            dictatorConfig.setVersion(version);
+
             //先保存历史记录再更新
             Optional<DictatorConfig> optionalDictatorConfig = this.configMapper.findById(configSaveUpdateParam.getId());
             if (optionalDictatorConfig.isPresent()) {
@@ -93,5 +103,26 @@ public class ConfigService {
                 .map(DictatorConfig::getId)
                 .collect(Collectors.toList());
         this.configMapper.deleteByIdList(configIdList);
+    }
+
+    @TransactionalAutoRollback
+    public void batchAdd(ConfigBatchImportParam configBatchImportParam) {
+        try {
+            Properties properties = new Properties();
+            properties.load(new StringReader(configBatchImportParam.getContent()));
+            properties.stringPropertyNames().stream()
+                    .filter(Objects::nonNull)
+                    .filter(key-> properties.getProperty(key) != null)
+                    .map(key->{
+                        ConfigSaveUpdateParam configSaveUpdateParam = BeanConverter.from(configBatchImportParam)
+                                .to(ConfigSaveUpdateParam.class);
+                        configSaveUpdateParam.setConfigName(key);
+                        configSaveUpdateParam.setConfigValue(properties.getProperty(key));
+                        return configSaveUpdateParam;
+                    })
+                    .forEach(this::saveOrUpdate);
+        } catch (IOException e) {
+            ExceptionWrapper.of(e);
+        }
     }
 }
