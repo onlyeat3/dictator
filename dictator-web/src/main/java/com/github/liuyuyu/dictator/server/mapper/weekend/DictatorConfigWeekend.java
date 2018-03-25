@@ -21,7 +21,6 @@ public class DictatorConfigWeekend {
         WeekendCriteria<DictatorConfig, Object> dictatorConfigObjectWeekendCriteria = weekend.weekendCriteria();
         dictatorConfigObjectWeekendCriteria
                 .andEqualTo(DictatorConfig::getAppId, commonParam.getAppId())
-                .andEqualTo(DictatorConfig::getDeploymentId, commonParam.getDeploymentId())
                 .andEqualTo(DictatorConfig::getProfileId, profileId)
                 .andEqualTo(DictatorConfig::getConfigName, commonParam.getKey());
         if (lastUpdatedTime != null) {

@@ -21,10 +21,9 @@ public class DictatorClientProperties extends BaseProperties {
         return new DictatorClientProperties();
     }
 
-    public static DictatorClientProperties of(@NonNull String appId, @NonNull String deploymentId, @NonNull String profile, @NonNull String serverUrl) {
+    public static DictatorClientProperties of(@NonNull String appId, @NonNull String profile, @NonNull String serverUrl) {
         DictatorClientProperties dictatorClientProperties = new DictatorClientProperties();
         dictatorClientProperties.setAppId(appId);
-        dictatorClientProperties.setDeploymentId(deploymentId);
         dictatorClientProperties.setProfile(profile);
         dictatorClientProperties.setServerUrl(serverUrl);
         return dictatorClientProperties;

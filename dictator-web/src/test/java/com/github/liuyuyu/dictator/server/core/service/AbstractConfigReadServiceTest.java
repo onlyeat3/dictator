@@ -27,7 +27,6 @@ public abstract class AbstractConfigReadServiceTest {
         CommonParam commonParam = new CommonParam();
         commonParam.setAppId("dictator-demo");
         commonParam.setProfile("dev");
-        commonParam.setDeploymentId("db");
         Map<String, String> configMap = this.configReadService.findAll(commonParam);
         assertFalse(configMap.isEmpty());
         commonParam.setLastUpdatedTime(System.currentTimeMillis());

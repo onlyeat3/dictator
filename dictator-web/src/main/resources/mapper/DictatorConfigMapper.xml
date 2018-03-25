@@ -7,9 +7,6 @@
             <if test="appId != null and appId != ''">
                 and app_id = #{appId}
             </if>
-            <if test="deploymentId != null and deploymentId != ''">
-                and deployment_id = #{deploymentId}
-            </if>
             <if test="profileId != null and profileId != ''">
                 and profile_id = #{profileId}
             </if>

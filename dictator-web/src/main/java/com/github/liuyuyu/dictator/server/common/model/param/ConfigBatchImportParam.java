@@ -21,12 +21,6 @@ public class ConfigBatchImportParam implements Convertible, OperatorParam {
     private String appId;
 
     /**
-     * 部署的ID（例如：机器名+环境名）
-     */
-    @NotBlank
-    private String deploymentId;
-
-    /**
      * 操作者ID
      */
     private Long operatorId;

@@ -16,10 +16,6 @@ public class ConfigListParam extends PageParam {
      */
     private String appId;
     /**
-     * 部署ID
-     */
-    private String deploymentId;
-    /**
      * 环境ID
      */
     private Long profileId;
