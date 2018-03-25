@@ -56,6 +56,9 @@ public class DictatorPropertyManager {
         }
     }
 
+    /**
+     * 能够获取原来配置，可以用的初始化方式
+     */
     public static void init(@NonNull Environment environment) {
         //取Spring的profile作为环境区分的标识
         List<String> activeProfileList = Arrays.stream(environment.getActiveProfiles())
@@ -67,6 +70,9 @@ public class DictatorPropertyManager {
         dictatorClientProperties.setProfile(mainProfile);
         dictatorClientProperties.setServerUrl(environment.getProperty("dictator.serverUrl"));
         dictatorClientProperties.setAppId(environment.getProperty("dictator.appId"));
+        dictatorClientProperties.setProfile(mainProfile);
+        // 打印参数
+        dictatorClientProperties.printCurrent();
         //验证参数
         dictatorClientProperties.verify();
         DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
@@ -75,5 +81,17 @@ public class DictatorPropertyManager {
 
     public static boolean containsName(@NonNull String name) {
         return CONFIG_CACHE.containsKey(name);
+    }
+
+    /**
+     * 加载时不能获取到系统配置，使用的初始化方式
+     */
+    public static void init(@NonNull DictatorClientProperties dictatorClientProperties) {
+        // 打印参数
+        dictatorClientProperties.printCurrent();
+        //验证参数
+        dictatorClientProperties.verify();
+        DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
+        DictatorPropertyManager.refreshCache();
     }
 }
