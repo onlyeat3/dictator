@@ -16,12 +16,10 @@ public class DictatorBootstrapPropertiesLoader {
         properties.load(resource.getInputStream());
         DictatorClientProperties dictatorClientProperties = new DictatorClientProperties();
         String appId = properties.getProperty("appId");
-        String deploymentId = properties.getProperty("deploymentId");
         String serverUrl = properties.getProperty("serverUrl");
         String profile = properties.getProperty("profile");
 
         dictatorClientProperties.setAppId(appId);
-        dictatorClientProperties.setDeploymentId(deploymentId);
         dictatorClientProperties.setServerUrl(serverUrl);
         dictatorClientProperties.setProfile(profile);
 

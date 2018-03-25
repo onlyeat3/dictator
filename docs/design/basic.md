@@ -21,10 +21,9 @@ client通过http协议请求server，server先检查缓存提供者（zk/redis�
 ```properties
 appId=app #应用ID代码
 profile=dev #环境代码（开发环境、测试环境、生产环境）
-deploymentId=db #部署ID（如果同一台服务器上部署了环境相同的应用，就只能用部署ID区分节点）
 serverUrl=http://localhost:3399 #dictator服务端的地址
 ```
->serverUrl、appId和profile都是客户端必须的配置，因为考虑到潜在的可能，deploymentId也被要求必须配置。
+>serverUrl、appId和profile都是客户端必须的配置。
 
 ### 拉取策略
 

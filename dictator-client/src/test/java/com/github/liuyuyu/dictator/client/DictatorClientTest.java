@@ -16,7 +16,6 @@ public class DictatorClientTest {
     public void setUp() {
         DictatorClientProperties properties = new DictatorClientProperties();
         properties.setAppId("app");
-        properties.setDeploymentId("dev/db");
         properties.setServerUrl("http://localhost:8080");
         this.dictatorClient = DictatorClient.of(properties);
     }

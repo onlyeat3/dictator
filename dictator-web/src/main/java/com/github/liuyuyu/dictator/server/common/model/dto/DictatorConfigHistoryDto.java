@@ -21,11 +21,6 @@ public class DictatorConfigHistoryDto {
     private Long configId;
 
     /**
-     * 部署的ID（例如：机器名+环境名）
-     */
-    private String deploymentId;
-
-    /**
      * 环境名
      */
     private String profileName;

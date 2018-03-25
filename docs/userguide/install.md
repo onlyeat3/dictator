@@ -82,7 +82,6 @@ Spring的集成和Spring Boot的集成都依赖```dictator.properties```的配�
 ```properties
 appId=app # 应用的ID
 profile=dev #当前的环境
-deploymentId=db #部署的节点ID
 serverUrl=http://localhost:3399 #服务端地址
 ```
 
