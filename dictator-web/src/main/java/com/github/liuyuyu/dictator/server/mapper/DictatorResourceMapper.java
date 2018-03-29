@@ -3,7 +3,6 @@ package com.github.liuyuyu.dictator.server.mapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

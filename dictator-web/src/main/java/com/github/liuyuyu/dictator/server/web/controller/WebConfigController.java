@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.web.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
+import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigBatchImportParam;
@@ -9,7 +10,6 @@ import com.github.liuyuyu.dictator.server.web.model.param.ConfigSaveUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.web.mvc.CurrentUser;
 import com.github.liuyuyu.dictator.server.web.service.ConfigService;
-import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

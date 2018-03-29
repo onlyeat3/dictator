@@ -1,11 +1,11 @@
 package com.github.liuyuyu.dictator.server.web.mvc;
 
+import com.github.liuyuyu.dictator.server.utils.ServletUtils;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.security.TokenManger;
-import com.github.liuyuyu.dictator.server.utils.ServletUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;

@@ -3,7 +3,6 @@ package com.github.liuyuyu.dictator.client;
 import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
