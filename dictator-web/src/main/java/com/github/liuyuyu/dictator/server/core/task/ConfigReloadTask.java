@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.core.task;
 
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
-import com.github.liuyuyu.dictator.server.common.service.ProfileService;
+import com.github.liuyuyu.dictator.server.web.service.ProfileService;
 import com.github.liuyuyu.dictator.server.core.service.ListableConfigWriteService;
 import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
