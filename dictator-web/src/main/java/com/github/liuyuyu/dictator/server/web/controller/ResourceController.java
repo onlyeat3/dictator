@@ -42,7 +42,9 @@ public class ResourceController {
     }
 
     @RequestMapping("/saveOrUpdate")
-    public DataWrapper saveOrUpdate(@RequestBody @Valid ResourceSaveOrUpdateParam param){
+    public DataWrapper saveOrUpdate(@RequestBody @Valid ResourceSaveOrUpdateParam param,@CurrentUser DictatorUserDto currentUser){
+        param.setOperatorId(currentUser.getId());
+        param.setOperatorIp(currentUser.getLoginIp());
         this.resourceService.saveOrUpdate(param);
         return DataWrapper.of();
     }
