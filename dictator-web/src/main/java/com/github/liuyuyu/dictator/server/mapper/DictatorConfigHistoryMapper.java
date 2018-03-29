@@ -1,8 +1,8 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
+import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;
-import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import com.github.pagehelper.Page;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;

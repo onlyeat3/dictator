@@ -3,7 +3,6 @@ package com.github.liuyuyu.dictator.server.web.service;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorRoleResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
-import com.github.liuyuyu.dictator.server.model.entity.DictatorRoleResource;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
