@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.config;
 
-import com.github.liuyuyu.dictator.server.common.interceptor.LoginInterceptor;
-import com.github.liuyuyu.dictator.server.common.mvc.CurrentUserArgumentResolver;
+import com.github.liuyuyu.dictator.server.web.interceptor.LoginInterceptor;
+import com.github.liuyuyu.dictator.server.web.mvc.CurrentUserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;

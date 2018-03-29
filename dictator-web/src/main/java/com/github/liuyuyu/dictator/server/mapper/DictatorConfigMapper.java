@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
-import com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigDto;
-import com.github.liuyuyu.dictator.server.common.model.param.ConfigListParam;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto;
+import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.mapper.weekend.DictatorConfigWeekend;
