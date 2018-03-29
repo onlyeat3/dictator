@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.model.entity;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
@@ -12,6 +13,7 @@ public class DictatorResource {
     /**
      * 自增主键
      */
+    @Id
     private Long id;
 
     /**
@@ -24,7 +26,7 @@ public class DictatorResource {
      * 资源类型：菜单、按钮
      */
     @Column(name = "resource_type")
-    private Byte resourceType;
+    private Integer resourceType;
 
     /**
      * 父节点ID
