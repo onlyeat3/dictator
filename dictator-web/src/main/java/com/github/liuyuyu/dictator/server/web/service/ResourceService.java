@@ -7,6 +7,7 @@ import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollba
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
+import com.github.liuyuyu.dictator.server.web.model.type.ResourceTypeEnum;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,9 @@ public class ResourceService {
     }
 
     public PageInfo<DictatorResourceDto> findPage(@NonNull ResourceQueryParam resourceQueryParam){
-        return this.resourceMapper.findByParam(resourceQueryParam);
+        PageInfo<DictatorResourceDto> pageInfo = this.resourceMapper.findByParam(resourceQueryParam);
+        pageInfo.getList().forEach(r-> r.setResourceTypeName(ResourceTypeEnum.valueOf(r.getResourceType()).getName()));
+        return pageInfo;
     }
 
     public List<DictatorResourceDto> findMine(@NonNull Long userId) {

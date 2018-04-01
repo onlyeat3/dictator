@@ -1,11 +1,10 @@
 package com.github.liuyuyu.dictator.server.web.model.type;
 
+import com.github.liuyuyu.dictator.server.web.exception.InvalidEnumException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * @author liuyuyu
@@ -19,9 +18,10 @@ public enum ResourceTypeEnum {
     private int value;
     private String name;
 
-    public static Optional<ResourceTypeEnum> valueOf(@NonNull Integer value) {
+    public static ResourceTypeEnum valueOf(int value) {
         return Arrays.stream(ResourceTypeEnum.values())
-                .filter(e -> e.value == value)
-                .findFirst();
+                .filter(e -> e.getValue() == value)
+                .findFirst()
+                .orElseThrow(() -> new InvalidEnumException(String.valueOf(value)));
     }
 }
