@@ -22,6 +22,10 @@ public class DictatorResourceDto implements Convertible {
      * 资源类型：菜单、按钮
      */
     private Integer resourceType;
+    /**
+     * 资源类型名
+     */
+    private String resourceTypeName;
 
     /**
      * 父节点ID
