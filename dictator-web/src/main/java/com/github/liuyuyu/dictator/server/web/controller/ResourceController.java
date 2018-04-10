@@ -4,7 +4,6 @@ import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
-import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.web.model.response.ResourceResponse;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,9 +36,9 @@ public class ResourceController {
     }
 
     @RequestMapping("/list")
-    public DataWrapper showList(@RequestBody @Valid ResourceQueryParam param){
-        PageInfo<DictatorResourceDto> page = this.resourceService.findPage(param);
-        return DataWrapper.from(page);
+    public DataWrapper showList(){
+        List<DictatorResourceDto> resourceDtoList = this.resourceService.findByParentId(Collections.singletonList(0L));
+        return DataWrapper.from(resourceDtoList);
     }
 
     @RequestMapping("/saveOrUpdate")

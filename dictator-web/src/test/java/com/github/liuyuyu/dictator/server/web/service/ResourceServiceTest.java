@@ -1,7 +1,5 @@
 package com.github.liuyuyu.dictator.server.web.service;
 
-import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
-import com.github.liuyuyu.dictator.server.constant.TestConstant;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
@@ -18,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -27,7 +27,10 @@ import static org.junit.Assert.assertFalse;
  * @author liuyuyu
  */
 @Slf4j
-public class ResourceServiceTest extends AbstractSpringBootTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class ResourceServiceTest {
     @Autowired private ResourceService resourceService;
     @Autowired private DictatorResourceMapper resourceMapper;
     private static Long resourceId;
@@ -40,8 +43,8 @@ public class ResourceServiceTest extends AbstractSpringBootTest {
         param.setResourceType(ResourceTypeEnum.MENU.getValue());
         param.setParentId(0L);
         param.setTargetUri("/login");
-        param.setOperatorId(TestConstant.defaultUserId);
-        param.setOperatorIp(TestConstant.IP);
+        param.setOperatorId(1L);
+        param.setOperatorIp("0.0.0.0");
         resourceId = this.resourceService.saveOrUpdate(param);
     }
 
@@ -53,8 +56,8 @@ public class ResourceServiceTest extends AbstractSpringBootTest {
         param.setResourceType(ResourceTypeEnum.BUTTON.getValue());
         param.setParentId(-1L);
         param.setTargetUri("/signin");
-        param.setOperatorId(TestConstant.defaultUserId);
-        param.setOperatorIp(TestConstant.IP);
+        param.setOperatorId(-1L);
+        param.setOperatorIp("6.6.6.6");
         this.resourceService.saveOrUpdate(param);
     }
 
@@ -69,23 +72,22 @@ public class ResourceServiceTest extends AbstractSpringBootTest {
     }
 
     @Test
-    public void test4findPage() {
-        IntStream.range(0,99)
-                .boxed()
-                .map(i->{
-                    ResourceSaveOrUpdateParam param = new ResourceSaveOrUpdateParam();
-                    param.setResourceName("资源"+i);
-                    param.setResourceType(ResourceTypeEnum.MENU.getValue());
-                    param.setParentId(0L);
-                    param.setTargetUri("/"+i);
-                    param.setOperatorId((long) i);
-                    param.setOperatorIp(TestConstant.IP);
-                    return param;
-                })
-                .forEach(r-> this.resourceService.saveOrUpdate(r));
-        ResourceQueryParam param = ResourceQueryParam.of();
-        PageInfo<DictatorResourceDto> page = this.resourceService.findPage(param);
-        assertFalse(page.getList().isEmpty());
+    public void test4FindByParentIdList() {
+//        IntStream.range(0,99)
+//                .boxed()
+//                .map(i->{
+//                    ResourceSaveOrUpdateParam param = new ResourceSaveOrUpdateParam();
+//                    param.setResourceName("资源"+i);
+//                    param.setResourceType(ResourceTypeEnum.MENU.getValue());
+//                    param.setParentId(0L);
+//                    param.setTargetUri("/"+i);
+//                    param.setOperatorId((long) i);
+//                    param.setOperatorIp("0.0.0."+i);
+//                    return param;
+//                })
+//                .forEach(r-> this.resourceService.saveOrUpdate(r));
+        List<DictatorResourceDto> resourceDtoList = this.resourceService.findByParentId(Collections.singletonList(0L));
+        assertFalse(resourceDtoList.isEmpty());
     }
 
 }
