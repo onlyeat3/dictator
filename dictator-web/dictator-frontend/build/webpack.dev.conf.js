@@ -8,6 +8,8 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -52,12 +54,14 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
-      template: config.build.index,
+      template: 'index.html',
       inject: true,
+      alwaysWriteToDisk: true,
       favicon: resolve('favicon.ico'),
       title: 'vue-element-admin',
       path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
     }),
+    new HtmlWebpackHarddiskPlugin()
   ]
 })
 
