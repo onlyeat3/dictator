@@ -7,4 +7,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface DictatorRoleResourceMapper extends SimpleMapper<DictatorRoleResource> {
     int deleteByResourceId(@Param("resourceId") Long resourceId);
+
+    void deleteByRoleId(@Param("roleId") Long roleId);
 }

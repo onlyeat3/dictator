@@ -5,4 +5,8 @@
         delete from dictator_role_resource
         where resource_id = #{resourceId}
     </delete>
+    <delete id="deleteByRoleId">
+        delete from dictator_role_resource
+        where role_id = #{roleId}
+    </delete>
 </mapper>
