@@ -3,6 +3,9 @@ package com.github.liuyuyu.dictator.server.web.model.dto;
 import com.github.liuyuyu.dictator.common.Convertible;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author liuyuyu
  */
@@ -22,6 +25,10 @@ public class DictatorResourceDto implements Convertible {
      * 资源类型：菜单、按钮
      */
     private Integer resourceType;
+    /**
+     * 资源类型名
+     */
+    private String resourceTypeName;
 
     /**
      * 父节点ID
@@ -37,4 +44,12 @@ public class DictatorResourceDto implements Convertible {
      * 目标URI
      */
     private String targetUri;
+    /**
+     * 是否选中
+     */
+    private Boolean checked;
+    /**
+     * 子节点
+     */
+    private List<DictatorResourceDto> children = new ArrayList<>();
 }

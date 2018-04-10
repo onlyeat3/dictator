@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.server.web.service;
 
+import com.github.liuyuyu.dictator.common.utils.BeanConverter;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorRoleResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
@@ -7,12 +8,13 @@ import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollba
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
-import com.github.pagehelper.PageInfo;
+import com.github.liuyuyu.dictator.server.web.model.type.ResourceTypeEnum;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author liuyuyu
@@ -47,8 +49,31 @@ public class ResourceService {
         this.roleResourceMapper.deleteByResourceId(resourceId);
     }
 
-    public PageInfo<DictatorResourceDto> findPage(@NonNull ResourceQueryParam resourceQueryParam){
-        return this.resourceMapper.findByParam(resourceQueryParam);
+    public List<DictatorResourceDto> findByParentId(@NonNull List<Long> parentIdList){
+        Map<Long, List<DictatorResource>> parentIdResourceMap = this.resourceMapper.findByParentIdList(parentIdList);
+        List<Long> nextParentIdList = parentIdResourceMap.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .map(DictatorResource::getId)
+                .collect(Collectors.toList());
+        List<DictatorResource> flatResourceList = parentIdResourceMap.values().stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        List<DictatorResourceDto> resourceDtoList = BeanConverter.from(flatResourceList)
+                .toList(DictatorResourceDto.class);
+        resourceDtoList.forEach(r-> r.setResourceTypeName(ResourceTypeEnum.valueOf(r.getResourceType()).getName()));
+
+        if(!nextParentIdList.isEmpty()){
+            List<DictatorResourceDto> children = this.findByParentId(nextParentIdList);
+            resourceDtoList.stream()
+                    .forEach(r->{
+                        List<DictatorResourceDto> childrenList = children.stream()
+                                .filter(c -> r.getId().equals(c.getParentId()))
+                                .collect(Collectors.toList());
+                        r.getChildren().addAll(childrenList);
+                    });
+        }
+        return resourceDtoList;
     }
 
     public List<DictatorResourceDto> findMine(@NonNull Long userId) {
