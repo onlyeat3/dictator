@@ -1,5 +1,7 @@
 package com.github.liuyuyu.dictator.server.web.service;
 
+import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
+import com.github.liuyuyu.dictator.server.constant.TestConstant;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
@@ -25,10 +27,7 @@ import static org.junit.Assert.assertFalse;
  * @author liuyuyu
  */
 @Slf4j
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ResourceServiceTest {
+public class ResourceServiceTest extends AbstractSpringBootTest {
     @Autowired private ResourceService resourceService;
     @Autowired private DictatorResourceMapper resourceMapper;
     private static Long resourceId;
@@ -41,8 +40,8 @@ public class ResourceServiceTest {
         param.setResourceType(ResourceTypeEnum.MENU.getValue());
         param.setParentId(0L);
         param.setTargetUri("/login");
-        param.setOperatorId(1L);
-        param.setOperatorIp("0.0.0.0");
+        param.setOperatorId(TestConstant.defaultUserId);
+        param.setOperatorIp(TestConstant.IP);
         resourceId = this.resourceService.saveOrUpdate(param);
     }
 
@@ -54,8 +53,8 @@ public class ResourceServiceTest {
         param.setResourceType(ResourceTypeEnum.BUTTON.getValue());
         param.setParentId(-1L);
         param.setTargetUri("/signin");
-        param.setOperatorId(-1L);
-        param.setOperatorIp("6.6.6.6");
+        param.setOperatorId(TestConstant.defaultUserId);
+        param.setOperatorIp(TestConstant.IP);
         this.resourceService.saveOrUpdate(param);
     }
 
@@ -80,7 +79,7 @@ public class ResourceServiceTest {
                     param.setParentId(0L);
                     param.setTargetUri("/"+i);
                     param.setOperatorId((long) i);
-                    param.setOperatorIp("0.0.0."+i);
+                    param.setOperatorIp(TestConstant.IP);
                     return param;
                 })
                 .forEach(r-> this.resourceService.saveOrUpdate(r));
