@@ -8,4 +8,9 @@
         select 1 from dictator_user_role ur where ur.role_id = role.id and ur.user_id = #{userId}
         )
     </select>
+    <select id="find" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorRoleDto">
+        select r.*,group_concat(res.resource_name) as permissions from dictator_role r
+        left join dictator_role_resource rr on rr.role_id = r.id
+        left join dictator_resource res on res.id = rr.resource_id
+    </select>
 </mapper>

@@ -3,11 +3,13 @@ package com.github.liuyuyu.dictator.client;
 import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 /*
  * @author liuyuyu
  */
+@Slf4j
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class DictatorClientProperties extends BaseProperties {
@@ -21,12 +23,16 @@ public class DictatorClientProperties extends BaseProperties {
         return new DictatorClientProperties();
     }
 
-    public static DictatorClientProperties of(@NonNull String appId, @NonNull String deploymentId, @NonNull String profile, @NonNull String serverUrl) {
-        DictatorClientProperties dictatorClientProperties = new DictatorClientProperties();
-        dictatorClientProperties.setAppId(appId);
-        dictatorClientProperties.setDeploymentId(deploymentId);
-        dictatorClientProperties.setProfile(profile);
-        dictatorClientProperties.setServerUrl(serverUrl);
-        return dictatorClientProperties;
+    public void verify() {
+        if(StringUtils.isEmpty(this.serverUrl)){
+            throw new IllegalArgumentException("dictator serverUrl is required");
+        }
+        if(StringUtils.isEmpty(this.getAppId())){
+            throw new IllegalArgumentException("dictator appId is required");
+        }
+    }
+
+    public void printCurrent(){
+        log.info("Current dictator info:{}",this);
     }
 }

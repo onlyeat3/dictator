@@ -10,5 +10,13 @@
                 <![CDATA[ 配置启用Dictator作为配置中心]]>
             </xsd:documentation>
         </xsd:annotation>
+        <xsd:complexType>
+            <!-- 应用ID -->
+            <xsd:attribute name="appId" type="xsd:string" />
+            <!-- 环境（开发/测试/生产） -->
+            <xsd:attribute name="profile" type="xsd:string" />
+            <!-- 配置中心服务端的地址（http://127.0.0.1:3399） -->
+            <xsd:attribute name="serverUrl" type="xsd:string" />
+        </xsd:complexType>
     </xsd:element>
 </xsd:schema>

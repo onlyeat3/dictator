@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.spring;
 
+import com.github.liuyuyu.dictator.client.DictatorClientProperties;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.AbstractBeanDefinitionParser;
@@ -26,7 +27,12 @@ public class DictatorSpringNamespaceHandler extends NamespaceHandlerSupport {
 
         @Override
         protected AbstractBeanDefinition parseInternal(Element element, ParserContext parserContext) {
+            DictatorClientProperties dictatorClientProperties = DictatorClientProperties.of();
+            dictatorClientProperties.setProfile(element.getAttribute("profile"));
+            dictatorClientProperties.setServerUrl(element.getAttribute("serverUrl"));
+            dictatorClientProperties.setAppId(element.getAttribute("appId"));
             return BeanDefinitionBuilder.rootBeanDefinition(DictatorPropertySourcesPlaceholderConfigurer.class)
+                    .addPropertyValue("dictatorClientProperties",dictatorClientProperties)
                     .getBeanDefinition();
         }
     }

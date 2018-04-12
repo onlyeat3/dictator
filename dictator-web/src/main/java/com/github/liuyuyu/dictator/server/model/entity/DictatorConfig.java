@@ -23,12 +23,6 @@ public class DictatorConfig {
     private String appId;
 
     /**
-     * 部署的ID（例如：机器名+环境名）
-     */
-    @Column(name = "deployment_id")
-    private String deploymentId;
-
-    /**
      * 配置名
      */
     @Column(name = "config_name")

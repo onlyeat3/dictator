@@ -35,9 +35,6 @@ public class DictatorClient {
         if (dictatorClientProperties.getAppId() == null) {
             throw new IllegalArgumentException("appId can not be null.");
         }
-        if (dictatorClientProperties.getDeploymentId() == null) {
-            throw new IllegalArgumentException("deploymentId can not be null.");
-        }
         if (dictatorClientProperties.getServerUrl() == null) {
             throw new IllegalArgumentException("serverUrl can not be null.");
         }

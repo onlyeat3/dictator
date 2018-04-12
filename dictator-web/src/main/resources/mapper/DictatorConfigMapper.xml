@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.liuyuyu.dictator.server.mapper.DictatorConfigMapper">
-    <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.common.model.dto.DictatorConfigDto">
+    <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto">
         select * from dictator_config
         <where>
             <if test="appId != null and appId != ''">
                 and app_id = #{appId}
-            </if>
-            <if test="deploymentId != null and deploymentId != ''">
-                and deployment_id = #{deploymentId}
             </if>
             <if test="profileId != null and profileId != ''">
                 and profile_id = #{profileId}

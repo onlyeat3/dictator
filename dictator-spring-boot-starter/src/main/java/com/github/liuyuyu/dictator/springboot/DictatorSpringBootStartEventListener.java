@@ -34,7 +34,7 @@ public class DictatorSpringBootStartEventListener implements SpringApplicationRu
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext configurableApplicationContext) {
-        DictatorPropertyManager.init(configurableApplicationContext);
+        DictatorPropertyManager.init(configurableApplicationContext.getEnvironment());
         log.info("dictator loaded.");
     }
 
