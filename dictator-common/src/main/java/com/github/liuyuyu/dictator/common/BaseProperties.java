@@ -16,11 +16,6 @@ public class BaseProperties {
     @NotBlank
     private String appId;
     /**
-     * 部署的节点ID
-     */
-    @NotBlank
-    private String deploymentId;
-    /**
      * profile code
      */
     private String profile = StringUtils.EMPTY;
@@ -33,7 +28,6 @@ public class BaseProperties {
     public static BaseProperties from(@NonNull BaseProperties source) {
         BaseProperties target = new BaseProperties();
         target.setAppId(source.getAppId());
-        target.setDeploymentId(source.getDeploymentId());
         target.setProfile(source.getProfile());
         target.setLastUpdatedTime(source.getLastUpdatedTime());
         return target;

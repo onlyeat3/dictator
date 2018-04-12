@@ -1,0 +1,16 @@
+.el-pagination {
+  margin-top: 10px;
+}
+
+.form {
+  width: 500px;
+}
+
+.simple-table {
+  width: 100%;
+  border: 1px solid #e6dcdc;
+  &tr td:first-child{
+    padding: 3px;
+    width: 80px;
+  }
+}

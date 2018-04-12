@@ -2,20 +2,19 @@ package com.github.liuyuyu.dictator.spring;
 
 import com.github.liuyuyu.dictator.client.DictatorClient;
 import com.github.liuyuyu.dictator.client.DictatorClientProperties;
-import com.github.liuyuyu.dictator.spring.loader.DictatorBootstrapPropertiesLoader;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 /**
  * @author liuyuyu
@@ -57,18 +56,42 @@ public class DictatorPropertyManager {
         }
     }
 
-    public static void init(@NonNull ApplicationContext applicationContext) {
-        Resource resource = applicationContext.getResource(ResourceLoader.CLASSPATH_URL_PREFIX + "dictator.properties");
-        try {
-            DictatorClientProperties dictatorClientProperties = DictatorBootstrapPropertiesLoader.from(resource);
-            DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
-            DictatorPropertyManager.refreshCache();
-        } catch (IOException e) {
-            log.error("dictator init load fail", e);
-        }
+    /**
+     * 能够获取原来配置，可以用的初始化方式
+     */
+    public static void init(@NonNull Environment environment) {
+        //取Spring的profile作为环境区分的标识
+        List<String> activeProfileList = Arrays.stream(environment.getActiveProfiles())
+                .collect(Collectors.toList());
+        String mainProfile = activeProfileList.stream()
+                .findFirst()
+                .orElse(environment.getDefaultProfiles()[0]);
+        DictatorClientProperties dictatorClientProperties = DictatorClientProperties.of();
+        dictatorClientProperties.setProfile(mainProfile);
+        dictatorClientProperties.setServerUrl(environment.getProperty("dictator.serverUrl"));
+        dictatorClientProperties.setAppId(environment.getProperty("dictator.appId"));
+        dictatorClientProperties.setProfile(mainProfile);
+        // 打印参数
+        dictatorClientProperties.printCurrent();
+        //验证参数
+        dictatorClientProperties.verify();
+        DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
+        DictatorPropertyManager.refreshCache();
     }
 
     public static boolean containsName(@NonNull String name) {
         return CONFIG_CACHE.containsKey(name);
+    }
+
+    /**
+     * 加载时不能获取到系统配置，使用的初始化方式
+     */
+    public static void init(@NonNull DictatorClientProperties dictatorClientProperties) {
+        // 打印参数
+        dictatorClientProperties.printCurrent();
+        //验证参数
+        dictatorClientProperties.verify();
+        DICTATOR_CLIENT = DictatorClient.of(dictatorClientProperties);
+        DictatorPropertyManager.refreshCache();
     }
 }

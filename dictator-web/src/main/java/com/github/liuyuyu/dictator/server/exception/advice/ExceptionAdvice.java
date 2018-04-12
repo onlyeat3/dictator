@@ -2,7 +2,7 @@ package com.github.liuyuyu.dictator.server.exception.advice;
 
 import com.github.liuyuyu.dictator.common.ErrorCodeEnum;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
-import com.github.liuyuyu.dictator.server.common.exception.ServiceException;
+import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

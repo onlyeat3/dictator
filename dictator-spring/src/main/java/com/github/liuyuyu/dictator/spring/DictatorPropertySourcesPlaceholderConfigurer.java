@@ -1,13 +1,12 @@
 package com.github.liuyuyu.dictator.spring;
 
+import com.github.liuyuyu.dictator.client.DictatorClientProperties;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.util.Properties;
 
@@ -17,8 +16,8 @@ import java.util.Properties;
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements InitializingBean, ApplicationContextAware {
-    private ApplicationContext applicationContext;
+public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceholderConfigurer implements InitializingBean {
+    private DictatorClientProperties dictatorClientProperties;
 
     @Override
     protected String resolvePlaceholder(@NonNull String placeholder, Properties props, int systemPropertiesMode) {
@@ -27,7 +26,8 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
 
     @Override
     public void afterPropertiesSet() {
-        DictatorPropertyManager.init(this.applicationContext);
+        DictatorPropertyManager.init(this.dictatorClientProperties);
         log.info("loaded.");
     }
+
 }
