@@ -42,50 +42,38 @@
               v-loading.body="listLoading"
               border fit highlight-current-row>
       <el-table-column prop="id" label="" align="center" type="expand">
-        <template slot-scope="props">
-          <table class="simple-table">
-            <tr>
-              <td>id</td>
-              <td>{{ props.row.id }}</td>
-            </tr>
-            <tr>
-              <td>应用ID</td>
-              <td>{{ props.row.appId }}</td>
-            </tr>
-            <tr>
-              <td>部署ID</td>
-              <td>{{ props.row.deploymentId }}</td>
-            </tr>
-            <tr>
-              <td>环境</td>
-              <td>{{ props.row.profileName }}</td>
-            </tr>
-            <tr>
-              <td>分组</td>
-              <td>{{ props.row.groupName }}</td>
-            </tr>
-            <tr>
-              <td>配置名</td>
-              <td>{{ props.row.configName }}</td>
-            </tr>
-            <tr>
-              <td>属性值</td>
-              <td>{{ props.row.configValue }}</td>
-            </tr>
-            <tr>
-              <td>版本</td>
-              <td>{{ props.row.version }}</td>
-            </tr>
-            <tr>
-              <td>创建时间</td>
-              <td>{{ props.row.createdTime }}</td>
-            </tr>
-            <tr>
-              <td>修改时间</td>
-              <td>{{ props.row.updatedTime }}</td>
-            </tr>
-          </table>
-        </template>
+        <el-form slot-scope="props" label-position="left">
+            <el-form-item label="id">
+              <span>{{props.row.id}}</span>
+            </el-form-item>
+            <el-form-item label="应用ID">
+              <span>{{props.row.appId}}</span>
+            </el-form-item>
+            <el-form-item label="部署ID">
+              <span>{{props.row.deploymentId}}</span>
+            </el-form-item>
+            <el-form-item label="环境">
+              <span>{{props.row.profileName}}</span>
+            </el-form-item>
+            <el-form-item label="分组">
+              <span>{{props.row.groupName}}</span>
+            </el-form-item>
+            <el-form-item label="配置名">
+              <span>{{props.row.configName}}</span>
+            </el-form-item>
+            <el-form-item label="属性值">
+              <span>{{props.row.configValue}}</span>
+            </el-form-item>
+            <el-form-item label="版本">
+              <span>{{props.row.version}}</span>
+            </el-form-item>
+            <el-form-item label="创建时间">
+              <span>{{props.row.createdTime}}</span>
+            </el-form-item>
+            <el-form-item label="修改时间">
+              <span>{{props.row.updatedTime}}</span>
+            </el-form-item>
+          </el-form>
       </el-table-column>
       <el-table-column prop="appId" label="应用ID" align="center"/>
       <el-table-column prop="deploymentId" label="部署ID" align="center"/>
