@@ -6,3 +6,10 @@ export function listAll(data){
     data
   });
 }
+
+export function saveOrUpdateResource(data){
+  return request({
+    url: "/resource/saveOrUpdate",
+    data
+  });
+}

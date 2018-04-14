@@ -34,6 +34,7 @@ public class ResourceService {
             }else{
                 dictatorResourceEntity.setParentIds("/"+dictatorResourceEntity.getParentId());
             }
+            dictatorResourceEntity.setResourceType(ResourceTypeEnum.valueOf(resourceSaveOrUpdateParam.getResourceType()).getValue());
             this.resourceMapper.insertSelective(dictatorResourceEntity);
         }else{
             this.resourceMapper.updateByPrimaryKeySelective(dictatorResourceEntity);
