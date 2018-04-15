@@ -13,3 +13,9 @@ export function saveOrUpdateResource(data){
     data
   });
 }
+export function deleteResource(data){
+  return request({
+    url: "/resource/delete",
+    data
+  });
+}
