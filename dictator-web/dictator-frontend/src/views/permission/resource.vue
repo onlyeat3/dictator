@@ -58,6 +58,7 @@
 <script>
   import {listAll} from "@/api/resource";
   import {saveOrUpdateResource} from "@/api/resource";
+  import {deleteResource} from "@/api/resource";
   import {clearAttrs} from "@/utils";
 
   export default {
@@ -112,7 +113,17 @@
         this.editForm.resourceType = data.resourceType + '';
       },
       deleteNode(data){
-        console.log(data);
+        this.$confirm('删除后无法恢复, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteResource(data)
+          .then(()=>{
+            this.fetchData();
+          });
+        }).catch(() => {
+        });
       },
       saveOrUpdateResource(){
         saveOrUpdateResource(this.editForm)
