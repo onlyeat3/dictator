@@ -5,7 +5,7 @@ import com.github.liuyuyu.dictator.server.constant.TestConstant;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.model.param.RolePermissionUpdateParam;
-import com.github.liuyuyu.dictator.server.web.model.param.RoleSaveParam;
+import com.github.liuyuyu.dictator.server.web.model.param.RoleSaveOrUpdateParam;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -25,11 +25,11 @@ public class RoleServiceTest extends AbstractSpringBootTest {
 
     @Test
     public void test1saveOrUpdate() {
-        RoleSaveParam roleSaveParam = RoleSaveParam.of();
-        roleSaveParam.setRoleName("XXX");
-        roleSaveParam.setOperatorId(TestConstant.defaultUserId);
-        roleSaveParam.setOperatorIp(TestConstant.IP);
-        roleId = this.roleService.saveOrUpdate(roleSaveParam);
+        RoleSaveOrUpdateParam roleSaveOrUpdateParam = RoleSaveOrUpdateParam.of();
+        roleSaveOrUpdateParam.setRoleName("XXX");
+        roleSaveOrUpdateParam.setOperatorId(TestConstant.defaultUserId);
+        roleSaveOrUpdateParam.setOperatorIp(TestConstant.IP);
+        roleId = this.roleService.saveOrUpdate(roleSaveOrUpdateParam);
     }
 
     @Test

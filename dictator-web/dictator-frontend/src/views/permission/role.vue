@@ -1,0 +1,128 @@
+<template>
+  <div class="app-container">
+    <el-header>
+        <el-button icon="el-icon-circle-plus-outline" type="primary" @click=handleAdd>增加</el-button>
+    </el-header>
+    <el-main>
+      <el-table :data="tableData"
+              v-loading.body="listLoading"
+              border fit highlight-current-row>
+        <el-table-column prop="roleName" label="角色名" align="center"/>
+        <el-table-column prop="permissions" label="已有权限" align="center"/>
+        <el-table-column prop="createdAt" label="创建时间" align="center"/>
+        <el-table-column prop="updatedAt" label="更新时间" align="center"/>
+        <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
+          <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
+          <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+        </template>
+      </el-table-column>
+      </el-table>
+    </el-main>
+    <el-dialog :visible.sync="editForm.showForm" :before-close="clearForm" width="600px" title="配置">
+      <el-form v-model="editForm" label-width="80px">
+        <el-input type="hidden" v-model="editForm.id"/>
+        <el-form-item label="角色名">
+          <el-input v-model="editForm.roleName"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="saveOrUpdateRole">立即创建</el-button>
+          <el-button @click="clearForm">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <el-dialog :visible.sync="permissionForm.showForm" :before-close="clearForm" width="600px" title="配置">
+      <el-form v-model="permissionForm" label-width="80px">
+        <el-input type="hidden" v-model="permissionForm.id"/>
+        <el-form-item label="权限">
+          <el-tree
+            :props="treeProps"
+            lazy
+            show-checkbox>
+          </el-tree>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="saveOrUpdateRole">立即创建</el-button>
+          <el-button @click="clearForm">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import roleApi from "@/api/role";
+import { clearAttrs } from "@/utils";
+
+export default {
+  name: "roleTable",
+  data() {
+    return {
+      listLoading: true,
+      tableData: [],
+      editForm: {
+        id: "",
+        showForm: false
+      },
+      treeProps: {
+        label: "resourceName",
+        children: "children"
+      },
+      permissionForm: {
+        showForm: false,
+        permissions: []
+      }
+    };
+  },
+  methods: {
+    handleAdd() {
+      this.editForm.showForm = true;
+    },
+    handleEdit(data) {
+      Object.assign(this.editForm, data);
+      this.editForm.showForm = true;
+    },
+    handleUpdatePermission(data) {
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      roleApi.loadDetail(data).then(({data}) => {
+        Object.assign(this.permissionForm, data.permissionList);
+        this.permissionForm.showForm = true;
+        loading.close();
+      });
+    },
+    handleDelete(data) {
+      console.log(2);
+    },
+    saveOrUpdateRole() {
+      roleApi.saveOrUpdateRole(this.editForm).then(() => {
+        this.fetchData();
+        this.clearForm();
+      });
+    },
+    clearForm() {
+      clearAttrs(this.editForm);
+    },
+    fetchData() {
+      this.listLoading = true;
+      roleApi
+        .listAll()
+        .then(({ data }) => {
+          this.tableData = data.list;
+          this.listLoading = false;
+        })
+        .catch(() => {
+          this.listLoading = false;
+        });
+    }
+  },
+  created() {
+    this.fetchData();
+  }
+};
+</script>
