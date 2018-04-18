@@ -2,7 +2,9 @@ package com.github.liuyuyu.dictator.server.web.model.dto;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class DictatorRoleDto {
@@ -29,4 +31,8 @@ public class DictatorRoleDto {
      * 最后更新时间
      */
     private Date updatedAt;
+    /**
+     * 权限列表
+     */
+    private List<DictatorResourceDto> permissionList = new ArrayList<>();
 }

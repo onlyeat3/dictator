@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourcePermissionDto;
 import com.google.common.collect.Lists;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +32,6 @@ public interface DictatorResourceMapper extends SimpleMapper<DictatorResource> {
         });
         return parentIdResourceMap;
     }
+
+    List<DictatorResourcePermissionDto> findPermissionByRoleIdList(@Param("roleIdList") List<Long> roleIdList);
 }

@@ -12,4 +12,17 @@
         </foreach>
         )
     </select>
+    <select id="findPermissionByRoleIdList" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourcePermissionDto">
+        SELECT
+        rr.role_id
+        ,group_concat(res.resource_name) AS permissions
+        FROM
+        dictator_resource res
+        LEFT JOIN dictator_role_resource rr ON res.id = rr.resource_id
+        where rr.role_id in
+        <foreach collection="roleIdList" open="(" separator="," close=")" item="roleId">
+            #{roleId}
+        </foreach>
+        group by rr.role_id
+    </select>
 </mapper>

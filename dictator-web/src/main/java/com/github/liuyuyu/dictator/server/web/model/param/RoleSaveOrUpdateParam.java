@@ -4,14 +4,10 @@ import com.github.liuyuyu.dictator.common.Convertible;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
-
 @Data
-public class RoleSaveParam implements Convertible {
-    public static RoleSaveParam of(){
-        return new RoleSaveParam();
+public class RoleSaveOrUpdateParam implements Convertible {
+    public static RoleSaveOrUpdateParam of(){
+        return new RoleSaveOrUpdateParam();
     }
     /**
      * 自增主键
