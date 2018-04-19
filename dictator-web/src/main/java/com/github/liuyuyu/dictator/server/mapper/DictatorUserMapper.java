@@ -1,10 +1,12 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
 import tk.mybatis.mapper.weekend.Weekend;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
@@ -15,4 +17,6 @@ public interface DictatorUserMapper extends SimpleMapper<DictatorUser> {
                 .andEqualTo(DictatorUser::getUserName, username);
         return this.findOne(weekend);
     }
+
+    List<DictatorUserDto> findAllSummary();
 }

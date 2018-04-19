@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.github.liuyuyu.dictator.server.mapper.DictatorUserMapper"/>
+<mapper namespace="com.github.liuyuyu.dictator.server.mapper.DictatorUserMapper">
+    <select id="findAllSummary" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto">
+        select u.id,user_name,email,mobile,u.created_at,u.updated_at,u.operator_id,u.operator_ip,group_concat(r.role_name) as roles from dictator_user u
+        left join dictator_user_role ur on ur.user_id = u.id
+        left join dictator_role r on r.id = ur.role_id
+        group by u.id
+    </select>
+</mapper>

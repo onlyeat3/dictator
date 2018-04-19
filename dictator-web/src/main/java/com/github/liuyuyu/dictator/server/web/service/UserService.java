@@ -13,6 +13,7 @@ import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEn
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
+import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,22 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    public void saveOrUpdate(DictatorUserDto dictatorUserDto){
+        DictatorUser userEntity = dictatorUserDto.to(DictatorUser.class);
+        if(dictatorUserDto.getId() == null){
+            this.userMapper.insertSelective(userEntity);
+        }else{
+            this.userMapper.updateByPrimaryKeySelective(userEntity);
+        }
+    }
+
+    public void findAll(){
+        this.userMapper.findAllSummary();
+    }
+
+    public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam){
+
     }
 }
