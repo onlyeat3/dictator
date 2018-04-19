@@ -88,22 +88,28 @@ public class RoleService {
         }
         DictatorRoleDto roleDto = BeanConverter.from(roleOpt.get())
                 .to(DictatorRoleDto.class);
-        List<DictatorResourceDto> allPermission = BeanConverter.from(this.resourceMapper.findAll())
+
+        roleDto.setPermissionList(this.findPermission(roleDto.getId(), 0L));
+        List<Long> checkedIdList = this.resourceMapper.findByRoleIdList(Collections.singletonList(roleId)).stream()
+                .map(DictatorResource::getId)
+                .collect(Collectors.toList());
+        roleDto.setCheckedPermissionIdList(checkedIdList);
+        return roleDto;
+    }
+
+    private List<DictatorResourceDto> findPermission(@NonNull Long roleId, @NonNull Long parentId) {
+        List<DictatorResourceDto> allPermission = BeanConverter.from(this.resourceMapper.findByParentId(parentId))
                 .toList(DictatorResourceDto.class);
         //角色拥有的权限
-        List<DictatorResourceDto> dictatorResourceDtoList = BeanConverter.from(this.resourceMapper.findByRoleIdList(Collections.singletonList(roleDto.getId())))
+        List<DictatorResourceDto> dictatorResourceDtoList = BeanConverter.from(this.resourceMapper.findByRoleIdAndParentId(roleId, parentId))
                 .toList(DictatorResourceDto.class);
-
+        //选中
         allPermission.forEach(p -> {
-            dictatorResourceDtoList
-                    .forEach(res -> {
-                        if (p.getId().equals(res.getId())) {
-                            p.setChecked(Boolean.TRUE);
-                        }
-                    });
+            dictatorResourceDtoList.forEach(res -> p.setChecked(p.getId().equals(res.getId())));
         });
-        roleDto.setPermissionList(allPermission);
-        return roleDto;
+        //下级节点,不一次性取出来是因为懒，不想写
+        allPermission.forEach(p -> p.setChildren(this.findPermission(roleId, p.getId())));
+        return allPermission;
     }
 
     public PageInfo<DictatorRoleDto> findPage(@NonNull RoleQueryParam roleQueryParam) {

@@ -34,4 +34,13 @@ public interface DictatorResourceMapper extends SimpleMapper<DictatorResource> {
     }
 
     List<DictatorResourcePermissionDto> findPermissionByRoleIdList(@Param("roleIdList") List<Long> roleIdList);
+
+    default List<DictatorResource> findByParentId(@NonNull Long parentId){
+        Weekend<DictatorResource> weekend = Weekend.of(DictatorResource.class);
+        weekend.weekendCriteria()
+                .andEqualTo(DictatorResource::getParentId,parentId);
+        return this.findAll(weekend);
+    }
+
+    List<DictatorResource> findByRoleIdAndParentId(@Param("roleId") Long roleId,@Param("parentId") Long parentId);
 }

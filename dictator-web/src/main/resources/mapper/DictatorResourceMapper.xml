@@ -25,4 +25,13 @@
         </foreach>
         group by rr.role_id
     </select>
+    <select id="findByRoleIdAndParentId" resultType="com.github.liuyuyu.dictator.server.model.entity.DictatorResource">
+        select * from dictator_resource resource
+        where exists
+        (
+        select 1 from dictator_role_resource rr where rr.resource_id = resource.id
+        and rr.role_id = #{roleId}
+        )
+        and parent_id = #{parentId}
+    </select>
 </mapper>

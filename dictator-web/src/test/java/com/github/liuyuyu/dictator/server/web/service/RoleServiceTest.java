@@ -1,9 +1,11 @@
 package com.github.liuyuyu.dictator.server.web.service;
 
+import com.github.liuyuyu.dictator.common.utils.JsonUtils;
 import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
 import com.github.liuyuyu.dictator.server.constant.TestConstant;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorRoleDto;
 import com.github.liuyuyu.dictator.server.web.model.param.RolePermissionUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.RoleSaveOrUpdateParam;
 import org.junit.FixMethodOrder;
@@ -53,5 +55,27 @@ public class RoleServiceTest extends AbstractSpringBootTest {
 
     @Test
     public void find5Page() {
+    }
+
+    @Test
+    public void saveOrUpdate() {
+    }
+
+    @Test
+    public void updatePermission() {
+    }
+
+    @Test
+    public void delete() {
+    }
+
+    @Test
+    public void findDetail() {
+    }
+
+    @Test
+    public void findPage() {
+        DictatorRoleDto roleDto = this.roleService.findDetail(1L);
+        System.out.println(JsonUtils.toJson(roleDto,true));
     }
 }

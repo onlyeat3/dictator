@@ -38,7 +38,11 @@
         <el-form-item label="权限">
           <el-tree
             :props="treeProps"
-            lazy
+            :data="treeData"
+            node-key="id"
+            default-expand-all
+            :default-checked-keys="treeCheckedList"
+            :expand-on-click-node="false"
             show-checkbox>
           </el-tree>
         </el-form-item>
@@ -65,13 +69,13 @@ export default {
         id: "",
         showForm: false
       },
-      treeProps: {
-        label: "resourceName",
-        children: "children"
+      treeProps:{
+        label:'resourceName'
       },
+      treeData:[],
+      treeCheckedList:[],
       permissionForm: {
-        showForm: false,
-        permissions: []
+        showForm: false
       }
     };
   },
@@ -91,7 +95,8 @@ export default {
         background: "rgba(0, 0, 0, 0.7)"
       });
       roleApi.loadDetail(data).then(({data}) => {
-        Object.assign(this.permissionForm, data.permissionList);
+        this.treeData = data.permissionList;
+        this.treeCheckedList = data.checkedPermissionIdList;
         this.permissionForm.showForm = true;
         loading.close();
       });
