@@ -35,4 +35,8 @@ public class DictatorRoleDto {
      * 权限列表
      */
     private List<DictatorResourceDto> permissionList = new ArrayList<>();
+    /**
+     * 被选中的资源ID
+     */
+    private List<Long> checkedPermissionIdList = new ArrayList<>();
 }
