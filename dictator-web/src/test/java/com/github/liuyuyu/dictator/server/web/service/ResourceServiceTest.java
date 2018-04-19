@@ -73,19 +73,19 @@ public class ResourceServiceTest {
 
     @Test
     public void test4FindByParentIdList() {
-//        IntStream.range(0,99)
-//                .boxed()
-//                .map(i->{
-//                    ResourceSaveOrUpdateParam param = new ResourceSaveOrUpdateParam();
-//                    param.setResourceName("资源"+i);
-//                    param.setResourceType(ResourceTypeEnum.MENU.getValue());
-//                    param.setParentId(0L);
-//                    param.setTargetUri("/"+i);
-//                    param.setOperatorId((long) i);
-//                    param.setOperatorIp("0.0.0."+i);
-//                    return param;
-//                })
-//                .forEach(r-> this.resourceService.saveOrUpdate(r));
+        IntStream.range(0,99)
+                .boxed()
+                .map(i->{
+                    ResourceSaveOrUpdateParam param = new ResourceSaveOrUpdateParam();
+                    param.setResourceName("资源"+i);
+                    param.setResourceType(ResourceTypeEnum.MENU.getValue());
+                    param.setParentId(0L);
+                    param.setTargetUri("/"+i);
+                    param.setOperatorId((long) i);
+                    param.setOperatorIp("0.0.0."+i);
+                    return param;
+                })
+                .forEach(r-> this.resourceService.saveOrUpdate(r));
         List<DictatorResourceDto> resourceDtoList = this.resourceService.findByParentId(Collections.singletonList(0L));
         assertFalse(resourceDtoList.isEmpty());
     }

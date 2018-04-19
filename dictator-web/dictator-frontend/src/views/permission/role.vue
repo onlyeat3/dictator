@@ -32,13 +32,14 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog :visible.sync="permissionForm.showForm" :before-close="clearForm" width="600px" title="配置">
+    <el-dialog :visible.sync="permissionForm.showForm" :before-close="clearGrantPermissionForm" width="600px" title="配置">
       <el-form v-model="permissionForm" label-width="80px">
         <el-input type="hidden" v-model="permissionForm.id"/>
         <el-form-item label="权限">
           <el-tree
             :props="treeProps"
             :data="treeData"
+            @check="handleResourceCheckChange"
             node-key="id"
             default-expand-all
             :default-checked-keys="treeCheckedList"
@@ -47,8 +48,8 @@
           </el-tree>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="saveOrUpdateRole">立即创建</el-button>
-          <el-button @click="clearForm">取消</el-button>
+          <el-button type="primary" @click="grantPermission">授权</el-button>
+          <el-button @click="clearGrantPermissionForm">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -75,6 +76,7 @@ export default {
       treeData:[],
       treeCheckedList:[],
       permissionForm: {
+        roleId:-1,
         showForm: false
       }
     };
@@ -87,16 +89,17 @@ export default {
       Object.assign(this.editForm, data);
       this.editForm.showForm = true;
     },
-    handleUpdatePermission(data) {
+    handleUpdatePermission(row) {
       const loading = this.$loading({
         lock: true,
         text: "Loading",
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
-      roleApi.loadDetail(data).then(({data}) => {
+      roleApi.loadDetail(row).then(({data}) => {
         this.treeData = data.permissionList;
         this.treeCheckedList = data.checkedPermissionIdList;
+        this.permissionForm.roleId = row.id;
         this.permissionForm.showForm = true;
         loading.close();
       });
@@ -109,6 +112,18 @@ export default {
         this.fetchData();
         this.clearForm();
       });
+    },
+    handleResourceCheckChange(obj,checkedNodes){
+      this.permissionForm.resourceIdList = checkedNodes.checkedKeys;
+    },
+    grantPermission(){
+      roleApi.grantPermission(this.permissionForm)
+      .then(()=>{
+        this.clearGrantPermissionForm();
+      });
+    },
+    clearGrantPermissionForm(){
+      clearAttrs(this.permissionForm);
     },
     clearForm() {
       clearAttrs(this.editForm);

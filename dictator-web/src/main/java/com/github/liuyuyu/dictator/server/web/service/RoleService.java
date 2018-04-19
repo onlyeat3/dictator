@@ -60,7 +60,6 @@ public class RoleService {
         this.roleResourceMapper.deleteByRoleId(rolePermissionUpdateParam.getRoleId());
         //insert
         rolePermissionUpdateParam.getResourceIdList().stream()
-                .parallel()
                 .map(resourceId -> {
                     DictatorRoleResource rr = new DictatorRoleResource();
                     rr.setRoleId(rolePermissionUpdateParam.getRoleId());
