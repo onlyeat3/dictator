@@ -3,6 +3,9 @@ package com.github.liuyuyu.dictator.server.web.model.param;
 import com.github.liuyuyu.dictator.common.Convertible;
 import com.github.liuyuyu.dictator.common.Resolvable;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author liuyuyu
@@ -17,23 +20,15 @@ public class DictatorUserSaveOrUpdateParam implements Convertible,Resolvable {
     /**
      * 管理员姓名
      */
-    private String userName;
+    @NotBlank private String userName;
 
     /**
      * 联系邮箱
      */
-    private String email;
+    @NotBlank private String email;
 
     /**
      * 联系手机
      */
-    private String mobile;
-    /**
-     * 当前token
-     */
-    private String token;
-    /**
-     * 所属角色
-     */
-    private String roles;
+    @NotBlank private String mobile;
 }

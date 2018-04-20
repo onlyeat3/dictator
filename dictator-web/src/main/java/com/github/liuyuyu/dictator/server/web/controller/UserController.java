@@ -4,6 +4,7 @@ import com.github.liuyuyu.dictator.common.NamedValue;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
+import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
 import com.github.liuyuyu.dictator.server.web.model.request.LoginRequest;
 import com.github.liuyuyu.dictator.server.web.model.response.UserInfoResponse;
@@ -42,5 +43,17 @@ public class UserController {
         UserInfoResponse userInfoResponse = UserInfoResponse.of();
         userInfoResponse.from(userInfo);
         return DataWrapper.from(userInfoResponse);
+    }
+
+    @RequestMapping("/saveOrUpdate")
+    public DataWrapper saveOrUpdate(@RequestBody @Valid DictatorUserSaveOrUpdateParam userSaveOrUpdateParam){
+        DictatorUserDto userDto = userSaveOrUpdateParam.to(DictatorUserDto.class);
+        this.userService.saveOrUpdate(userDto);
+        return DataWrapper.of();
+    }
+
+    @RequestMapping("/listAll")
+    public DataWrapper listAll(){
+        return DataWrapper.from(this.userService.findAll());
     }
 }

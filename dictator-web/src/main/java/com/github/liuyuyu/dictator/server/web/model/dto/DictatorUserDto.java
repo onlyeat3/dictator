@@ -43,4 +43,9 @@ public class DictatorUserDto implements Convertible,Resolvable {
      * 登录IP
      */
     private String loginIp;
+
+    /**
+     * 所属角色
+     */
+    private String roles;
 }
