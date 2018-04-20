@@ -79,8 +79,8 @@ public class UserService {
         }
     }
 
-    public void findAll(){
-        this.userMapper.findAllSummary();
+    public List<DictatorUserDto> findAll(){
+        return this.userMapper.findAllSummary();
     }
 
     public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam){
