@@ -28,6 +28,7 @@
 
         <commons-io.version>2.6</commons-io.version>
         <pagehelper-spring-start.version>1.2.3</pagehelper-spring-start.version>
+        <spring-security.version>4.2.3.RELEASE</spring-security.version>
     </properties>
     <dependencies>
         <dependency>
@@ -69,11 +70,15 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper-spring-start.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.liuyuyu</groupId>
             <artifactId>dictator-common</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

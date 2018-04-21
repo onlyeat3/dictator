@@ -5,13 +5,11 @@ import com.github.liuyuyu.dictator.common.Resolvable;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * @author liuyuyu
  */
 @Data
-public class DictatorUserSaveOrUpdateParam implements Convertible,Resolvable {
+public class DictatorUserSaveOrUpdateParam extends AbstractOperatorParam implements Convertible,Resolvable,OperatorParam {
     /**
      * 自增主键
      */

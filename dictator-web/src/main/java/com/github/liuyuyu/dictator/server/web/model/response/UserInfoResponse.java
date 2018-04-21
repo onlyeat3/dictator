@@ -22,7 +22,7 @@ public class UserInfoResponse implements Convertible,Resolvable {
      */
     private String avatar;
     /**
-     * 拥有角色
+     * 拥有资源
      */
     private List<DictatorResourceDto> resourceList = new ArrayList<>();
 

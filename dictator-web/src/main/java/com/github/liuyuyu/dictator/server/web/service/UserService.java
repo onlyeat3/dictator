@@ -7,16 +7,16 @@ import com.github.liuyuyu.dictator.server.mapper.DictatorRoleMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorUserMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
-import com.github.liuyuyu.dictator.server.utils.PasswordUtils;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
+import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
 import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
 import lombok.NonNull;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,14 +34,15 @@ public class UserService {
     private DictatorResourceMapper resourceMapper;
     @Autowired
     private DictatorRoleMapper roleMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public DictatorUserDto login(@NonNull LoginParam loginParam) {
         //用户校验
         Optional<DictatorUser> userOptional = this.userMapper.findByUsername(loginParam.getUsername());
         DictatorUser dictatorUser = userOptional.orElseThrow(() -> ServiceException.from(UserErrorMessageEnum.USER_NOT_FOUND));
         //密码校验
-        String encryptedPassword = PasswordUtils.encrypt(loginParam.getPassword());
-        if (!StringUtils.equalsIgnoreCase(dictatorUser.getPassword(), encryptedPassword)) {
+        if (!this.passwordEncoder.matches(loginParam.getPassword(),dictatorUser.getPassword())) {
             throw ServiceException.from(UserErrorMessageEnum.INCORRECT_PASSWORD);
         }
         DictatorUserDto dictatorUserDto = new DictatorUserDto();
@@ -70,20 +71,25 @@ public class UserService {
         }
     }
 
-    public void saveOrUpdate(DictatorUserDto dictatorUserDto){
-        DictatorUser userEntity = dictatorUserDto.to(DictatorUser.class);
-        if(dictatorUserDto.getId() == null){
+    public void saveOrUpdate(DictatorUserSaveOrUpdateParam userSaveOrUpdateParam) {
+        DictatorUser userEntity = userSaveOrUpdateParam.to(DictatorUser.class);
+        if (userSaveOrUpdateParam.getId() == null) {
+            userEntity.setPassword(this.genDefaultPassword());
             this.userMapper.insertSelective(userEntity);
-        }else{
+        } else {
             this.userMapper.updateByPrimaryKeySelective(userEntity);
         }
     }
 
-    public List<DictatorUserDto> findAll(){
+    public String genDefaultPassword(){
+        return this.passwordEncoder.encode("123456");
+    }
+
+    public List<DictatorUserDto> findAll() {
         return this.userMapper.findAllSummary();
     }
 
-    public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam){
+    public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam) {
 
     }
 }
