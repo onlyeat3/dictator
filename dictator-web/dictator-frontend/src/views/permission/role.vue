@@ -105,7 +105,10 @@ export default {
       });
     },
     handleDelete(data) {
-      console.log(2);
+      roleApi.deleteRole(data)
+      .then(()=>{
+        this.fetchData();
+      });
     },
     saveOrUpdateRole() {
       roleApi.saveOrUpdateRole(this.editForm).then(() => {
