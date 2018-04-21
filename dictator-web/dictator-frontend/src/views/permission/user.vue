@@ -26,6 +26,9 @@
           <el-input v-model="addForm.email" />
         </el-form-item>
         <el-form-item>
+          <el-tag type="info">默认密码:123456</el-tag>
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" @click="saveOrUpdateUser">立即创建</el-button>
           <el-button @click="clearAddForm">取消</el-button>
         </el-form-item>
