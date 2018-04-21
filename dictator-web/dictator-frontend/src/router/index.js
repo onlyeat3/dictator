@@ -29,6 +29,13 @@ import Layout from '../views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
+  {path: '/login', component: _import('login/index'), hidden: true},
+  {path: '/authredirect', component: _import('login/authredirect'), hidden: true},
+  {path: '/404', component: _import('errorPage/404'), hidden: true},
+  {path: '/401', component: _import('errorPage/401'), hidden: true}
+];
+
+export const asyncRouterMap = [
   {
     path: '',
     component: Layout,
@@ -78,10 +85,6 @@ export const constantRouterMap = [
       }
     ]
   },
-  {path: '/login', component: _import('login/index'), hidden: true},
-  {path: '/authredirect', component: _import('login/authredirect'), hidden: true},
-  {path: '/404', component: _import('errorPage/404'), hidden: true},
-  {path: '/401', component: _import('errorPage/401'), hidden: true},
   {path: '*', redirect: '/404', hidden: true}
 ];
 
@@ -90,13 +93,3 @@ export default new Router({
   scrollBehavior: () => ({y: 0}),
   routes: constantRouterMap
 })
-
-export const asyncRouterMap = [
-  // {
-  //   path: '/dashboard',
-  //   component: Layout,
-  //   redirect: '/dashboard',
-  //   meta: {}, // you can set resourceList in root nav
-  // },
-  {path: '*', redirect: '/404', hidden: true}
-];

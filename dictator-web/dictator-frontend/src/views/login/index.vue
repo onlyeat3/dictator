@@ -22,7 +22,7 @@
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin">{{$t('login.logIn')}}</el-button>
+      <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click.native.prevent="handleLogin" >{{$t('login.logIn')}}</el-button>
       <div class="tips">
         如果不能登录,请先确认数据库是否初始化!!!
       </div>
