@@ -3,6 +3,7 @@ package com.github.liuyuyu.dictator.server.web.controller;
 import com.github.liuyuyu.dictator.common.NamedValue;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
@@ -42,13 +43,19 @@ public class UserController {
         DictatorUserDto userInfo = this.userService.findUserInfo(userDto.getId());
         UserInfoResponse userInfoResponse = UserInfoResponse.of();
         userInfoResponse.from(userInfo);
+
+        //增加首页
+        DictatorResourceDto dictatorResourceDto = new DictatorResourceDto();
+        dictatorResourceDto.setId(-1L);
+        dictatorResourceDto.setTargetUri("/");
+        userInfoResponse.getResourceList().add(dictatorResourceDto);
         return DataWrapper.from(userInfoResponse);
     }
 
     @RequestMapping("/saveOrUpdate")
-    public DataWrapper saveOrUpdate(@RequestBody @Valid DictatorUserSaveOrUpdateParam userSaveOrUpdateParam){
-        DictatorUserDto userDto = userSaveOrUpdateParam.to(DictatorUserDto.class);
-        this.userService.saveOrUpdate(userDto);
+    public DataWrapper saveOrUpdate(@RequestBody @Valid DictatorUserSaveOrUpdateParam userSaveOrUpdateParam,@CurrentUser DictatorUserDto currentUser){
+        userSaveOrUpdateParam.join(currentUser);
+        this.userService.saveOrUpdate(userSaveOrUpdateParam);
         return DataWrapper.of();
     }
 
