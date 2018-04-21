@@ -29,5 +29,10 @@ export default {
       url: '/role/detail',
       data
     });
+  },deleteRole(data) {
+    return request({
+      url: '/role/delete',
+      data
+    });
   }
 }
