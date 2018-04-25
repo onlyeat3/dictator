@@ -12,6 +12,16 @@
           <el-table-column label="手机号" prop="mobile" />
           <el-table-column label="邮箱" prop="email" />
           <el-table-column label="已有角色" prop="roles" />
+          <el-table-column label="操作">
+            <template slot-scope="scope">
+              <el-tooltip content="编辑" placement="top" >
+                <el-button icon="el-icon-edit" />
+              </el-tooltip>
+              <el-tooltip content="删除" placement="top" >
+                <el-button icon="el-icon-delete" />
+              </el-tooltip>
+            </template>
+          </el-table-column>
       </el-table>
     </el-main>
      <el-dialog :visible.sync="addForm.showForm" :before-close="clearAddForm" width="600px" title="增加用户">
