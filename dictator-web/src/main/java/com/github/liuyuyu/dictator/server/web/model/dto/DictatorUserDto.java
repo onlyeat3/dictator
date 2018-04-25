@@ -48,4 +48,8 @@ public class DictatorUserDto implements Convertible,Resolvable {
      * 所属角色
      */
     private String roles;
+    /**
+     * 角色ID
+     */
+    private List<Long> roleIdList = new ArrayList<>();
 }

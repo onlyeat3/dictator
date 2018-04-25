@@ -15,7 +15,7 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-tooltip content="编辑" placement="top" >
-                <el-button icon="el-icon-edit" />
+                <el-button icon="el-icon-edit" @click="handleEdit(scope.row)" />
               </el-tooltip>
               <el-tooltip content="删除" placement="top" >
                 <el-button icon="el-icon-delete" />
@@ -76,6 +76,10 @@ export default {
   methods: {
     handleAdd(){
         this.addForm.showForm = true;
+    },
+    handleEdit(row){
+      this.addForm.showForm = true;
+      Object.assign(this.addForm,row);
     },
     saveOrUpdateUser(){
         userApi.saveOrUpdateUser(this.addForm)

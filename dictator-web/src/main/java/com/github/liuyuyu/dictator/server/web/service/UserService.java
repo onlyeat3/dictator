@@ -9,11 +9,13 @@ import com.github.liuyuyu.dictator.server.mapper.DictatorUserRoleMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUserRole;
+import com.github.liuyuyu.dictator.server.utils.J8Converter;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserRoleDto;
 import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
 import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
@@ -23,11 +25,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author liuyuyu
@@ -126,7 +130,25 @@ public class UserService {
     }
 
     public List<DictatorUserDto> findAll() {
-        return this.userMapper.findAllSummary();
+        List<DictatorUserDto> dictatorUserDtoList = this.userMapper.findAllSummary();
+        List<Long> userIdList = dictatorUserDtoList.stream()
+                .map(DictatorUserDto::getId)
+                .collect(Collectors.toList());
+        if(!userIdList.isEmpty()){
+            List<DictatorUserRoleDto> userRoleDtoList = this.roleMapper.findByUserIdList(userIdList);
+            Map<Long, List<DictatorUserRoleDto>> userIdRoleMap = new J8Converter<DictatorUserRoleDto, Long>(userRoleDtoList)
+                    .toMap(DictatorUserRoleDto::getUserId);
+            return dictatorUserDtoList.stream()
+                    .peek(u->{
+                        List<DictatorUserRoleDto> dictatorUserRoleDtos = userIdRoleMap.get(u.getId());
+                        List<Long> roleIdList = dictatorUserRoleDtos.stream()
+                                .map(DictatorUserRoleDto::getRoleId)
+                                .collect(Collectors.toList());
+                        u.setRoleIdList(roleIdList);
+                    })
+                    .collect(Collectors.toList());
+        }
+        return dictatorUserDtoList;
     }
 
     public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam) {
