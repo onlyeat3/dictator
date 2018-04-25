@@ -5,4 +5,8 @@
         delete from dictator_user_role
         where role_id = #{roleId}
     </delete>
+    <delete id="deleteByUserId">
+        delete from dictator_user_role
+        where user_id = #{userId}
+    </delete>
 </mapper>

@@ -4,6 +4,10 @@ import com.github.liuyuyu.dictator.common.Convertible;
 import com.github.liuyuyu.dictator.common.Resolvable;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author liuyuyu
@@ -29,4 +33,8 @@ public class DictatorUserSaveOrUpdateParam extends AbstractOperatorParam impleme
      * 联系手机
      */
     @NotBlank private String mobile;
+    /**
+     * 角色ID列表
+     */
+    @NotEmpty private List<Long> roleIdList = new ArrayList<>();
 }

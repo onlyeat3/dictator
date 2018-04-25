@@ -35,6 +35,16 @@
         <el-form-item label="邮箱">
           <el-input v-model="addForm.email" />
         </el-form-item>
+        <el-form-item label="角色">
+          <el-select v-model="addForm.roleIdList" multiple filterable placeholder="请选择">
+            <el-option
+              v-for="item in allRoleIdList"
+              :key="item.roleName"
+              :label="item.roleName"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
           <el-tag type="info">默认密码:123456</el-tag>
         </el-form-item>
@@ -48,6 +58,7 @@
 </template>
 <script>
 import userApi from "@/api/user";
+import roleApi from "@/api/role";
 import { clearAttrs } from "@/utils";
 export default {
   name: "user",
@@ -55,8 +66,10 @@ export default {
     return {
       listLoading: true,
       userList: [],
+      allRoleIdList:[],
       addForm:{
-          showForm: false
+        showForm: false,
+        roleIdList:[]
       }
     };
   },
@@ -80,10 +93,16 @@ export default {
         this.userList = data;
         this.listLoading = false;
       });
+    },
+    loadRoles(){
+      roleApi.listAll().then(({data})=>{
+        this.allRoleIdList = data.list;
+      });
     }
   },
   created() {
     this.loadData();
+    this.loadRoles();
   }
 };
 </script>

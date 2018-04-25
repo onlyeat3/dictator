@@ -5,8 +5,10 @@ import com.github.liuyuyu.dictator.common.utils.UUIDUtils;
 import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorRoleMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorUserMapper;
+import com.github.liuyuyu.dictator.server.mapper.DictatorUserRoleMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
+import com.github.liuyuyu.dictator.server.model.entity.DictatorUserRole;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
@@ -38,6 +40,7 @@ public class UserService {
     private DictatorResourceMapper resourceMapper;
     @Autowired
     private DictatorRoleMapper roleMapper;
+    @Autowired private DictatorUserRoleMapper userRoleMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired private ResourceService resourceService;
@@ -106,6 +109,16 @@ public class UserService {
         } else {
             this.userMapper.updateByPrimaryKeySelective(userEntity);
         }
+        //角色处理
+        this.userRoleMapper.deleteByUserId(userSaveOrUpdateParam.getId());
+        userSaveOrUpdateParam.getRoleIdList().stream()
+                .map(roleId->{
+                    DictatorUserRole userRoleEntity = new DictatorUserRole();
+                    userRoleEntity.setRoleId(roleId);
+                    userRoleEntity.setUserId(userEntity.getId());
+                    return userRoleEntity;
+                })
+                .forEach(ur-> this.userRoleMapper.insertSelective(ur));
     }
 
     public String genDefaultPassword(){
