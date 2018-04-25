@@ -13,9 +13,15 @@
         <el-table-column prop="updatedAt" label="更新时间" align="center"/>
         <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
-          <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
-          <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+          <el-tooltip content="编辑" placement="top">
+            <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
+          </el-tooltip>
+          <el-tooltip content="设置" placement="top">
+            <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
+          </el-tooltip>
+          <el-tooltip content="删除" placement="top">
+            <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+          </el-tooltip>
         </template>
       </el-table-column>
       </el-table>
