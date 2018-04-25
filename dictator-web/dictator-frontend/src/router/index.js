@@ -37,24 +37,24 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
-    path: '/',
+    path: '/config',
     component: Layout,
     meta: {title: 'config', icon: 'dashboard', noCache: true},
     children: [
       {
-        path: 'config/current',
+        path: 'current',
         component: _import('config/current'),
         name: 'currentConfig',
         meta: {title: 'currentConfig', icon: 'config', noCache: true}
       },
       {
-        path: 'config/history',
+        path: 'history',
         component: _import('config/history'),
         name: 'configHistory',
         meta: {title: 'configHistory', icon: 'history', noCache: true}
       },
       {
-        path: 'config/profile',
+        path: 'profile',
         component: _import('config/profile'),
         name: 'profile',
         meta: {title: 'profile', icon: 'profile', noCache: true}
