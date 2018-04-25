@@ -19,4 +19,9 @@ public interface DictatorUserMapper extends SimpleMapper<DictatorUser> {
     }
 
     List<DictatorUserDto> findAllSummary();
+
+    default int countAll() {
+        Weekend<DictatorUser> wee = Weekend.of(DictatorUser.class);
+        return this.selectCountByExample(wee);
+    }
 }
