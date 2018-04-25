@@ -37,7 +37,7 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
-    path: '',
+    path: '/',
     component: Layout,
     meta: {title: 'config', icon: 'dashboard', noCache: true},
     children: [

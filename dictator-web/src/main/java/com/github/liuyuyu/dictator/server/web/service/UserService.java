@@ -74,7 +74,7 @@ public class UserService {
         //如果启用了GM账号
         if(Objects.equals(UserConstants.GM_USER_ID, userId)){
             DictatorUserDto dictatorUserDto = this.loginGM();
-            List<DictatorResourceDto> dictatorResourceDtos = BeanConverter.from(this.resourceService.findByParentId(Collections.singletonList(0L)))
+            List<DictatorResourceDto> dictatorResourceDtos = BeanConverter.from(this.resourceMapper.findAll())
                     .toList(DictatorResourceDto.class);
             dictatorUserDto.setResourceList(dictatorResourceDtos);
             return dictatorUserDto;
@@ -87,7 +87,7 @@ public class UserService {
                     .map(DictatorRole::getId)
                     .collect(Collectors.toList());
             if (!roleIdList.isEmpty()) {
-                List<DictatorResourceDto> resourceList = BeanConverter.from(this.resourceService.findByUserId(userId))
+                List<DictatorResourceDto> resourceList = BeanConverter.from(this.resourceMapper.findByRoleIdList(roleIdList))
                         .toList(DictatorResourceDto.class);
 
                 dictatorUserDto.setResourceList(resourceList);

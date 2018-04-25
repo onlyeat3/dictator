@@ -44,12 +44,6 @@ public class UserController {
         UserInfoResponse userInfoResponse = UserInfoResponse.of();
         userInfoResponse.from(userInfo);
         userInfoResponse.setName(userInfo.getUserName());
-
-        //增加首页
-        DictatorResourceDto dictatorResourceDto = new DictatorResourceDto();
-        dictatorResourceDto.setId(-1L);
-        dictatorResourceDto.setTargetUri("/");
-        userInfoResponse.getResourceList().add(dictatorResourceDto);
         return DataWrapper.from(userInfoResponse);
     }
 
