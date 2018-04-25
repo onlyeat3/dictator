@@ -11,4 +11,12 @@
     <select id="find" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorRoleDto">
         select r.* from dictator_role r
     </select>
+    <select id="findByUserIdList" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserRoleDto">
+        select ur.user_id,ur.role_id from dictator_role r
+        join dictator_user_role ur on ur.role_id = r.id
+        where ur.user_id in
+        <foreach collection="userIdList" open="(" item="userId" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </select>
 </mapper>
