@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,6 +40,8 @@ public class UserService {
     private DictatorRoleMapper roleMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired private ResourceService resourceService;
+    @Autowired private RoleService roleService;
 
     public DictatorUserDto login(@NonNull LoginParam loginParam) {
         //一个账号都没有的时候，启用GM账号
@@ -71,7 +74,7 @@ public class UserService {
         //如果启用了GM账号
         if(Objects.equals(UserConstants.GM_USER_ID, userId)){
             DictatorUserDto dictatorUserDto = this.loginGM();
-            List<DictatorResourceDto> dictatorResourceDtos = BeanConverter.from(this.resourceMapper.selectAll())
+            List<DictatorResourceDto> dictatorResourceDtos = BeanConverter.from(this.resourceService.findByParentId(Collections.singletonList(0L)))
                     .toList(DictatorResourceDto.class);
             dictatorUserDto.setResourceList(dictatorResourceDtos);
             return dictatorUserDto;
@@ -84,7 +87,7 @@ public class UserService {
                     .map(DictatorRole::getId)
                     .collect(Collectors.toList());
             if (!roleIdList.isEmpty()) {
-                List<DictatorResourceDto> resourceList = BeanConverter.from(this.resourceMapper.findByRoleIdList(roleIdList))
+                List<DictatorResourceDto> resourceList = BeanConverter.from(this.resourceService.findByUserId(userId))
                         .toList(DictatorResourceDto.class);
 
                 dictatorUserDto.setResourceList(resourceList);

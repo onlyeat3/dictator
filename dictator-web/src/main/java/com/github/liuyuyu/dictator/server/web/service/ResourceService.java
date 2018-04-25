@@ -6,7 +6,6 @@ import com.github.liuyuyu.dictator.server.mapper.DictatorRoleResourceMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
-import com.github.liuyuyu.dictator.server.web.model.param.ResourceQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.type.ResourceTypeEnum;
 import lombok.NonNull;
@@ -77,7 +76,34 @@ public class ResourceService {
         return resourceDtoList;
     }
 
+    public List<DictatorResourceDto> findByUserIdAndParentId(@NonNull Long userId, @NonNull Long parentId){
+        List<DictatorResource> resourceList = this.resourceMapper.findByUserIdAndParentId(userId,parentId);
+
+        List<Long> nextParentIdList = resourceList.stream()
+                .map(DictatorResource::getId)
+                .collect(Collectors.toList());
+        List<DictatorResourceDto> resourceDtoList = BeanConverter.from(resourceList)
+                .toList(DictatorResourceDto.class);
+        resourceDtoList.forEach(r-> r.setResourceTypeName(ResourceTypeEnum.valueOf(r.getResourceType()).getName()));
+
+        if(!nextParentIdList.isEmpty()){
+            resourceDtoList.stream()
+                    .forEach(r->{
+                        List<DictatorResourceDto> children = this.findByUserIdAndParentId(userId,r.getId());
+                        List<DictatorResourceDto> childrenList = children.stream()
+                                .filter(c -> r.getId().equals(c.getParentId()))
+                                .collect(Collectors.toList());
+                        r.getChildren().addAll(childrenList);
+                    });
+        }
+        return resourceDtoList;
+    }
+
     public List<DictatorResourceDto> findMine(@NonNull Long userId) {
         return null;
+    }
+
+    public List<DictatorResourceDto> findByUserId(@NonNull Long userId) {
+        return this.findByUserIdAndParentId(userId,0L);
     }
 }
