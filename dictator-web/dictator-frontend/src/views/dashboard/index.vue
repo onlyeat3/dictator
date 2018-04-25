@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <div>这是一个预留的仪表盘，准备放概要统计数据</div>
   </div>
 </template>
 
