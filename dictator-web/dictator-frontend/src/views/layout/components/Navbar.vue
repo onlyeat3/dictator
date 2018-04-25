@@ -28,7 +28,7 @@
               <!--{{$t('navbar.dashboard')}}-->
             <!--</el-dropdown-item>-->
           <!--</router-link>-->
-          <a target='_blank' href="https://github.com/liuyuyu/dictator-frontend">
+          <a target='_blank' href="https://github.com/liuyuyu/dictator">
             <el-dropdown-item>
               {{$t('navbar.github')}}
             </el-dropdown-item>
