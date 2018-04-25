@@ -6,16 +6,14 @@ import { asyncRouterMap, constantRouterMap } from '@/router'
  * @param route
  */
 function hasPermission(resourceList, route) {
-  return true;
-  // if (route.path) {
-  //   return resourceList.some(resource => {
-  //     let contains = resource.targetUri.indexOf(route.path) >= 0;
-  //     console.log(route.path,resource.targetUri,contains);
-  //     return contains;
-  //   })
-  // } else {
-  //   return true
-  // }
+  if (route.path) {
+    return resourceList.some(resource => {
+      let contains = resource.targetUri.indexOf(route.path) >= 0;
+      return contains;
+    })
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -50,10 +48,11 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const { resourceList } = data
-        let accessedRouters = filterAsyncRouter(asyncRouterMap, resourceList);
-        commit('SET_ROUTERS', accessedRouters)
-        commit('SET_ROUTERS', asyncRouterMap);
+        const { resourceList } = data;
+        if(resourceList != null && resourceList.length > 0){
+          let accessedRouters = filterAsyncRouter(asyncRouterMap, resourceList);
+          commit('SET_ROUTERS', accessedRouters)
+        }
         resolve()
       })
     }
