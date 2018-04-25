@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
           const resourceList = res.data.resourceList // note: resourceList must be a array! such as: ['editor','develop']
           store.dispatch('GenerateRoutes', { resourceList: resourceList }).then(() => { // 根据roles权限生成可访问的路由表
             router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
-            next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+            next({ ...to,replace:true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })
         }).catch(() => {
           store.dispatch('FedLogOut').then(() => {
@@ -30,6 +30,14 @@ router.beforeEach((to, from, next) => {
             next({ path: '/login' })
           })
         })
+      }else{
+        if(store.getters.addRouters.length === 0 
+          && to.path != '/login'
+          && to.path != '/401'){
+          next({ path: '401' });
+        }else{
+          next();
+        }
       }
     }
   } else {
