@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
     } else {
-      if (store.getters.resourceList.length === 0) { // 判断当前用户是否已拉取完user_info信息
+      if (store.getters.resourceList == null) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
           const resourceList = res.data.resourceList // note: resourceList must be a array! such as: ['editor','develop']
           store.dispatch('GenerateRoutes', { resourceList: resourceList }).then(() => { // 根据roles权限生成可访问的路由表

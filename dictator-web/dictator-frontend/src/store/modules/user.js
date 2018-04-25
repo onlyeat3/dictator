@@ -10,7 +10,7 @@ const user = {
     name: '',
     avatar: '',
     introduction: '',
-    resourceList: [],
+    resourceList: null,
     setting: {
       articlePlatform: []
     }
@@ -40,8 +40,9 @@ const user = {
       //暂时固定头像
       state.avatar = 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif';
     },
-    SET_RESOURCE_LIST: (state, roles) => {
-      state.resourceList = roles
+    SET_RESOURCE_LIST: (state, resourceList) => {
+      console.log(state.resourceList);
+      state.resourceList = resourceList
     }
   },
 
@@ -96,7 +97,7 @@ const user = {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
-          commit('SET_RESOURCE_LIST', [])
+          commit('SET_RESOURCE_LIST', null)
           removeToken()
           resolve()
         }).catch(error => {
@@ -111,22 +112,6 @@ const user = {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
-      })
-    },
-
-    // 动态修改权限
-    ChangeRoles({ commit }, role) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', role)
-        setToken(role)
-        getUserInfo(role).then(response => {
-          const data = response.data
-          commit('SET_RESOURCE_LIST', data.resourceList)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve()
-        })
       })
     }
   }
