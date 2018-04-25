@@ -8,9 +8,6 @@
         <el-form-item label="配置名">
           <el-input v-model="listQuery.configName"/>
         </el-form-item>
-        <el-form-item label="部署ID">
-          <el-input v-model="listQuery.deploymentId"/>
-        </el-form-item>
         <el-form-item label="环境">
           <el-select v-model="listQuery.profileId">
             <el-option
@@ -49,9 +46,6 @@
             <el-form-item label="应用ID">
               <span>{{props.row.appId}}</span>
             </el-form-item>
-            <el-form-item label="部署ID">
-              <span>{{props.row.deploymentId}}</span>
-            </el-form-item>
             <el-form-item label="环境">
               <span>{{props.row.profileName}}</span>
             </el-form-item>
@@ -76,7 +70,6 @@
           </el-form>
       </el-table-column>
       <el-table-column prop="appId" label="应用ID" align="center"/>
-      <el-table-column prop="deploymentId" label="部署ID" align="center"/>
       <el-table-column prop="profileName" label="环境" align="center"/>
       <el-table-column prop="groupName" label="分组" align="center"/>
       <el-table-column prop="configName" label="配置名" align="center"/>
