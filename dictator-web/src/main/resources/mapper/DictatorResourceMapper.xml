@@ -34,4 +34,20 @@
         )
         and parent_id = #{parentId}
     </select>
+    <select id="findByUserIdAndParentId" resultType="com.github.liuyuyu.dictator.server.model.entity.DictatorResource">
+        SELECT *
+        FROM dictator_resource resource
+        WHERE EXISTS
+        (
+            SELECT '静看光阴荏苒'
+            FROM dictator_role_resource rr
+            WHERE rr.resource_id = resource.id AND EXISTS
+            (
+                SELECT '借我喑哑无言'
+                FROM dictator_user_role ur
+                WHERE ur.role_id = rr.role_id AND ur.user_id = #{userId}
+            )
+        )
+        AND parent_id = #{parentId}
+    </select>
 </mapper>
