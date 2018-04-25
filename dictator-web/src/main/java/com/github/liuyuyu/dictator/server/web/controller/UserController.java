@@ -43,6 +43,7 @@ public class UserController {
         DictatorUserDto userInfo = this.userService.findUserInfo(userDto.getId());
         UserInfoResponse userInfoResponse = UserInfoResponse.of();
         userInfoResponse.from(userInfo);
+        userInfoResponse.setName(userInfo.getUserName());
 
         //增加首页
         DictatorResourceDto dictatorResourceDto = new DictatorResourceDto();

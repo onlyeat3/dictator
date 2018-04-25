@@ -7,6 +7,7 @@ import com.github.liuyuyu.dictator.server.mapper.DictatorRoleMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorUserMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
+import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
@@ -15,11 +16,13 @@ import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpda
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
 import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,11 +41,16 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public DictatorUserDto login(@NonNull LoginParam loginParam) {
+        //一个账号都没有的时候，启用GM账号
+        int hasUser = this.userMapper.countAll();
+        if(hasUser < 1) {
+            return this.loginGM();
+        }
         //用户校验
         Optional<DictatorUser> userOptional = this.userMapper.findByUsername(loginParam.getUsername());
         DictatorUser dictatorUser = userOptional.orElseThrow(() -> ServiceException.from(UserErrorMessageEnum.USER_NOT_FOUND));
         //密码校验
-        if (!this.passwordEncoder.matches(loginParam.getPassword(),dictatorUser.getPassword())) {
+        if (StringUtils.isNotBlank(dictatorUser.getPassword()) && !this.passwordEncoder.matches(loginParam.getPassword(),dictatorUser.getPassword())) {
             throw ServiceException.from(UserErrorMessageEnum.INCORRECT_PASSWORD);
         }
         DictatorUserDto dictatorUserDto = new DictatorUserDto();
@@ -51,7 +59,23 @@ public class UserService {
         return dictatorUserDto;
     }
 
+    private DictatorUserDto loginGM(){
+        DictatorUserDto dictatorUserDto = new DictatorUserDto();
+        dictatorUserDto.setToken(UUIDUtils.next());
+        dictatorUserDto.setUserName(UserConstants.GM_ACCOUNT);
+        dictatorUserDto.setId(-1L);
+        return dictatorUserDto;
+    }
+
     public DictatorUserDto findUserInfo(@NonNull Long userId) {
+        //如果启用了GM账号
+        if(Objects.equals(UserConstants.GM_USER_ID, userId)){
+            DictatorUserDto dictatorUserDto = this.loginGM();
+            List<DictatorResourceDto> dictatorResourceDtos = BeanConverter.from(this.resourceMapper.selectAll())
+                    .toList(DictatorResourceDto.class);
+            dictatorUserDto.setResourceList(dictatorResourceDtos);
+            return dictatorUserDto;
+        }
         DictatorUser dictatorUser = this.userMapper.selectByPrimaryKey(userId);
         if (dictatorUser != null) {
             DictatorUserDto dictatorUserDto = new DictatorUserDto();
