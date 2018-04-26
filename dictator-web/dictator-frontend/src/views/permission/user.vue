@@ -18,7 +18,7 @@
                 <el-button icon="el-icon-edit" @click="handleEdit(scope.row)" />
               </el-tooltip>
               <el-tooltip content="删除" placement="top" >
-                <el-button icon="el-icon-delete" />
+                <el-button icon="el-icon-delete" @click="handleDelete(scope.row)" />
               </el-tooltip>
             </template>
           </el-table-column>
@@ -60,6 +60,7 @@
 import userApi from "@/api/user";
 import roleApi from "@/api/role";
 import { clearAttrs } from "@/utils";
+import { MessageBox } from 'element-ui';
 export default {
   name: "user",
   data() {
@@ -80,6 +81,16 @@ export default {
     handleEdit(row){
       this.addForm.showForm = true;
       Object.assign(this.addForm,row);
+    },
+    handleDelete(row){
+      MessageBox.confirm("删除后不能恢复,确认删除?", "提示", {
+          type: "warning",
+          confirmButtonText: '确定',
+          cancelButtonText: '取消'
+      })
+      .then(() => {
+        userApi.deleteUser(row);
+      });
     },
     saveOrUpdateUser(){
         userApi.saveOrUpdateUser(this.addForm)

@@ -11,5 +11,11 @@ export default {
             url:"/user/saveOrUpdate",
             data
         });
+    },
+    deleteUser(data){
+        return {
+            url: "/user/delete",
+            data
+        };
     }
 };
