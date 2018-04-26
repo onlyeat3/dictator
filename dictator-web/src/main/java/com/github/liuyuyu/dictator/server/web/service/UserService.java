@@ -10,6 +10,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorUserRole;
 import com.github.liuyuyu.dictator.server.utils.J8Converter;
+import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.UserErrorMessageEnum;
@@ -105,6 +106,7 @@ public class UserService {
         }
     }
 
+    @TransactionalAutoRollback
     public void saveOrUpdate(DictatorUserSaveOrUpdateParam userSaveOrUpdateParam) {
         DictatorUser userEntity = userSaveOrUpdateParam.to(DictatorUser.class);
         if (userSaveOrUpdateParam.getId() == null) {
@@ -151,7 +153,14 @@ public class UserService {
         return dictatorUserDtoList;
     }
 
+    @TransactionalAutoRollback
     public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam) {
 
+    }
+
+    @TransactionalAutoRollback
+    public void deleteById(@NonNull Long userId) {
+        this.userRoleMapper.deleteByUserId(userId);
+        this.userMapper.deleteByPrimaryKey(userId);
     }
 }

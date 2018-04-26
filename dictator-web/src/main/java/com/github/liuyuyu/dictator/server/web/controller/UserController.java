@@ -7,6 +7,7 @@ import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
+import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.web.model.request.LoginRequest;
 import com.github.liuyuyu.dictator.server.web.model.response.UserInfoResponse;
 import com.github.liuyuyu.dictator.server.web.mvc.CurrentUser;
@@ -57,5 +58,11 @@ public class UserController {
     @RequestMapping("/listAll")
     public DataWrapper listAll(){
         return DataWrapper.from(this.userService.findAll());
+    }
+
+    @RequestMapping("/delete")
+    public DataWrapper delete(@RequestBody @Valid IdRequest idRequest){
+        this.userService.deleteById(idRequest.getId());
+        return DataWrapper.of();
     }
 }
