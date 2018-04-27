@@ -76,7 +76,7 @@ INSERT INTO `dictator_resource` VALUES ('账号', 1, 33, '/0', 'user', '2018-04-
 INSERT INTO `dictator_resource` VALUES ('删除用户', 1, 22, '0/22', '/user/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
 INSERT INTO `dictator_resource` VALUES ('用户增加/编辑', 1, 22, '0/22', '/user/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
 INSERT INTO `dictator_resource` VALUES ('用户列表', 1, 22, '0/22', '/user/listAll', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
-INSERT INTO `dictator_resource` VALUES ('当前配置', 1, 34, '/0', '/config', '2018-04-24 14:26:46', '2018-04-27 17:29:45', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('当前配置', 1, 34, '/0', '/current', '2018-04-24 14:26:46', '2018-04-27 17:29:45', -1, '0:0:0:0:0:0:0:1');
 INSERT INTO `dictator_resource` VALUES ('删除配置', 1, 28, '0/28', '/config/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
 INSERT INTO `dictator_resource` VALUES ('配置列表', 1, 28, '0/28', '/config/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
 INSERT INTO `dictator_resource` VALUES ('配置增加/编辑', 1, 28, '0/28', '/config/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
