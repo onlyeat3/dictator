@@ -2,8 +2,8 @@ package com.github.liuyuyu.dictator.server.web.controller;
 
 import com.github.liuyuyu.dictator.common.NamedValue;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
+import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
-import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
@@ -25,6 +25,7 @@ import javax.validation.Valid;
 /**
  * @author liuyuyu
  */
+@ResourceName(value = "账号",uri = "user")
 @RequestMapping("/user")
 @RestController
 public class UserController {
@@ -48,6 +49,7 @@ public class UserController {
         return DataWrapper.from(userInfoResponse);
     }
 
+    @ResourceName("用户增加/编辑")
     @RequestMapping("/saveOrUpdate")
     public DataWrapper saveOrUpdate(@RequestBody @Valid DictatorUserSaveOrUpdateParam userSaveOrUpdateParam,@CurrentUser DictatorUserDto currentUser){
         userSaveOrUpdateParam.join(currentUser);
@@ -55,11 +57,13 @@ public class UserController {
         return DataWrapper.of();
     }
 
+    @ResourceName("用户列表")
     @RequestMapping("/listAll")
     public DataWrapper listAll(){
         return DataWrapper.from(this.userService.findAll());
     }
 
+    @ResourceName("删除用户")
     @RequestMapping("/delete")
     public DataWrapper delete(@RequestBody @Valid IdRequest idRequest){
         this.userService.deleteById(idRequest.getId());

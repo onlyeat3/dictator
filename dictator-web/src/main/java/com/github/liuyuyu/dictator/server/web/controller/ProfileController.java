@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.web.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
+import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigProfileDeleteParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigProfileParam;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 /*
  * @author liuyuyu
  */
+@ResourceName(value = "环境",uri = "profile")
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
@@ -26,11 +28,13 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
+    @ResourceName("环境列表")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     public DataWrapper list() {
         return DataWrapper.from(this.profileService.findAll());
     }
 
+    @ResourceName("环境增加/编辑")
     @RequestMapping(value = "/saveOrUpdate",method = RequestMethod.POST)
     public DataWrapper saveOrUpdate(@RequestBody @Valid ConfigProfileRequest configProfileRequest, @CurrentUser DictatorUserDto currentUser){
         ConfigProfileParam configProfileParam = new ConfigProfileParam();
@@ -44,6 +48,7 @@ public class ProfileController {
     /**
      * 删除环境
      */
+    @ResourceName("删除环境")
     @RequestMapping("/delete")
     public DataWrapper delete(@RequestBody @Valid ConfigProfileDeleteRequest profileEnableUpdateRequest, @CurrentUser DictatorUserDto currentUser){
         ConfigProfileDeleteParam configProfileDeleteParam = profileEnableUpdateRequest.to(ConfigProfileDeleteParam.class);

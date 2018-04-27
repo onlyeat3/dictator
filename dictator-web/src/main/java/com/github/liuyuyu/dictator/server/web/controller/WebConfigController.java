@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.server.web.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.core.service.database.DataBaseConfigReadService;
+import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigBatchImportParam;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 /*
  * @author liuyuyu
  */
+@ResourceName(value = "当前配置",uri = "/config")
 @RestController
 @RequestMapping("/config")
 public class WebConfigController {
@@ -30,12 +32,14 @@ public class WebConfigController {
     @Autowired
     private ConfigService configService;
 
+    @ResourceName("配置列表")
     @RequestMapping("/list")
     public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam) {
         PageInfo<DictatorConfigDto> dictatorConfigDtoPageInfo = this.configReadService.findPageValid(configListParam);
         return DataWrapper.from(dictatorConfigDtoPageInfo);
     }
 
+    @ResourceName("配置增加/编辑")
     @RequestMapping("/saveOrUpdate")
     public DataWrapper saveOrUpdate(@RequestBody @Valid ConfigSaveUpdateParam configSaveUpdateParam, @CurrentUser DictatorUserDto currentUser) {
         configSaveUpdateParam.join(currentUser);
@@ -43,6 +47,7 @@ public class WebConfigController {
         return DataWrapper.of();
     }
 
+    @ResourceName("批量导入配置")
     @RequestMapping("/batchAdd")
     public DataWrapper batchAdd(@RequestBody @Valid ConfigBatchImportParam configBatchImportParam, @CurrentUser DictatorUserDto currentUser) {
         configBatchImportParam.join(currentUser);
@@ -50,6 +55,7 @@ public class WebConfigController {
         return DataWrapper.of();
     }
 
+    @ResourceName("删除配置")
     @RequestMapping("/delete")
     public DataWrapper delete(@RequestBody @Valid IdRequest idRequest) {
         this.configService.delete(idRequest.getId());
