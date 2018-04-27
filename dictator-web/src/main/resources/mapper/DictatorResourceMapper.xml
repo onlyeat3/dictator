@@ -50,4 +50,18 @@
         )
         AND parent_id = #{parentId}
     </select>
+    <select id="findByParentIdContains" resultType="com.github.liuyuyu.dictator.server.model.entity.DictatorResource">
+        select * from dictator_resource
+        where parent_ids like concat('%',#{parentId},'%')
+    </select>
+    <update id="updateParentIdsById">
+        update dictator_resource
+        set parent_ids = #{parentIds}
+        where id = #{id}
+    </update>
+    <update id="updateParentIdById">
+        update dictator_resource
+        set parent_ids = #{parentId}
+        where id = #{id}
+    </update>
 </mapper>
