@@ -86,7 +86,7 @@ public class MappingScanner extends AbstractSpringBootTest {
                 methodResourceEntity.setResourceName(method.getName());
                 methodResourceEntity.setId(id.incrementAndGet());
                 methodResourceEntity.setParentId(controllerResourceEntity.getId());
-                methodResourceEntity.setParentIds("/"+controllerResourceEntity.getId());
+                methodResourceEntity.setParentIds(controllerResourceEntity.getParentId() + "/" + controllerResourceEntity.getId());
                 methodResourceEntity.setTargetUri(uri);
 
                 Optional<ResourceName> methodResourceNameOptional = Arrays.stream(method.getAnnotationsByType(ResourceName.class)).findFirst();
@@ -107,7 +107,7 @@ public class MappingScanner extends AbstractSpringBootTest {
             String sql = String.format("INSERT INTO `dictator_resource` VALUES (%s,'%s', %s, %s, '%s', '%s', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');"
                     ,sysResourceEntity.getId()
                     , sysResourceEntity.getResourceName()
-                    , 0
+                    , 1
                     , sysResourceEntity.getParentId()
                     , sysResourceEntity.getParentIds()
                     , sysResourceEntity.getTargetUri()

@@ -39,6 +39,10 @@ public class DictatorResourceDto implements Convertible {
      * 所有上级节点
      */
     private String parentIds;
+    /**
+     * 所有上级节点ID
+     */
+    private List<Long> parentIdList = new ArrayList<>();
 
     /**
      * 目标URI

@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <el-header>
-        <el-button class="icon-plus" type="primary" @click="appendNode(null)">增加一级资源</el-button>
-    </el-header>
+        <el-button class="icon-plus" type="primary" @click="appendNode(null)">增加</el-button>
+      </el-header>
     <el-main>
       <el-tree
         :data="resourceData"
@@ -17,11 +17,6 @@
           <span>
             <el-button
               type="text"
-              @click="() => appendNode(data)">
-              增加子资源
-            </el-button>
-            <el-button
-              type="text"
               @click="() => editNode(data)">
               编辑
             </el-button>
@@ -34,8 +29,18 @@
         </span>
       </el-tree>
     </el-main>
-    <el-dialog :visible.sync="editForm.showForm" :title="editForm.parentResourceName" :before-close="closeAndClear" width="500px">
+    <el-dialog :visible.sync="editForm.showForm" title="增加资源" :before-close="closeAndClear" width="500px">
       <el-form v-model="editForm" label-width="80px">
+        <el-form-item label="父节点">
+          <el-cascader
+            :props="parentIdProps"
+            :options="resourceData"
+            v-model="editForm.parentIdList"
+            @change="handleParentIdListChange"
+            change-on-select
+            >
+          </el-cascader>
+        </el-form-item>
         <el-form-item label="资源名">
           <el-input v-model="editForm.resourceName" />
         </el-form-item>
@@ -70,6 +75,10 @@
         treeProps:{
           label:'resourceName'
         },
+        parentIdProps:{
+          label:'resourceName',
+          value:"id"
+        },
         listQuery: {
           pageNum: 1,
           pageSize: 30
@@ -77,18 +86,28 @@
         editForm:{
           id: '',
           parentId: '',
+          parentIdList: [],
           resourceName:'',
           resourceType:'',
-          parentResourceName:'',
           showForm:false
         }
       }
     },
     methods: {
+      clearChildren(arr){
+        arr.forEach(element => {
+          if(element.children != null && element.children.length === 0){
+            element.children = null;
+          }else{
+            this.clearChildren(element.children);
+          }
+        });
+      },
       fetchData() {
         this.listLoading = true;
         listAll(this.listQuery).then(response => {
           let {data} = response;
+          this.clearChildren(data);
           this.resourceData = data;
           this.listQuery.currentPage = data.pageSize;
           this.listQuery.total = data.total;
@@ -101,18 +120,30 @@
         this.editForm.showForm = true;
         if(data){
           this.editForm.parentId = data.id;
-          this.editForm.parentResourceName = data.resourceName + '的子资源';
         }else{
           this.editForm.parentId = '0';
-          this.editForm.parentResourceName = '一级资源';
         }
       },
       editNode(data){
+        if(data.id === 0){
+          this.$message({
+            type: 'info',
+            message: `根节点不能操作`
+          });
+          return;
+        }
         this.appendNode(data);
         Object.assign(this.editForm,data);
         this.editForm.resourceType = data.resourceType + '';
       },
       deleteNode(data){
+        if(data.id === 0){
+          this.$message({
+            type: 'info',
+            message: `根节点不能操作`
+          });
+          return;
+        }
         this.$confirm('删除后无法恢复, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -124,6 +155,18 @@
           });
         }).catch(() => {
         });
+      },
+      handleParentIdListChange(current){
+        let v = current[current.length - 1];
+        if(v === this.editForm.id){
+          this.$message({
+            type: 'info',
+            message: `父节点不能是自己`
+          });
+          current = [];
+          return;
+        }
+        this.editForm.parentId = v;
       },
       saveOrUpdateResource(){
         saveOrUpdateResource(this.editForm)

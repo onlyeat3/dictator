@@ -266,9 +266,18 @@ export function deepClone(source) {
   return targetObj
 }
 
+const isArray = (something)=>{
+  return Object.prototype.toString.call(something) === '[object Array]';
+}
+
 export function clearAttrs(obj){
   for(let e in obj){
-    obj[e] = null;
+    let attr = obj[e];
+    if(isArray(attr)){
+      attr = [];
+    }else{
+      attr = null;
+    }
   }
   return obj;
 }

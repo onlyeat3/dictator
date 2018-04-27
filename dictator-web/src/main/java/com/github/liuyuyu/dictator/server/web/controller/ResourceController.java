@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +42,13 @@ public class ResourceController {
     @ResourceName("资源列表")
     @RequestMapping("/list")
     public DataWrapper showList(){
-        List<DictatorResourceDto> resourceDtoList = this.resourceService.findByParentId(Collections.singletonList(0L));
+        List<DictatorResourceDto> resourceDtoList = new ArrayList<>();
+        DictatorResourceDto root = new DictatorResourceDto();
+        root.setId(0L);
+        root.setResourceName("根节点");
+        resourceDtoList.add(root);
+        List<DictatorResourceDto> childrenList = this.resourceService.findByParentId(Collections.singletonList(0L));
+        root.setChildren(childrenList);
         return DataWrapper.from(resourceDtoList);
     }
 

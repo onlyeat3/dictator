@@ -68,13 +68,17 @@ public class ResourceService {
 
         if(!nextParentIdList.isEmpty()){
             List<DictatorResourceDto> children = this.findByParentId(nextParentIdList);
-            resourceDtoList.stream()
-                    .forEach(r->{
-                        List<DictatorResourceDto> childrenList = children.stream()
-                                .filter(c -> r.getId().equals(c.getParentId()))
-                                .collect(Collectors.toList());
-                        r.getChildren().addAll(childrenList);
-                    });
+            resourceDtoList.forEach(r -> {
+                final List<Long> pidList = Arrays.stream(r.getParentIds().split("/"))
+                        .filter(StringUtils::isNotBlank)
+                        .map(Long::valueOf)
+                        .collect(Collectors.toList());
+                r.setParentIdList(pidList);
+                List<DictatorResourceDto> childrenList = children.stream()
+                        .filter(c -> r.getId().equals(c.getParentId()))
+                        .collect(Collectors.toList());
+                r.getChildren().addAll(childrenList);
+            });
         }
         return resourceDtoList;
     }
