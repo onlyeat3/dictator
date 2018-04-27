@@ -274,9 +274,9 @@ export function clearAttrs(obj){
   for(let e in obj){
     let attr = obj[e];
     if(isArray(attr)){
-      attr = [];
+      obj[e] = [];
     }else{
-      attr = null;
+      obj[e] = null;
     }
   }
   return obj;
