@@ -22,7 +22,7 @@ import javax.validation.Valid;
 /*
  * @author liuyuyu
  */
-@ResourceName(value = "当前配置",uri = "/config")
+@ResourceName(value = "当前配置",uri = "/current")
 @RestController
 @RequestMapping("/config")
 public class WebConfigController {
