@@ -45,4 +45,10 @@ public interface DictatorResourceMapper extends SimpleMapper<DictatorResource> {
     List<DictatorResource> findByRoleIdAndParentId(@Param("roleId") Long roleId,@Param("parentId") Long parentId);
 
     List<DictatorResource> findByUserIdAndParentId(@Param("userId") Long userId, @Param("parentId") Long parentId);
+
+    List<DictatorResource> findByParentIdContains(@Param("parentId") Long parentId);
+
+    int updateParentIdsById(@Param("id") Long id,@Param("parentIds") String parentIds);
+
+    int updateParentIdById(@Param("id") Long id, @Param("parentId") Long parentId);
 }

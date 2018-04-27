@@ -9,10 +9,13 @@ import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.type.ResourceTypeEnum;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -105,5 +108,37 @@ public class ResourceService {
 
     public List<DictatorResourceDto> findByUserId(@NonNull Long userId) {
         return this.findByUserIdAndParentId(userId,0L);
+    }
+
+    /**
+     * 改变父节点
+     */
+    public void changeParent(@NotNull Long resourceId,@NonNull Long newParentId){
+        final Optional<DictatorResource> currentOpt = this.resourceMapper.findById(resourceId);
+        if(!currentOpt.isPresent()){
+            return;
+        }
+        final Optional<DictatorResource> newParentOpt = this.resourceMapper.findById(newParentId);
+        if(!newParentOpt.isPresent()){
+            return;
+        }
+        DictatorResource current = currentOpt.get();
+        DictatorResource newParent = newParentOpt.get();
+        final String currentParentIds = newParent.getParentIds() + "/" + newParentId;
+        this.resourceMapper.updateParentIdById(resourceId,newParentId);
+        this.resourceMapper.updateParentIdsById(resourceId,currentParentIds);
+
+        final String newParentIds = currentParentIds + "/" + current.getId();
+        //所有下一级节点
+        List<DictatorResource> dictatorResourceList = this.resourceMapper.findByParentIdContains(current.getId());
+        dictatorResourceList.forEach(r->{
+                    //可食用部分
+                    final int start = r.getParentIds().indexOf("/" + r.getParentId()) + r.getParentId().toString().length() + 1;
+                    String tenderloin = StringUtils.EMPTY;
+                    if(start >= 0){
+                        tenderloin = StringUtils.substring(r.getParentIds(), start);
+                    }
+                    this.resourceMapper.updateParentIdsById(r.getId(),newParentIds + "/" + tenderloin);
+                });
     }
 }

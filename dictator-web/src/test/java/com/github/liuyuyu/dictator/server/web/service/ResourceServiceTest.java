@@ -90,4 +90,8 @@ public class ResourceServiceTest {
         assertFalse(resourceDtoList.isEmpty());
     }
 
+    @Test
+    public void changeParent() {
+        this.resourceService.changeParent(66L,64L);
+    }
 }
