@@ -1,6 +1,6 @@
 package com.github.liuyuyu.dictator.server.config;
 
-import com.github.liuyuyu.dictator.server.web.interceptor.LoginInterceptor;
+import com.github.liuyuyu.dictator.server.web.interceptor.PermissionCheckInterceptor;
 import com.github.liuyuyu.dictator.server.web.mvc.CurrentUserArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +22,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     private CurrentUserArgumentResolver currentUserArgumentResolver;
     @Autowired
     private Environment environment;
+    @Autowired private PermissionCheckInterceptor permissionCheckInterceptor;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -39,8 +40,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(LoginInterceptor.of())
+        registry.addInterceptor(permissionCheckInterceptor)
                 .excludePathPatterns("/user/login")
+                .excludePathPatterns("/user/info")
                 .excludePathPatterns("/dictator/config/**");
     }
 }

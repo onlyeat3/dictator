@@ -2,6 +2,7 @@ package com.github.liuyuyu.dictator.server.web.controller;
 
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
+import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ResourceSaveOrUpdateParam;
@@ -22,11 +23,13 @@ import java.util.List;
 /**
  * @author liuyuyu
  */
+@ResourceName(value = "资源",uri = "resource")
 @RestController
 @RequestMapping("/resource")
 public class ResourceController {
     @Autowired private ResourceService resourceService;
 
+    @ResourceName("登录角色已有资源")
     @RequestMapping("/mine")
     public DataWrapper showMine(@CurrentUser DictatorUserDto currentUser) {
         List<DictatorResourceDto> mineResourceDtoList = this.resourceService.findMine(currentUser.getId());
@@ -35,12 +38,14 @@ public class ResourceController {
         return DataWrapper.from(resourceResponseList);
     }
 
+    @ResourceName("资源列表")
     @RequestMapping("/list")
     public DataWrapper showList(){
         List<DictatorResourceDto> resourceDtoList = this.resourceService.findByParentId(Collections.singletonList(0L));
         return DataWrapper.from(resourceDtoList);
     }
 
+    @ResourceName("资源增加/编辑")
     @RequestMapping("/saveOrUpdate")
     public DataWrapper saveOrUpdate(@RequestBody @Valid ResourceSaveOrUpdateParam param,@CurrentUser DictatorUserDto currentUser){
         param.setOperatorId(currentUser.getId());
@@ -49,6 +54,7 @@ public class ResourceController {
         return DataWrapper.of();
     }
 
+    @ResourceName("删除资源")
     @RequestMapping("/delete")
     public DataWrapper delete(@RequestBody @Valid IdRequest idRequest){
         this.resourceService.delete(idRequest.getId());
