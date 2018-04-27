@@ -51,38 +51,39 @@ INSERT INTO `dictator_config_profile` (`id`, `profile_name`, `profile_code`, `pr
 /*!40000 ALTER TABLE `dictator_config_profile` ENABLE KEYS */;
 
 -- 正在导出表  dictator.dictator_resource 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `dictator_resource` DISABLE KEYS */;
-INSERT INTO `dictator_resource` (`id`, `resource_name`, `resource_type`, `parent_id`, `parent_ids`, `target_uri`, `created_at`, `updated_at`, `operator_id`, `operator_ip`) VALUES
-	(1, 'index', 1, 0, '0', '/table', '2018-02-15 11:22:44', '2018-02-15 11:35:33', 0, ' ');
-/*!40000 ALTER TABLE `dictator_resource` ENABLE KEYS */;
+INSERT INTO `dictator_resource` VALUES ('配置历史', 1, 34, '/0', 'history', '2018-04-24 14:26:46', '2018-04-27 17:28:27', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('配置历史获取', 1, 1, '0/1', '/configHistory/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('配置历史详情获取', 1, 1, '0/1', '/configHistory/listByConfigId', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('从历史恢复配置', 1, 1, '0/1', '/configHistory/recovery', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('分组', 1, 34, '/0', 'group', '2018-04-24 14:26:46', '2018-04-27 17:29:24', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('客户端分组列表', 1, 5, '0/5', '/group/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('环境', 1, 34, '/0', 'profile', '2018-04-24 14:26:46', '2018-04-27 17:29:33', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('删除环境', 1, 7, '0/7', '/profile/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('环境列表', 1, 7, '0/7', '/profile/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('环境增加/编辑', 1, 7, '0/7', '/profile/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('资源', 1, 33, '/0', 'resource', '2018-04-24 14:26:46', '2018-04-27 17:30:12', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('删除资源', 1, 11, '0/11', '/resource/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('资源增加/编辑', 1, 11, '0/11', '/resource/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('登录角色已有资源', 1, 11, '0/11', '/resource/mine', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('资源列表', 1, 11, '0/11', '/resource/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('角色', 1, 33, '/0', 'role', '2018-04-24 14:26:46', '2018-04-27 17:30:05', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('删除角色', 1, 16, '0/16', '/role/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('角色增加/编辑', 1, 16, '0/16', '/role/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('角色列表', 1, 16, '0/16', '/role/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('角色详情', 1, 16, '0/16', '/role/detail', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('授权给角色', 1, 16, '0/16', '/role/grantPermission', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('账号', 1, 33, '/0', 'user', '2018-04-24 14:26:46', '2018-04-27 17:29:57', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('删除用户', 1, 22, '0/22', '/user/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('用户增加/编辑', 1, 22, '0/22', '/user/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('用户列表', 1, 22, '0/22', '/user/listAll', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('当前配置', 1, 34, '/0', '/config', '2018-04-24 14:26:46', '2018-04-27 17:29:45', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('删除配置', 1, 28, '0/28', '/config/delete', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('配置列表', 1, 28, '0/28', '/config/list', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('配置增加/编辑', 1, 28, '0/28', '/config/saveOrUpdate', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('批量导入配置', 1, 28, '0/28', '/config/batchAdd', '2018-04-24 14:26:46', '2018-04-25 16:02:08', 0, '');
+INSERT INTO `dictator_resource` VALUES ('权限', 1, 0, '/0', '/permission', '2018-04-25 15:38:38', '2018-04-27 17:28:06', -1, '0:0:0:0:0:0:0:1');
+INSERT INTO `dictator_resource` VALUES ('配置', 1, 0, '/0', '/config', '2018-04-24 14:26:46', '2018-04-27 17:28:08', 0, '');
 
--- 正在导出表  dictator.dictator_role 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `dictator_role` DISABLE KEYS */;
-INSERT INTO `dictator_role` (`id`, `role_name`, `created_at`, `updated_at`, `operator_id`, `operator_ip`) VALUES
-	(1, '超级管理员', '2018-02-15 11:22:00', '2018-02-15 11:22:01', 0, ' ');
-/*!40000 ALTER TABLE `dictator_role` ENABLE KEYS */;
-
--- 正在导出表  dictator.dictator_role_group 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `dictator_role_group` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dictator_role_group` ENABLE KEYS */;
-
--- 正在导出表  dictator.dictator_role_resource 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `dictator_role_resource` DISABLE KEYS */;
-INSERT INTO `dictator_role_resource` (`role_id`, `resource_id`) VALUES
-	(1, 1);
-/*!40000 ALTER TABLE `dictator_role_resource` ENABLE KEYS */;
-
--- 正在导出表  dictator.dictator_user 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `dictator_user` DISABLE KEYS */;
-INSERT INTO `dictator_user` (`id`, `user_name`, `password`, `email`, `mobile`, `created_at`, `updated_at`, `operator_id`, `operator_ip`) VALUES
-	(1, 'admin', 'aef3d60a373afece7e1ecfd919c824e2', 'liuyuyu2333@gmail.com', '-', '2018-02-15 11:21:41', '2018-03-03 21:27:16', 0, ' ');
-/*!40000 ALTER TABLE `dictator_user` ENABLE KEYS */;
-
--- 正在导出表  dictator.dictator_user_role 的数据：~1 rows (大约)
-/*!40000 ALTER TABLE `dictator_user_role` DISABLE KEYS */;
-INSERT INTO `dictator_user_role` (`user_id`, `role_id`) VALUES
-	(1, 1);
-/*!40000 ALTER TABLE `dictator_user_role` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
