@@ -80,7 +80,7 @@
       handleProfileUpdate(){
         updateProfile(this.editProfileForm)
           .then(resp=>{
-            this.editProfileForm.showForm = false;
+            this.clearForm();
             this.fetchData();
           })
       },
