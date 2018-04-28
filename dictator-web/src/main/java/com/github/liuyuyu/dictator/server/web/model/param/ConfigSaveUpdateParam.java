@@ -29,6 +29,11 @@ public class ConfigSaveUpdateParam implements Convertible, OperatorParam {
     private String configValue;
 
     /**
+     * 备注
+     */
+    private String remark;
+
+    /**
      * 操作者ID
      */
     private Long operatorId;
