@@ -35,6 +35,17 @@
         </el-form-item>
       </el-form>
     </el-header>
+    <el-header>
+      <el-pagination
+        background
+        layout="sizes, prev, pager, next"
+        @current-change="onPageNumChange"
+        @size-change="onPageSizeChange"
+        :data="listQuery"
+        :current-page.sync="listQuery.pageNum"
+        :total="listQuery.total">
+      </el-pagination>
+    </el-header>
     <el-table :data="tableData"
               v-loading.body="listLoading"
               border fit highlight-current-row>
