@@ -58,6 +58,9 @@
             <el-form-item label="属性值">
               <span>{{props.row.configValue}}</span>
             </el-form-item>
+            <el-form-item label="备注">
+              <span>{{props.row.remark}}</span>
+            </el-form-item>
             <el-form-item label="版本">
               <span>{{props.row.version}}</span>
             </el-form-item>
@@ -74,6 +77,7 @@
       <el-table-column prop="groupName" label="分组" align="center"/>
       <el-table-column prop="configName" label="配置名" align="center"/>
       <el-table-column prop="configValue" label="属性值" align="center" class-name="long-text"/>
+      <el-table-column prop="remark" label="备注" align="center" class-name="long-text"/>
       <el-table-column>
         <template slot-scope="scope">
           <el-button @click="handleRecoveryBtnClick(scope.row)" icon="el-icon-upload2">恢复</el-button>

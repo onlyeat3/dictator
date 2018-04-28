@@ -67,6 +67,9 @@
             <el-form-item label="版本">
               <span>{{props.row.version}}</span>
             </el-form-item>
+            <el-form-item label="备注">
+              <span>{{props.row.remark}}</span>
+            </el-form-item>
             <el-form-item label="创建时间">
               <span>{{props.row.createdTime}}</span>
             </el-form-item>
@@ -80,6 +83,7 @@
       <el-table-column prop="groupName" label="分组" align="center"/>
       <el-table-column prop="configName" label="配置名" align="center"/>
       <el-table-column prop="configValue" label="属性值" align="center" class-name="long-text"/>
+      <el-table-column prop="remark" label="备注" align="center"/>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
@@ -131,6 +135,9 @@
         </el-form-item>
         <el-form-item label="属性值">
           <el-input type="textarea" v-model="editForm.configValue"/>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input type="textarea" v-model="editForm.remark"/>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
