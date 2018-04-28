@@ -17,7 +17,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog :visible.sync="editProfileForm.showForm" width="500px">
+    <el-dialog :visible.sync="editProfileForm.showForm" width="500px" :before-close="clearForm">
       <el-form v-model="editProfileForm" label-width="80px">
         <el-form-item label="环境名">
           <el-input v-model="editProfileForm.profileName" />
@@ -30,7 +30,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleProfileUpdate">保存</el-button>
-          <el-button @click="editProfileForm.showForm = false">取消</el-button>
+          <el-button @click="clearForm">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -39,6 +39,7 @@
 
 <script>
   import '@/styles/common.scss';
+  import {clearAttrs} from "@/utils";
   import {listAllProfile,updateProfile,deleteProfile} from "@/api/profile";
   import {MessageBox} from 'element-ui';
 
@@ -95,6 +96,9 @@
               this.fetchData();
             })
         });
+      },
+      clearForm(){
+        clearAttrs(this.editProfileForm);
       }
     },
     created() {
