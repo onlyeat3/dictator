@@ -7,6 +7,7 @@ import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.DictatorUserSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.LoginParam;
+import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
 import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.web.model.request.LoginRequest;
 import com.github.liuyuyu.dictator.server.web.model.response.UserInfoResponse;
@@ -54,6 +55,13 @@ public class UserController {
     public DataWrapper saveOrUpdate(@RequestBody @Valid DictatorUserSaveOrUpdateParam userSaveOrUpdateParam,@CurrentUser DictatorUserDto currentUser){
         userSaveOrUpdateParam.join(currentUser);
         this.userService.saveOrUpdate(userSaveOrUpdateParam);
+        return DataWrapper.of();
+    }
+
+    @ResourceName("修改密码")
+    public DataWrapper updatePassword(@CurrentUser DictatorUserDto currentUser, @Valid @RequestBody UpdatePasswordParam updatePasswordParam){
+        updatePasswordParam.setUserId(currentUser.getId());
+        this.userService.updatePassword(updatePasswordParam);
         return DataWrapper.of();
     }
 

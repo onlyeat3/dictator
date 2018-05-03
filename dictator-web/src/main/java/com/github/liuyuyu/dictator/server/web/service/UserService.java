@@ -23,6 +23,7 @@ import com.github.liuyuyu.dictator.server.web.model.param.UpdatePasswordParam;
 import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -155,7 +156,20 @@ public class UserService {
 
     @TransactionalAutoRollback
     public void updatePassword(@NonNull UpdatePasswordParam updatePasswordParam) {
-
+        //用户校验
+        final DictatorUser dictatorUser = this.userMapper.findById(updatePasswordParam.getUserId())
+                .orElseThrow(UserErrorMessageEnum.UNKNOWN_USER::getServiceException);
+        //旧密码校验
+        final boolean isValidOldPassword = this.passwordEncoder.matches(updatePasswordParam.getOldPassword(), dictatorUser.getPassword());
+        if(!isValidOldPassword){
+            throw UserErrorMessageEnum.INCORRECT_OLD_PASSWORD.getServiceException();
+        }
+        //确认密码验证
+        if(!StringUtils.equals(updatePasswordParam.getNewPassword(),updatePasswordParam.getConfirmPassword())){
+            throw UserErrorMessageEnum.INCORRECT_CONFIRM_PASSWORD.getServiceException();
+        }
+        final String encodedNewPassword = this.passwordEncoder.encode(updatePasswordParam.getNewPassword());
+        this.userMapper.updatePasswordById(updatePasswordParam.getUserId(),encodedNewPassword);
     }
 
     @TransactionalAutoRollback
