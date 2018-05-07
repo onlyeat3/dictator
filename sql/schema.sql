@@ -11,6 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 CREATE DATABASE dictator;
+USE dictator;
 -- 导出  表 dictator.dictator_config 结构
 CREATE TABLE IF NOT EXISTS `dictator_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
