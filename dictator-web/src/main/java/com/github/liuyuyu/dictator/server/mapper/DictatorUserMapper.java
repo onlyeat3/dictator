@@ -4,6 +4,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorUser;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface DictatorUserMapper extends SimpleMapper<DictatorUser> {
         Weekend<DictatorUser> wee = Weekend.of(DictatorUser.class);
         return this.selectCountByExample(wee);
     }
+
+    int updatePasswordById(@Param("id") Long userId, @Param("encodedNewPassword") String encodedNewPassword);
 }
