@@ -15,6 +15,8 @@ public enum UserErrorMessageEnum implements AbstractErrorMessageEnum {
     TOKEN_PARAM_NOT_FOUND("缺少参数" + UserConstants.TOKEN_NAME),
     USER_NOT_FOUND("用户名或密码错误"),
     INCORRECT_PASSWORD(USER_NOT_FOUND.getErrorMessage()),
+    INCORRECT_OLD_PASSWORD("旧密码错误"),
+    INCORRECT_CONFIRM_PASSWORD("确认密码错误"),
     FORBIDDEN("无权访问"),
     UNKNOWN_USER("未知用户");
     /**
