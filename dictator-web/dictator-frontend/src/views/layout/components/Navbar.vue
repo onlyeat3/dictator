@@ -33,6 +33,9 @@
               {{$t('navbar.github')}}
             </el-dropdown-item>
           </a>
+          <el-dropdown-item>
+            <router-link to="config/current">修改密码</router-link>
+          </el-dropdown-item>
           <el-dropdown-item divided>
             <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
           </el-dropdown-item>
