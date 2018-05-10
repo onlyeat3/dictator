@@ -8,7 +8,8 @@
               v-loading.body="listLoading"
               border fit highlight-current-row>
         <el-table-column prop="roleName" label="角色名" align="center"/>
-        <el-table-column prop="permissions" label="已有权限" align="center"/>
+        <el-table-column prop="permissions" label="已有资源权限" align="center"/>
+        <el-table-column prop="profilePermissions" label="已有环境权限" align="center"/>
         <el-table-column prop="createdAt" label="创建时间" align="center"/>
         <el-table-column prop="updatedAt" label="更新时间" align="center"/>
         <el-table-column label="操作">
@@ -16,8 +17,11 @@
           <el-tooltip content="编辑" placement="top">
             <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
           </el-tooltip>
-          <el-tooltip content="设置" placement="top">
+          <el-tooltip content="资源授权" placement="top">
             <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
+          </el-tooltip>
+          <el-tooltip content="环境授权" placement="top">
+            <el-button icon="el-icon-setting" @click="handleUpdateProfilePermission(scope.row)"/>
           </el-tooltip>
           <el-tooltip content="删除" placement="top">
             <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
@@ -38,7 +42,7 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-dialog :visible.sync="permissionForm.showForm" :before-close="clearGrantPermissionForm" width="600px" title="配置">
+    <el-dialog :visible.sync="permissionForm.showForm" :before-close="clearGrantPermissionForm" width="600px" title="资源权限">
       <el-form v-model="permissionForm" label-width="80px">
         <el-input type="hidden" v-model="permissionForm.id"/>
         <el-form-item label="权限">
@@ -59,11 +63,36 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+    <el-dialog :visible.sync="profilePermissionForm.showForm" :before-close="clearGrantProfilePermissionForm" width="600px" title="环境权限">
+      <el-form v-model="profilePermissionForm" label-width="80px">
+        <el-input type="hidden" v-model="profilePermissionForm.roleId"/>
+        <el-form-item label="授权环境">
+          <el-select
+            v-model="profilePermissionForm.profileIdList"
+            multiple
+            filterable
+            allow-create
+            placeholder="选择环境">
+            <el-option
+              v-for="item in allProfile"
+              :key="item.id"
+              :label="item.profileName"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="grantProfilePermission">授权</el-button>
+          <el-button @click="clearGrantProfilePermissionForm">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import roleApi from "@/api/role";
+import {listAllProfile} from "@/api/profile";
 import { clearAttrs } from "@/utils";
 
 export default {
@@ -72,9 +101,14 @@ export default {
     return {
       listLoading: true,
       tableData: [],
+      allProfile:[],
       editForm: {
         id: "",
         showForm: false
+      },
+      profilePermissionForm:{
+        profileIdList:[],
+        roleId:-1
       },
       treeProps:{
         label:'resourceName'
@@ -94,6 +128,11 @@ export default {
     handleEdit(data) {
       Object.assign(this.editForm, data);
       this.editForm.showForm = true;
+    },
+    handleUpdateProfilePermission(row){
+      this.fetchProfile();
+      this.profilePermissionForm.roleId = row.id;
+      this.profilePermissionForm.showForm = true;
     },
     handleUpdatePermission(row) {
       const loading = this.$loading({
@@ -131,8 +170,17 @@ export default {
         this.clearGrantPermissionForm();
       });
     },
+    grantProfilePermission(){
+      roleApi.grantPermission(this.profilePermissionForm)
+      .then(()=>{
+        this.clearGrantProfilePermissionForm();
+      });
+    },
     clearGrantPermissionForm(){
       clearAttrs(this.permissionForm);
+    },
+    clearGrantProfilePermissionForm(){
+      clearAttrs(this.profilePermissionForm);
     },
     clearForm() {
       clearAttrs(this.editForm);
@@ -148,6 +196,19 @@ export default {
         .catch(() => {
           this.listLoading = false;
         });
+    },
+    fetchProfile(){
+      const loading = this.$loading({
+        lock: true,
+        text: "Loading",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      listAllProfile()
+      .then(({data})=>{
+        this.allProfile = data;
+        loading.close();
+      });
     }
   },
   created() {

@@ -18,6 +18,12 @@ export default {
       data
     })
   }
+  ,grantProfilePermission(data) {
+    return request({
+      url: '/role/grantProfilePermission',
+      data
+    })
+  }
   , deleteRole(data) {
     return request({
       url: '/role/delete',

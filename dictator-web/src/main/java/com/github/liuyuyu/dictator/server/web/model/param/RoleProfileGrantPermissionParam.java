@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-public class RoleProfileGrantPermissionParam {
+public class RoleProfileGrantPermissionParam implements OperatorParam {
     /**
      * 角色ID
      */
