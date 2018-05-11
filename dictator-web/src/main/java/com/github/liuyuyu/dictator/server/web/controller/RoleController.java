@@ -5,10 +5,12 @@ import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorRoleDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.RolePermissionUpdateParam;
+import com.github.liuyuyu.dictator.server.web.model.param.RoleProfileGrantPermissionParam;
 import com.github.liuyuyu.dictator.server.web.model.param.RoleQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.RoleSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
 import com.github.liuyuyu.dictator.server.web.mvc.CurrentUser;
+import com.github.liuyuyu.dictator.server.web.service.RoleProfileService;
 import com.github.liuyuyu.dictator.server.web.service.RoleService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import javax.validation.Valid;
 @RestController
 public class RoleController {
     @Autowired private RoleService roleService;
+    @Autowired private RoleProfileService roleProfileService;
 
     @ResourceName("角色列表")
     @RequestMapping("/list")
@@ -46,6 +49,14 @@ public class RoleController {
         roleSaveOrUpdateParam.setOperatorId(currentUser.getId());
         roleSaveOrUpdateParam.setOperatorIp(currentUser.getLoginIp());
         this.roleService.saveOrUpdate(roleSaveOrUpdateParam);
+        return DataWrapper.of();
+    }
+
+    @ResourceName("授权环境给角色")
+    @RequestMapping("/grantProfilePermission")
+    public DataWrapper grantProfilePermission(@RequestBody @Valid RoleProfileGrantPermissionParam param, @CurrentUser DictatorUserDto currentUser){
+        param.join(currentUser);
+        this.roleProfileService.grantPermission(param);
         return DataWrapper.of();
     }
 
