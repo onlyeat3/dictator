@@ -8,24 +8,56 @@
               v-loading.body="listLoading"
               border fit highlight-current-row>
         <el-table-column prop="roleName" label="角色名" align="center"/>
-        <el-table-column prop="permissions" label="已有资源权限" align="center"/>
-        <el-table-column prop="profilePermissions" label="已有环境权限" align="center"/>
+        <el-table-column label="已有资源权限" align="center" class-name="long-text">
+          <template slot-scope="scope">
+            <el-popover
+              placement="top-start"
+              title="详细"
+              width="200"
+              trigger="hover">
+              <div>
+                {{scope.row.permissions}}
+              </div>
+              <el-row slot="reference">
+                {{scope.row.permissions}}
+              </el-row>
+            </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="已有环境权限" class-name="long-text">
+          <template slot-scope="scope">
+            <el-popover
+              placement="top-start"
+              title="详细"
+              width="200"
+              trigger="hover">
+              <div>
+                {{scope.row.profilePermissions}}
+              </div>
+              <el-row slot="reference">
+                {{scope.row.profilePermissions}}
+              </el-row>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column prop="createdAt" label="创建时间" align="center"/>
         <el-table-column prop="updatedAt" label="更新时间" align="center"/>
         <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-tooltip content="编辑" placement="top">
-            <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
-          </el-tooltip>
-          <el-tooltip content="资源授权" placement="top">
-            <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
-          </el-tooltip>
-          <el-tooltip content="环境授权" placement="top">
-            <el-button icon="el-icon-setting" @click="handleUpdateProfilePermission(scope.row)"/>
-          </el-tooltip>
-          <el-tooltip content="删除" placement="top">
-            <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
-          </el-tooltip>
+          <el-button-group>
+            <el-tooltip content="编辑" placement="top">
+              <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
+            </el-tooltip>
+            <el-tooltip content="资源授权" placement="top">
+              <el-button icon="el-icon-setting" @click="handleUpdatePermission(scope.row)"/>
+            </el-tooltip>
+            <el-tooltip content="环境授权" placement="top">
+              <el-button icon="el-icon-setting" @click="handleUpdateProfilePermission(scope.row)"/>
+            </el-tooltip>
+            <el-tooltip content="删除" placement="top">
+              <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+            </el-tooltip>
+          </el-button-group>
         </template>
       </el-table-column>
       </el-table>
@@ -132,6 +164,7 @@ export default {
     handleUpdateProfilePermission(row){
       this.fetchProfile();
       this.profilePermissionForm.roleId = row.id;
+      this.profilePermissionForm.profileIdList = row.profileIdList;
       this.profilePermissionForm.showForm = true;
     },
     handleUpdatePermission(row) {
@@ -168,12 +201,14 @@ export default {
       roleApi.grantPermission(this.permissionForm)
       .then(()=>{
         this.clearGrantPermissionForm();
+        this.fetchData();
       });
     },
     grantProfilePermission(){
-      roleApi.grantPermission(this.profilePermissionForm)
+      roleApi.grantProfilePermission(this.profilePermissionForm)
       .then(()=>{
         this.clearGrantProfilePermissionForm();
+        this.fetchData();
       });
     },
     clearGrantPermissionForm(){

@@ -12,8 +12,10 @@
       <el-table-column prop="profileDesc" label="环境描述" align="center" />
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button @click="handleEditProfile(scope.row)" class="el-button--primary" icon="el-icon-edit"></el-button>
-          <el-button @click="handleDeleteProfile(scope.row)" icon="el-icon-delete"></el-button>
+          <el-button-group>
+            <el-button @click="handleEditProfile(scope.row)" class="el-button--primary" icon="el-icon-edit"></el-button>
+            <el-button @click="handleDeleteProfile(scope.row)" icon="el-icon-delete"></el-button>
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>
