@@ -97,8 +97,10 @@
       <el-table-column prop="remark" label="备注" align="center"/>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
-          <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+          <el-button-group>
+            <el-button icon="el-icon-edit" @click="handleEdit(scope.row)"/>
+            <el-button icon="el-icon-delete" @click="handleDelete(scope.row)"/>
+          </el-button-group>
         </template>
       </el-table-column>
     </el-table>
@@ -196,7 +198,6 @@
 </template>
 
 <script>
-  import '@/styles/config.scss';
   import '@/styles/common.scss';
   import request from '@/utils/request';
   import {MessageBox} from 'element-ui';

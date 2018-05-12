@@ -130,7 +130,6 @@
 </template>
 
 <script>
-  import '@/styles/config.scss';
   import '@/styles/common.scss';
   import {listAllProfile} from "@/api/profile";
   import {listAllGroup} from "@/api/group";

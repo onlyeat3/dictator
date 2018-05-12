@@ -1,14 +1,12 @@
 package com.github.liuyuyu.dictator.server.web.service;
 
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
-import com.github.liuyuyu.dictator.server.mapper.DictatorResourceMapper;
-import com.github.liuyuyu.dictator.server.mapper.DictatorRoleMapper;
-import com.github.liuyuyu.dictator.server.mapper.DictatorRoleResourceMapper;
-import com.github.liuyuyu.dictator.server.mapper.DictatorUserRoleMapper;
+import com.github.liuyuyu.dictator.server.mapper.*;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRole;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRoleResource;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorProfilePermissionDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourceDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourcePermissionDto;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorRoleDto;
@@ -17,9 +15,11 @@ import com.github.liuyuyu.dictator.server.web.model.param.RoleQueryParam;
 import com.github.liuyuyu.dictator.server.web.model.param.RoleSaveOrUpdateParam;
 import com.github.pagehelper.PageInfo;
 import lombok.NonNull;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +38,8 @@ public class RoleService {
     private DictatorUserRoleMapper userRoleMapper;
     @Autowired
     private DictatorResourceMapper resourceMapper;
+    @Autowired
+    private DictatorRoleProfileMapper roleProfileMapper;
 
 
     @TransactionalAutoRollback
@@ -120,13 +122,29 @@ public class RoleService {
         List<Long> roleIdList = dictatorRoleDtoPageInfo.getList().stream()
                 .map(DictatorRoleDto::getId)
                 .collect(Collectors.toList());
-
+        //资源权限
         List<DictatorResourcePermissionDto> resourcePermissionDtoList = this.resourceMapper.findPermissionByRoleIdList(roleIdList);
         dictatorRoleDtoPageInfo.getList()
                 .forEach(role -> resourcePermissionDtoList.stream()
                         .filter(rp -> role.getId().equals(rp.getRoleId()))
                         .findFirst()
                         .ifPresent(dictatorResourcePermissionDto -> role.setPermissions(dictatorResourcePermissionDto.getPermissions())));
+        //环境权限
+        List<DictatorProfilePermissionDto> profilePermissionByRoleIdLIst = this.roleProfileMapper.findProfilePermissionByRoleIdLIst(roleIdList);
+        dictatorRoleDtoPageInfo.getList()
+                .forEach(role -> {
+                    Optional<DictatorProfilePermissionDto> dictatorProfilePermissionDtoOptional = profilePermissionByRoleIdLIst.stream()
+                            .filter(rp -> role.getId().equals(rp.getRoleId()))
+                            .findFirst();
+                    if(dictatorProfilePermissionDtoOptional.isPresent()){
+                        DictatorProfilePermissionDto profilePermissionDto = dictatorProfilePermissionDtoOptional.get();
+                        role.setProfilePermissions(profilePermissionDto.getProfilePermissions());
+                        List<Long> profileIdList = Arrays.stream(StringUtils.split(profilePermissionDto.getProfileIds(),","))
+                                .map(Long::valueOf)
+                                .collect(Collectors.toList());
+                        role.setProfileIdList(profileIdList);
+                    }
+                });
         return dictatorRoleDtoPageInfo;
     }
 }

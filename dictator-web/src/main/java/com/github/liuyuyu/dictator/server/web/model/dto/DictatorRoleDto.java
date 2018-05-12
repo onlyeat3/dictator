@@ -21,6 +21,10 @@ public class DictatorRoleDto {
      * 已有权限资源名
      */
     private String permissions;
+    /**
+     * 已有环境权限名
+     */
+    private String profilePermissions;
 
     /**
      * 创建时间
@@ -39,4 +43,8 @@ public class DictatorRoleDto {
      * 被选中的资源ID
      */
     private List<Long> checkedPermissionIdList = new ArrayList<>();
+    /**
+     * 环境ID列表
+     */
+    private List<Long> profileIdList;
 }

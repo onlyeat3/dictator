@@ -5,4 +5,18 @@
         delete from dictator_role_profile
         where role_id = #{roleId}
     </delete>
+    <select id="findProfilePermissionByRoleIdLIst" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorProfilePermissionDto">
+        SELECT
+        rp.role_id
+        ,group_concat(p.profile_name) AS profile_permissions
+        ,group_concat(p.id) AS profile_ids
+        FROM
+        dictator_config_profile p
+        LEFT JOIN dictator_role_profile rp ON p.id = rp.profile_id
+        where rp.role_id in
+        <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId">
+            #{roleId}
+        </foreach>
+        group by rp.role_id
+    </select>
 </mapper>

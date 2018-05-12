@@ -14,3 +14,9 @@
     width: 80px;
   }
 }
+.long-text .cell {
+  width: 200px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
