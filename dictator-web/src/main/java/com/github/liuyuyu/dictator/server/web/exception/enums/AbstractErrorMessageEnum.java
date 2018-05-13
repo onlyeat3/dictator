@@ -17,7 +17,7 @@ public interface AbstractErrorMessageEnum {
         }
     }
 
-    default ServiceException getServiceException() {
+    default ServiceException serviceException() {
         return ServiceException.from(this);
     }
 }

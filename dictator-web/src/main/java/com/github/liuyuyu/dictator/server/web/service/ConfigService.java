@@ -11,6 +11,8 @@ import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.ConfigErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigBatchImportParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigSaveUpdateParam;
+import com.github.liuyuyu.dictator.server.web.model.param.PermissionCheckParam;
+import com.github.liuyuyu.dictator.server.web.model.param.ProfilePermissionCheckParam;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,11 +35,18 @@ public class ConfigService {
     @Autowired
     private DictatorConfigHistoryMapper configHistoryMapper;
 
+    @Autowired private PermissionService permissionService;
+
     /**
      * 移动到历史表
      */
     @TransactionalAutoRollback
-    public void delete(@NonNull Long configId) {
+    public void delete(@NonNull Long configId,@NonNull List<Long> roleIdList) {
+        PermissionCheckParam param = new PermissionCheckParam();
+        param.setRoleIdList(roleIdList);
+        param.setConfigId(configId);
+        this.permissionService.checkPermission(param);
+
         DictatorConfig dictatorConfig = this.configMapper.findById(configId)
                 .orElseThrow(() -> ServiceException.from(ConfigErrorMessageEnum.CONFIG_NOT_EXISTS));
         DictatorConfigHistory dictatorConfigHistory = BeanConverter.from(dictatorConfig)
@@ -51,6 +60,11 @@ public class ConfigService {
 
     @TransactionalAutoRollback
     public void saveOrUpdate(ConfigSaveUpdateParam configSaveUpdateParam) {
+        ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
+        param.setRoleIdList(configSaveUpdateParam.getRoleIdList());
+        param.setProfileId(configSaveUpdateParam.getProfileId());
+        this.permissionService.checkWritePermission(param);
+
         DictatorConfig dictatorConfig = configSaveUpdateParam.to(DictatorConfig.class);
         //版本上升
         Long version = 0L;
@@ -86,7 +100,12 @@ public class ConfigService {
     }
 
     @TransactionalAutoRollback
-    public void deleteByProfileId(@NonNull Long profileId) {
+    public void deleteByProfileId(@NonNull Long profileId,@NonNull List<Long> roleIdList) {
+        ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
+        param.setRoleIdList(roleIdList);
+        param.setProfileId(profileId);
+        this.permissionService.checkWritePermission(param);
+
         List<DictatorConfig> configList = this.configMapper.findByProfileId(profileId);
         BeanConverter.from(configList)
                 .toList(DictatorConfigHistory.class)
@@ -106,6 +125,10 @@ public class ConfigService {
 
     @TransactionalAutoRollback
     public void batchAdd(ConfigBatchImportParam configBatchImportParam) {
+        ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
+        param.setRoleIdList(configBatchImportParam.getRoleIdList());
+        param.setProfileId(configBatchImportParam.getProfileId());
+        this.permissionService.checkWritePermission(param);
         try {
             Properties properties = new Properties();
             properties.load(new StringReader(configBatchImportParam.getContent()));
@@ -121,7 +144,7 @@ public class ConfigService {
                     })
                     .forEach(this::saveOrUpdate);
         } catch (IOException e) {
-            ExceptionWrapper.of(e);
+            throw ExceptionWrapper.of(e);
         }
     }
 }

@@ -57,8 +57,8 @@ public class WebConfigController {
 
     @ResourceName("删除配置")
     @RequestMapping("/delete")
-    public DataWrapper delete(@RequestBody @Valid IdRequest idRequest) {
-        this.configService.delete(idRequest.getId());
+    public DataWrapper delete(@RequestBody @Valid IdRequest idRequest,@CurrentUser DictatorUserDto currentUser) {
+        this.configService.delete(idRequest.getId(),currentUser.getRoleIdList());
         return DataWrapper.of();
     }
 }

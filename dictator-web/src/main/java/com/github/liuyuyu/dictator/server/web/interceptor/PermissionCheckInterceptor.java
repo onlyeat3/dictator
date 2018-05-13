@@ -36,12 +36,12 @@ public class PermissionCheckInterceptor implements HandlerInterceptor {
             token = httpServletRequest.getParameter(UserConstants.TOKEN_NAME);
         }
         if (token == null) {
-            throw UserErrorMessageEnum.MISS_TOKEN.getServiceException();
+            throw UserErrorMessageEnum.MISS_TOKEN.serviceException();
         }
         //是否登录
         DictatorUserDto dictatorUserDto = TokenManger.get(token);
         if (dictatorUserDto == null) {
-            throw UserErrorMessageEnum.INVALID_TOKEN.getServiceException();
+            throw UserErrorMessageEnum.INVALID_TOKEN.serviceException();
         }
         //GM账号
         if(Objects.equals(dictatorUserDto.getId(), UserConstants.GM_USER_ID)){
@@ -49,13 +49,13 @@ public class PermissionCheckInterceptor implements HandlerInterceptor {
         }else{
             DictatorUserDto userInfo = this.userService.findUserInfo(dictatorUserDto.getId());
             if(userInfo == null){
-                throw UserErrorMessageEnum.UNKNOWN_USER.getServiceException();
+                throw UserErrorMessageEnum.UNKNOWN_USER.serviceException();
             }
             long matchsCount = userInfo.getResourceList().stream()
                     .filter(r -> r.getTargetUri().contains(httpServletRequest.getRequestURI()))
                     .count();
             if(matchsCount < 1){
-                throw UserErrorMessageEnum.FORBIDDEN.getServiceException();
+                throw UserErrorMessageEnum.FORBIDDEN.serviceException();
             }
         }
         return true;

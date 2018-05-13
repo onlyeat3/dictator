@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.liuyuyu.dictator.server.mapper.DictatorConfigMapper">
+    <sql id="filterConfigSql">
+        and exists
+        (
+            select 1 from dictator_role_profile rp
+            where rp.profile_id = config.profile_id
+            and rp.profile_id = #{profileId}
+        )
+    </sql>
     <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto">
         select * from dictator_config
         <where>
@@ -16,6 +24,7 @@
             <if test="configName != null and configName != ''">
                 and config_name = #{configName}
             </if>
+            <include refid="filterConfigSql" />
         </where>
     </select>
 </mapper>
