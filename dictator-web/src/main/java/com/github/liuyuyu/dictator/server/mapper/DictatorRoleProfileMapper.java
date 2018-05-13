@@ -12,4 +12,8 @@ public interface DictatorRoleProfileMapper extends SimpleMapper<DictatorRoleProf
     int deleteByRoleId(@Param("roleId") Long roleId);
 
     List<DictatorProfilePermissionDto> findProfilePermissionByRoleIdLIst(@Param("roleIdList") List<Long> roleIdList);
+
+    int countByRoleIdAndAndConfigId(@Param("roleIdList") List<Long> roleIdList, @Param("configId") Long configId);
+
+    int countByRoleIdAndAndProfileId(@Param("roleIdList") List<Long> roleIdList, @Param("profileId") Long profileId);
 }

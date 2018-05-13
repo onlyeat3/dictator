@@ -19,4 +19,26 @@
         </foreach>
         group by rp.role_id
     </select>
+    <select id="countByRoleIdAndAndConfigId" resultType="int">
+        select count('活捉一只凹凸曼') from dictator_config config
+        where
+        exists
+        (
+            select 1 from dictator_role_profile rp
+            where rp.profile_id = config.profile_id
+            and rp.role_id in
+            <foreach collection="roleIdList" open="(" separator="," item="roleId" close=")">
+                #{roleId}
+            </foreach>
+        )
+        and config.id = #{configId}
+    </select>
+    <select id="countByRoleIdAndAndProfileId" resultType="int">
+        select count('又活捉一只凹凸曼') from dictator_role_profile rp
+        where rp.profile_id = #{profileId}
+        and rp.role_id in
+        <foreach collection="roleIdList" open="(" separator="," item="roleId" close=")">
+            #{roleId}
+        </foreach>
+    </select>
 </mapper>

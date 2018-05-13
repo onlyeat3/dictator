@@ -73,7 +73,7 @@ public class ConfigHistoryService {
     @TransactionalAutoRollback
     public void recovery(@NonNull Long id) {
         DictatorConfigHistory oldConfigHistory = this.configHistoryMapper.findById(id)
-                .orElseThrow(ConfigErrorMessageEnum.CONFIG_HISTORY_NOT_EXISTS::getServiceException);
+                .orElseThrow(ConfigErrorMessageEnum.CONFIG_HISTORY_NOT_EXISTS::serviceException);
         Optional<DictatorConfig> currentConfigOptional = this.dictatorConfigMapper.findById(oldConfigHistory.getConfigId());
         //当前配置存在才加入到历史
         if (currentConfigOptional.isPresent()) {

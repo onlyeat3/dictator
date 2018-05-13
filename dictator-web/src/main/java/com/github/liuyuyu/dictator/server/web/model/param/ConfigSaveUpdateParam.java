@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class ConfigSaveUpdateParam implements Convertible, OperatorParam {
@@ -53,4 +54,8 @@ public class ConfigSaveUpdateParam implements Convertible, OperatorParam {
      * 分组ID
      */
     private Long groupId;
+    /**
+     * 角色ID
+     */
+    private List<Long> roleIdList;
 }
