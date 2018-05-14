@@ -65,6 +65,10 @@ public class UserService {
         DictatorUserDto dictatorUserDto = new DictatorUserDto();
         dictatorUserDto.from(dictatorUser);
         dictatorUserDto.setToken(UUIDUtils.next());
+        List<Long> roleIdList = this.roleMapper.findByUserId(dictatorUser.getId()).stream()
+                .map(DictatorRole::getId)
+                .collect(Collectors.toList());
+        dictatorUserDto.setRoleIdList(roleIdList);
         return dictatorUserDto;
     }
 
