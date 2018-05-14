@@ -53,6 +53,7 @@ public class ProfileController {
     public DataWrapper delete(@RequestBody @Valid ConfigProfileDeleteRequest profileEnableUpdateRequest, @CurrentUser DictatorUserDto currentUser){
         ConfigProfileDeleteParam configProfileDeleteParam = profileEnableUpdateRequest.to(ConfigProfileDeleteParam.class);
         configProfileDeleteParam.join(currentUser);
+        configProfileDeleteParam.setRoleIdList(currentUser.getRoleIdList());
         this.profileService.delete(configProfileDeleteParam);
         return DataWrapper.of();
     }

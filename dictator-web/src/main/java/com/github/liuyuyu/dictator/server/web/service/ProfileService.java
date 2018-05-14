@@ -50,6 +50,6 @@ public class ProfileService {
     @TransactionalAutoRollback
     public void delete(ConfigProfileDeleteParam configProfileDeleteParam) {
         this.profileMapper.deleteByPrimaryKey(configProfileDeleteParam.getId());
-        this.configService.deleteByProfileId(configProfileDeleteParam.getId());
+        this.configService.deleteByProfileId(configProfileDeleteParam.getId(),configProfileDeleteParam.getRoleIdList());
     }
 }
