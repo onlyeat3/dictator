@@ -6,11 +6,17 @@
         (
             select 1 from dictator_role_profile rp
             where rp.profile_id = config.profile_id
-            and rp.profile_id = #{profileId}
+            <if test="profileId != null">
+                and rp.profile_id = #{profileId}
+            </if>
+            and rp.role_id in
+            <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId">
+                #{roleId}
+            </foreach>
         )
     </sql>
     <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto">
-        select * from dictator_config
+        select * from dictator_config config
         <where>
             <if test="appId != null and appId != ''">
                 and app_id = #{appId}

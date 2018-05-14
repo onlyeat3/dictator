@@ -4,7 +4,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigProfile;
 import com.google.common.collect.Maps;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
-import tk.mybatis.mapper.weekend.Weekend;
+import org.apache.ibatis.annotations.Param;import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +40,5 @@ public interface DictatorConfigProfileMapper extends SimpleMapper<DictatorConfig
                 .collect(Collectors.toMap(DictatorConfigProfile::getId, e -> e));
     }
 
+    List<Long> findByRoleIdList(@Param("roleIdList") List<Long> roleIdList);
 }
