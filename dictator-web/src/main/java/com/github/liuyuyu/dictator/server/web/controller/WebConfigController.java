@@ -34,7 +34,8 @@ public class WebConfigController {
 
     @ResourceName("配置列表")
     @RequestMapping("/list")
-    public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam) {
+    public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam,@CurrentUser DictatorUserDto currentUser) {
+        configListParam.setRoleIdList(currentUser.getRoleIdList());
         PageInfo<DictatorConfigDto> dictatorConfigDtoPageInfo = this.configReadService.findPageValid(configListParam);
         return DataWrapper.from(dictatorConfigDtoPageInfo);
     }
