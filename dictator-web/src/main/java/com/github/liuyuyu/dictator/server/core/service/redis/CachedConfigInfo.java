@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.core.service.zookeeper;
+package com.github.liuyuyu.dictator.server.core.service.redis;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  * @author liuyuyu
  */
 @Data
-public class ZookeeperConfigInfo {
+public class CachedConfigInfo {
     /**
      * 配置值
      */
