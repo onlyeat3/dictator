@@ -73,7 +73,7 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
     @Override
     public Map<String, String> findAll(CommonParam commonParam) {
         List<String> keyList = this.redisTemplate.execute((RedisCallback<List<String>>) redisConnection -> {
-            Cursor<byte[]> cursor = redisConnection.scan(ScanOptions.scanOptions().match(String.format("%s*",commonParam.toFullKey(seperator))).build());
+            Cursor<byte[]> cursor = redisConnection.scan(ScanOptions.scanOptions().match(String.format("%s:*",commonParam.toFullKey(seperator))).build());
             List<String> matchKeyList = new ArrayList<>();
             while (cursor.hasNext()) {
                 String key = new String(cursor.next());
