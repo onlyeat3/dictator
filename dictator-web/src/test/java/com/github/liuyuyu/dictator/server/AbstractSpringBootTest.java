@@ -13,4 +13,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AbstractSpringBootTest {
+
+    public String getAppId(){
+        return "dictator-test";
+    }
+
+    protected String getProfile() {
+        return "test";
+    }
+
+    protected Long getLastUpdatedTime() {
+        return System.currentTimeMillis();
+    }
 }
