@@ -82,11 +82,12 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
             return matchKeyList;
         });
         Map<String,String> dataMap = new HashMap<>();
-        for (String key : keyList) {
-            String value = this.redisTemplate.opsForValue().get(key);
+        List<String> valueList = this.redisTemplate.opsForValue().multiGet(keyList);
+        for (int i = 0; i < keyList.size(); i++) {
+            String key = keyList.get(i);
+            String value = valueList.get(i);
             dataMap.put(key,value);
         }
-
         return dataMap;
     }
 }
