@@ -19,6 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -81,13 +82,28 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
             }
             return matchKeyList;
         });
-        Map<String,String> dataMap = new HashMap<>();
-        List<String> valueList = this.redisTemplate.opsForValue().multiGet(keyList);
-        for (int i = 0; i < keyList.size(); i++) {
-            String key = keyList.get(i);
-            String value = valueList.get(i);
-            dataMap.put(key,value);
+        List<List<String>> splitSubList = new ArrayList<>();
+        int step = 1000;
+        for (int j = 0; j < keyList.size(); j+=step) {
+            if(step > keyList.size()){
+                step = keyList.size() - 1;
+            }
+            List<String> subKeyList = keyList.subList(j, step);
+            splitSubList.add(subKeyList);
         }
+
+
+        Map<String,String> dataMap = new HashMap<>();
+        splitSubList.stream()
+                .parallel() //用的commonPool,会影响其他
+                .forEach(subKeyList->{
+                    List<String> valueList = this.redisTemplate.opsForValue().multiGet(subKeyList);
+                    for (int i = 0; i < subKeyList.size(); i++) {
+                        String key = subKeyList.get(i);
+                        String value = valueList.get(i);
+                        dataMap.put(key,value);
+                    }
+                });
         return dataMap;
     }
 }
