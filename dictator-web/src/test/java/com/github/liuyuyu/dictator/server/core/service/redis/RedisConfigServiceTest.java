@@ -3,10 +3,7 @@ package com.github.liuyuyu.dictator.server.core.service.redis;
 import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,6 +28,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
     private String profile2 = "qa";
 
     @Test
+    @Ignore
     public void test1_save() {
         IntStream.range(0,10000)
                 .forEach(i->{
