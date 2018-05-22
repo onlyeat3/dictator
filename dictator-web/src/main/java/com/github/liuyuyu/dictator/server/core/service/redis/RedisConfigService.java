@@ -7,28 +7,29 @@ import com.github.liuyuyu.dictator.server.core.service.ConfigWriteService;
 import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author liuyuyu
  */
+@Slf4j
 @Component
 public class RedisConfigService implements ConfigWriteService, ConfigReadService {
     @Autowired private StringRedisTemplate redisTemplate;
     private final String seperator = ":";
+    @Autowired private ExecutorService executorService;
 
     @Override
     public void save(ConfigSetParam configSetParam) {
@@ -88,22 +89,22 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
             if(step > keyList.size()){
                 step = keyList.size() - 1;
             }
-            List<String> subKeyList = keyList.subList(j, step);
+            List<String> subKeyList = keyList.subList(j, j+step);
             splitSubList.add(subKeyList);
         }
 
 
-        Map<String,String> dataMap = new HashMap<>();
-        splitSubList.stream()
-                .parallel() //用的commonPool,会影响其他
-                .forEach(subKeyList->{
-                    List<String> valueList = this.redisTemplate.opsForValue().multiGet(subKeyList);
-                    for (int i = 0; i < subKeyList.size(); i++) {
-                        String key = subKeyList.get(i);
-                        String value = valueList.get(i);
-                        dataMap.put(key,value);
-                    }
-                });
+        Map<String,String> dataMap = new ConcurrentHashMap<>();
+        for (List<String> subKeyList : splitSubList) {
+            this.executorService.submit(() -> {
+                List<String> valueList = redisTemplate.opsForValue().multiGet(subKeyList);
+                for (int i = 0; i < subKeyList.size(); i++) {
+                    String key = subKeyList.get(i);
+                    String value = valueList.get(i);
+                    dataMap.put(key, value);
+                }
+            });
+        }
         return dataMap;
     }
 }
