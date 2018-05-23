@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author liuyuyu
@@ -95,6 +97,7 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
 
 
         Map<String,String> dataMap = new ConcurrentHashMap<>();
+        CountDownLatch countDownLatch = new CountDownLatch(splitSubList.size());
         for (List<String> subKeyList : splitSubList) {
             this.executorService.submit(() -> {
                 List<String> valueList = redisTemplate.opsForValue().multiGet(subKeyList);
@@ -103,7 +106,13 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
                     String value = valueList.get(i);
                     dataMap.put(key, value);
                 }
+                countDownLatch.countDown();
             });
+        }
+        try {
+            countDownLatch.await(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            log.error("load config error",e);
         }
         return dataMap;
     }
