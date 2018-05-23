@@ -105,7 +105,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
         long start = System.currentTimeMillis();
         Map<String, String> map = this.configService.findAll(param);
 //        map.keySet().forEach(System.out::println);
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(map.size());
     }
 
     @Test
@@ -116,7 +116,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
         long start = System.currentTimeMillis();
         Map<String, String> map = this.configService.findAll(param);
 //        map.keySet().forEach(System.out::println);
-        System.out.println(System.currentTimeMillis() - start);
+        System.out.println(map.size());
     }
 
     @Test
