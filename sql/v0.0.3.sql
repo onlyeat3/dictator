@@ -12,3 +12,4 @@ CREATE TABLE IF NOT EXISTS `dictator_role_profile` (
   KEY `idx_created_time` (`created_time`),
   KEY `idx_operator_id` (`operator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-环境关联';
+ALTER TABLE `dictator_user` ADD UNIQUE INDEX `uq_user_name`(`user_name`) USING BTREE;
