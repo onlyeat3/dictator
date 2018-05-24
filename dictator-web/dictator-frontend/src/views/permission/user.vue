@@ -89,7 +89,10 @@ export default {
           cancelButtonText: '取消'
       })
       .then(() => {
-        userApi.deleteUser(row);
+        userApi.deleteUser(row)
+        .then(()=>{
+          this.loadData();
+        });
       });
     },
     saveOrUpdateUser(){

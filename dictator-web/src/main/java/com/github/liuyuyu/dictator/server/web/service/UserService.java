@@ -145,6 +145,9 @@ public class UserService {
             return dictatorUserDtoList.stream()
                     .peek(u->{
                         List<DictatorUserRoleDto> dictatorUserRoleDtos = userIdRoleMap.get(u.getId());
+                        if(dictatorUserRoleDtos == null){
+                            return;
+                        }
                         List<Long> roleIdList = dictatorUserRoleDtos.stream()
                                 .map(DictatorUserRoleDto::getRoleId)
                                 .collect(Collectors.toList());

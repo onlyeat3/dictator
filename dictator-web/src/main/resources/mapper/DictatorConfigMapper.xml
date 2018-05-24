@@ -18,19 +18,21 @@
     <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigDto">
         select * from dictator_config config
         <where>
-            <if test="appId != null and appId != ''">
-                and app_id = #{appId}
+            <if test="configListParam.appId != null and configListParam.appId != ''">
+                and app_id = #{configListParam.appId}
             </if>
-            <if test="profileId != null and profileId != ''">
-                and profile_id = #{profileId}
+            <if test="configListParam.profileId != null and configListParam.profileId != ''">
+                and profile_id = #{configListParam.profileId}
             </if>
-            <if test="groupId != null and groupId != ''">
-                and group_id = #{groupId}
+            <if test="configListParam.groupId != null and configListParam.groupId != ''">
+                and group_id = #{configListParam.groupId}
             </if>
-            <if test="configName != null and configName != ''">
-                and config_name = #{configName}
+            <if test="configListParam.configName != null and configListParam.configName != ''">
+                and config_name = #{configListParam.configName}
             </if>
-            <include refid="filterConfigSql" />
+            <if test="!configListParam.isGM">
+                <include refid="filterConfigSql" />
+            </if>
         </where>
     </select>
 </mapper>

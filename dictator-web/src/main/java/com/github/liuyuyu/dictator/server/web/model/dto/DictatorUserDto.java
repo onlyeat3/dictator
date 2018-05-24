@@ -2,7 +2,9 @@ package com.github.liuyuyu.dictator.server.web.model.dto;
 
 import com.github.liuyuyu.dictator.common.Convertible;
 import com.github.liuyuyu.dictator.common.Resolvable;
+import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,4 +54,8 @@ public class DictatorUserDto implements Convertible,Resolvable {
      * 角色ID
      */
     private List<Long> roleIdList = new ArrayList<>();
+
+    public boolean isGM(){
+        return StringUtils.equals(this.userName,UserConstants.GM_ACCOUNT);
+    }
 }

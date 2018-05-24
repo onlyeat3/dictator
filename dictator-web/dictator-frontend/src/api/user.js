@@ -13,9 +13,9 @@ export default {
         });
     },
     deleteUser(data){
-        return {
+        return request({
             url: "/user/delete",
             data
-        };
+        });
     }
 };
