@@ -9,7 +9,7 @@ import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;
 import com.github.pagehelper.Page;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
-import tk.mybatis.mapper.weekend.Weekend;
+import org.apache.ibatis.annotations.Param;import tk.mybatis.mapper.weekend.Weekend;
 
 import java.util.Date;
 import java.util.List;
@@ -24,7 +24,7 @@ public interface DictatorConfigMapper extends SimpleMapper<DictatorConfig> {
         return this.selectCountByExample(DictatorConfigWeekend.from(commonParam, profileId, null));
     }
 
-    Page<DictatorConfigDto> findPageValid(ConfigListParam configListParam);
+    Page<DictatorConfigDto> findPageValid(@Param("configListParam") ConfigListParam configListParam, @Param("profileId")Long profileId, @Param("roleIdList") List<Long> roleIdList);
 
     default List<DictatorConfig> findAllByGetParam(@NonNull ConfigGetParam configGetParam, @NonNull Long profileId, Date lastUpdatedTime) {
         return this.selectByExample(DictatorConfigWeekend.from(configGetParam, profileId, lastUpdatedTime));

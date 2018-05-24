@@ -36,6 +36,7 @@ public class WebConfigController {
     @RequestMapping("/list")
     public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam,@CurrentUser DictatorUserDto currentUser) {
         configListParam.setRoleIdList(currentUser.getRoleIdList());
+        configListParam.setIsGM(currentUser.isGM());
         PageInfo<DictatorConfigDto> dictatorConfigDtoPageInfo = this.configReadService.findPageValid(configListParam);
         return DataWrapper.from(dictatorConfigDtoPageInfo);
     }

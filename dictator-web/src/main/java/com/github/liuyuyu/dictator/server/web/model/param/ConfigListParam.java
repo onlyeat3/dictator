@@ -33,6 +33,10 @@ public class ConfigListParam extends PageParam {
      * 角色ID
      */
     private List<Long> roleIdList;
+    /**
+     * 是否GM账号
+     */
+    private Boolean isGM;
 
     public static ConfigListParam of() {
         return new ConfigListParam();
