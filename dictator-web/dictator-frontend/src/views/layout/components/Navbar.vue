@@ -114,10 +114,11 @@ export default {
     },
     updatePassword(){
       userApi.updatePassword(this.updatePasswordForm)
-      .then(({data})=>{
+      .then(({msg})=>{
         this.$message({
-          message:data.msg
+          message:msg
         });
+        this.clearUpdatePasswordForm();
       });
     },
     clearUpdatePasswordForm(){

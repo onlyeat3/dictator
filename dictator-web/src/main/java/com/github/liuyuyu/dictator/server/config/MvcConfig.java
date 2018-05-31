@@ -43,6 +43,8 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(permissionCheckInterceptor)
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/info")
+                .excludePathPatterns("/user/logout")
+                .excludePathPatterns("/user/updatePassword")
                 .excludePathPatterns("/dictator/config/**");
     }
 }
