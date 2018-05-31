@@ -34,7 +34,7 @@
             </el-dropdown-item>
           </a>
           <el-dropdown-item>
-            <router-link to="config/current">修改密码</router-link>
+            <span @click="handleEditPassword">修改密码</span>
           </el-dropdown-item>
           <el-dropdown-item divided>
             <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
@@ -42,6 +42,23 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <el-dialog :visible.sync="updatePasswordForm.showForm" :before-close="clearUpdatePasswordForm" width="600px" title="修改密码">
+      <el-form v-model="updatePasswordForm" label-width="20%">
+        <el-form-item label="旧密码">
+          <el-input v-model="updatePasswordForm.oldPassword" type=password />
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input v-model="updatePasswordForm.newPassword" type=password />
+        </el-form-item>
+        <el-form-item label="重复新密码">
+          <el-input v-model="updatePasswordForm.confirmPassword" type=password />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="updatePassword">修改</el-button>
+          <el-button @click="clearUpdatePasswordForm">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </el-menu>
 </template>
 
@@ -53,6 +70,8 @@ import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
 import LangSelect from '@/components/LangSelect'
 import ThemePicker from '@/components/ThemePicker'
+import userApi from "@/api/user";
+import { clearAttrs } from "@/utils";
 
 export default {
   components: {
@@ -70,6 +89,16 @@ export default {
       'avatar'
     ])
   },
+  data(){
+    return {
+      updatePasswordForm:{
+        showForm: false,
+        oldPassword:'',
+        newPassword:'',
+        confirmNewPassword:''
+      }
+    }
+  },
   methods: {
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
@@ -78,7 +107,22 @@ export default {
       this.$store.dispatch('LogOut').then(() => {
         location.reload()// In order to re-instantiate the vue-router object to avoid bugs
       })
-    }
+    },
+    handleEditPassword(){
+      clearAttrs(this.updatePasswordForm);
+      this.updatePasswordForm.showForm = true;
+    },
+    updatePassword(){
+      userApi.updatePassword(this.updatePasswordForm)
+      .then(({data})=>{
+        this.$message({
+          message:data.msg
+        });
+      });
+    },
+    clearUpdatePasswordForm(){
+      clearAttrs(this.updatePasswordForm);
+    },
   }
 }
 </script>

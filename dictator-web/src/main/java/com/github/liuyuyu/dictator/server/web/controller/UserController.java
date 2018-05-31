@@ -59,6 +59,7 @@ public class UserController {
     }
 
     @ResourceName("修改密码")
+    @RequestMapping("/updatePassword")
     public DataWrapper updatePassword(@CurrentUser DictatorUserDto currentUser, @Valid @RequestBody UpdatePasswordParam updatePasswordParam){
         updatePasswordParam.setUserId(currentUser.getId());
         this.userService.updatePassword(updatePasswordParam);
@@ -77,4 +78,5 @@ public class UserController {
         this.userService.deleteById(idRequest.getId());
         return DataWrapper.of();
     }
+
 }
