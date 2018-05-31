@@ -17,5 +17,11 @@ export default {
             url: "/user/delete",
             data
         });
+    },
+    updatePassword(data){
+        return request({
+            url:"/user/updatePassword",
+            data
+        });
     }
 };
