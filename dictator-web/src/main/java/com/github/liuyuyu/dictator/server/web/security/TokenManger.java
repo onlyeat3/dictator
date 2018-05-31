@@ -25,6 +25,10 @@ public class TokenManger {
         return DICTATOR_USER_DTO_MAP.getIfPresent(token);
     }
 
+    public static void remove(@NonNull DictatorUserDto dictatorUserDto) {
+        DICTATOR_USER_DTO_MAP.invalidate(dictatorUserDto);
+    }
+
     public static void put(@NonNull DictatorUserDto dictatorUserDto) {
         String token = dictatorUserDto.getToken();
         if (StringUtils.isEmpty(token)) {

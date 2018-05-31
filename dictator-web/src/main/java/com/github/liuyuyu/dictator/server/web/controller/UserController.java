@@ -79,4 +79,10 @@ public class UserController {
         return DataWrapper.of();
     }
 
+    @RequestMapping("/logout")
+    public DataWrapper logout(@CurrentUser DictatorUserDto currentUser){
+        TokenManger.remove(currentUser);
+        return DataWrapper.of();
+    }
+
 }
