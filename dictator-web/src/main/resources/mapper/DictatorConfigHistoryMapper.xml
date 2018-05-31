@@ -1,21 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.github.liuyuyu.dictator.server.mapper.DictatorConfigHistoryMapper">
-    <select id="findPageValid"
-            resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto">
-        select * from dictator_config_history
+    <sql id="filterConfigSql">
+        and exists
+        (
+        select 1 from dictator_role_profile rp
+        where rp.profile_id = history.profile_id
+        <if test="profileId != null">
+            and rp.profile_id = #{profileId}
+        </if>
+        and rp.role_id in
+        <foreach collection="roleIdList" open="(" close=")" separator="," item="roleId">
+            #{roleId}
+        </foreach>
+        )
+    </sql>
+    <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto">
+        select * from dictator_config_history history
         <where>
-            <if test="appId != null and appId != ''">
-                and app_id = #{appId}
+            <if test="configListParam.appId != null and configListParam.appId != ''">
+                and app_id = #{configListParam.appId}
             </if>
-            <if test="profileId != null and profileId != ''">
-                and profile_id = #{profileId}
+            <if test="configListParam.profileId != null and configListParam.profileId != ''">
+                and profile_id = #{configListParam.profileId}
             </if>
-            <if test="groupId != null and groupId != ''">
-                and group_id = #{groupId}
+            <if test="configListParam.groupId != null and configListParam.groupId != ''">
+                and group_id = #{configListParam.groupId}
             </if>
-            <if test="configName != null and configName != ''">
-                and config_name = #{configName}
+            <if test="configListParam.configName != null and configListParam.configName != ''">
+                and config_name = #{configListParam.configName}
+            </if>
+            <if test="!configListParam.isGM">
+                <include refid="filterConfigSql" />
             </if>
         </where>
     </select>
