@@ -45,7 +45,7 @@ public class ConfigHistoryService {
 
     public PageInfo<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam) {
         configListParam.startPage();
-        PageInfo<DictatorConfigHistoryDto> pageValid = this.configHistoryMapper.findPageValid(configListParam).toPageInfo();
+        PageInfo<DictatorConfigHistoryDto> pageValid = this.configHistoryMapper.findPageValid(configListParam,configListParam.getRoleIdList(),configListParam.getProfileId()).toPageInfo();
         List<Long> groupIdList = pageValid.getList().stream()
                 .map(DictatorConfigHistoryDto::getGroupId)
                 .collect(Collectors.toList());

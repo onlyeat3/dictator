@@ -6,6 +6,7 @@ import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;
 import com.github.pagehelper.Page;
 import lombok.NonNull;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.weekend.Weekend;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
         return this.selectByExample(weekend);
     }
 
-    Page<DictatorConfigHistoryDto> findPageValid(ConfigListParam configListParam);
+    Page<DictatorConfigHistoryDto> findPageValid(@Param("configListParam") ConfigListParam configListParam, @Param("roleIdList") List<Long> roleIdList, @Param("profileId") Long profileId);
 
     default Optional<DictatorConfigHistory> findLastByConfigId(@NonNull Long configId) {
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
@@ -40,10 +41,10 @@ public interface DictatorConfigHistoryMapper extends SimpleMapper<DictatorConfig
         return this.findAll(weekend);
     }
 
-    default int countByProfileId(@NonNull Long profileId){
+    default int countByProfileId(@NonNull Long profileId) {
         Weekend<DictatorConfigHistory> weekend = Weekend.of(DictatorConfigHistory.class);
         weekend.weekendCriteria()
-                .andEqualTo(DictatorConfigHistory::getProfileId,profileId);
+                .andEqualTo(DictatorConfigHistory::getProfileId, profileId);
         return this.selectCountByExample(weekend);
     }
 }

@@ -3,9 +3,11 @@ package com.github.liuyuyu.dictator.server.web.controller;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.utils.ResourceName;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;
 import com.github.liuyuyu.dictator.server.web.model.request.ConfigIdRequest;
 import com.github.liuyuyu.dictator.server.web.model.request.IdRequest;
+import com.github.liuyuyu.dictator.server.web.mvc.CurrentUser;
 import com.github.liuyuyu.dictator.server.web.service.ConfigHistoryService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,9 @@ public class DictatorConfigHistoryController {
 
     @ResourceName("配置历史获取")
     @RequestMapping("/list")
-    public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam) {
+    public DataWrapper list(@RequestBody @Valid ConfigListParam configListParam, @CurrentUser DictatorUserDto currentUser) {
+        configListParam.setRoleIdList(currentUser.getRoleIdList());
+        configListParam.setIsGM(currentUser.isGM());
         PageInfo<DictatorConfigHistoryDto> dictatorConfigDtoPageInfo = this.configHistoryService.findPageValid(configListParam);
         return DataWrapper.from(dictatorConfigDtoPageInfo);
     }
