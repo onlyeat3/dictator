@@ -88,10 +88,11 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
         List<List<String>> splitSubList = new ArrayList<>();
         int step = 1000;
         for (int j = 0; j < keyList.size(); j+=step) {
-            if(step > keyList.size()){
-                step = keyList.size() - 1;
+            int toIndex = j + step;
+            if(toIndex > keyList.size()){
+                toIndex = keyList.size() - 1;
             }
-            List<String> subKeyList = keyList.subList(j, j+step);
+            List<String> subKeyList = keyList.subList(j, toIndex);
             splitSubList.add(subKeyList);
         }
 
