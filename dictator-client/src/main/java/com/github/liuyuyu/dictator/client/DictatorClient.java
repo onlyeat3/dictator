@@ -76,7 +76,7 @@ public class DictatorClient {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<String, String> reload(Long lastUpdatedTime) {
+    public Map<String, String> loadAll(Long lastUpdatedTime) {
         BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
         batchRequest.setLastUpdatedTime(lastUpdatedTime);
         Request request = new Request.Builder()

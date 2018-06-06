@@ -45,7 +45,7 @@ public class DictatorPropertyManager {
         Assert.notNull(DICTATOR_CLIENT, "DICTATOR_CLIENT not found.");
         LOCK.lock();
         try {
-            Map<String, String> currentConfigMap = DICTATOR_CLIENT.reload(LAST_UPDATED_TIME);
+            Map<String, String> currentConfigMap = DICTATOR_CLIENT.loadAll(LAST_UPDATED_TIME);
             if (currentConfigMap.isEmpty()) {
                 return;
             }
