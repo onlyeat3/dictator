@@ -20,10 +20,10 @@ public class DictatorApp {
     private String appName;
 
     /**
-     * APP ID
+     * APP CODE
      */
-    @Column(name = "app_id")
-    private String appId;
+    @Column(name = "app_code")
+    private String appCode;
 
     /**
      * 所有者邮箱

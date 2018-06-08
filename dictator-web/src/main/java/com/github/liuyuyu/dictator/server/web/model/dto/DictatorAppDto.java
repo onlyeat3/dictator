@@ -17,9 +17,9 @@ public class DictatorAppDto {
     private String appName;
 
     /**
-     * APP ID
+     * APP CODE
      */
-    private String appId;
+    private String appCode;
 
     /**
      * 所有者邮箱
