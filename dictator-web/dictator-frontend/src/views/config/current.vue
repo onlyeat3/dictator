@@ -3,7 +3,7 @@
     <el-header>
       <el-form :model="listQuery" :inline="true">
         <el-form-item label="应用ID">
-          <el-input v-model="listQuery.appId"/>
+          <el-input v-model="listQuery.appCode"/>
         </el-form-item>
         <el-form-item label="配置名">
           <el-input v-model="listQuery.configName"/>
@@ -61,7 +61,7 @@
               <span>{{props.row.id}}</span>
             </el-form-item>
             <el-form-item label="应用ID">
-              <span>{{props.row.appId}}</span>
+              <span>{{props.row.appCode}}</span>
             </el-form-item>
             <el-form-item label="环境">
               <span>{{props.row.profileName}}</span>
@@ -89,7 +89,7 @@
             </el-form-item>
           </el-form>
       </el-table-column>
-      <el-table-column prop="appId" label="应用ID" align="center"/>
+      <el-table-column prop="appCode" label="应用ID" align="center"/>
       <el-table-column prop="profileName" label="环境" align="center"/>
       <el-table-column prop="groupName" label="分组" align="center"/>
       <el-table-column prop="configName" label="配置名" align="center"/>
@@ -119,7 +119,7 @@
       <el-form v-model="editForm" label-width="80px">
         <el-input type="hidden" v-model="editForm.id"/>
         <el-form-item label="应用ID">
-          <el-input v-model="editForm.appId"/>
+          <el-input v-model="editForm.appCode"/>
         </el-form-item>
         <el-form-item label="环境">
           <el-select v-model="editForm.profileId">
@@ -161,7 +161,7 @@
     <el-dialog :visible.sync="batchForm.showForm" :before-close="clearBatchForm" width="60%" title="文件导入">
       <el-form v-model="batchForm" label-width="80px">
         <el-form-item label="应用ID">
-          <el-input v-model="editForm.appId"/>
+          <el-input v-model="editForm.appCode"/>
         </el-form-item>
         <el-form-item label="环境">
           <el-select v-model="editForm.profileId">
@@ -221,7 +221,7 @@
         editForm: {
           showForm: false,
           id: -1,
-          appId: '',
+          appCode: '',
           deploymentId: '',
           profileId: '',
           groupId: '',

@@ -11,8 +11,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
-
 /**
  * @author liuyuyu
  */
@@ -37,7 +35,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
                     param.setKey("a"+i);
 
                     param.setLastUpdatedTime(super.getLastUpdatedTime());
-                    param.setAppId(appId1);
+                    param.setAppCode(appId1);
                     param.setProfile(profile1);
                     this.configService.save(param);
                 });
@@ -48,7 +46,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
                     param.setKey("a"+i);
 
                     param.setLastUpdatedTime(super.getLastUpdatedTime());
-                    param.setAppId(appId2);
+                    param.setAppCode(appId2);
                     param.setProfile(profile2);
                     this.configService.save(param);
                 });
@@ -60,7 +58,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
                     param.setKey("a"+i);
 
                     param.setLastUpdatedTime(super.getLastUpdatedTime());
-                    param.setAppId(appId1);
+                    param.setAppCode(appId1);
                     param.setProfile(profile2);
                     this.configService.save(param);
                 });
@@ -71,7 +69,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
                     param.setKey("a"+i);
 
                     param.setLastUpdatedTime(super.getLastUpdatedTime());
-                    param.setAppId(appId2);
+                    param.setAppCode(appId2);
                     param.setProfile(profile1);
                     this.configService.save(param);
                 });
@@ -100,7 +98,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
     @Test
     public void test2_findAllApp1Profile1() {
         CommonParam param = new CommonParam();
-        param.setAppId(this.appId1);
+        param.setAppCode(this.appId1);
         param.setProfile(this.profile1);
         long start = System.currentTimeMillis();
         Map<String, String> map = this.configService.findAll(param);
@@ -111,7 +109,7 @@ public class RedisConfigServiceTest extends AbstractSpringBootTest {
     @Test
     public void test3_findAllApp2Profile2() {
         CommonParam param = new CommonParam();
-        param.setAppId(this.appId2);
+        param.setAppCode(this.appId2);
         param.setProfile(this.profile2);
         long start = System.currentTimeMillis();
         Map<String, String> map = this.configService.findAll(param);

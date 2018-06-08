@@ -14,7 +14,7 @@ public class BaseProperties {
      * 应用ID
      */
     @NotBlank
-    private String appId;
+    private String appCode;
     /**
      * profile code
      */
@@ -27,7 +27,7 @@ public class BaseProperties {
 
     public static BaseProperties from(@NonNull BaseProperties source) {
         BaseProperties target = new BaseProperties();
-        target.setAppId(source.getAppId());
+        target.setAppCode(source.getAppCode());
         target.setProfile(source.getProfile());
         target.setLastUpdatedTime(source.getLastUpdatedTime());
         return target;

@@ -80,7 +80,7 @@ java -jar dictator-web.jar --dictator.zk.enable=true --dictator.zk.address=local
 Spring的集成和Spring Boot的集成都依赖```dictator.properties```的配置。现在需要在工程的```resources```文件夹里创建文件```dictator.properties```,
 增加配置
 ```properties
-appId=app # 应用的ID
+appCode=app # 应用的ID
 profile=dev #当前的环境
 serverUrl=http://localhost:3399 #服务端地址
 ```

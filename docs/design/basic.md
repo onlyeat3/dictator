@@ -19,7 +19,7 @@ client通过http协议请求server，server先检查缓存提供者（zk/redis�
 
 由于服务端只是配置的提供者，并不知道客户端需要的配置都是那些，dictator要求客户端需要配置
 ```properties
-appId=app #应用ID代码
+appCode=app #应用ID代码
 profile=dev #环境代码（开发环境、测试环境、生产环境）
 serverUrl=http://localhost:3399 #dictator服务端的地址
 ```
