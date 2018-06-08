@@ -5,52 +5,30 @@ import javax.persistence.*;
 import lombok.*;
 
 @Data
-@Table(name = "dictator_config")
-public class DictatorConfig {
+@Table(name = "dictator_app")
+public class DictatorApp {
     /**
      * 自增主键
      */
     private Long id;
 
     /**
-     * 应用（服务）ID
+     * app名称
+     */
+    @Column(name = "app_name")
+    private String appName;
+
+    /**
+     * APP ID
      */
     @Column(name = "app_id")
-    private Long appId;
+    private String appId;
 
     /**
-     * profile_id
+     * 所有者邮箱
      */
-    @Column(name = "profile_id")
-    private Long profileId;
-
-    /**
-     * 分组ID
-     */
-    @Column(name = "group_id")
-    private Long groupId;
-
-    /**
-     * 配置名
-     */
-    @Column(name = "config_name")
-    private String configName;
-
-    /**
-     * 配置值
-     */
-    @Column(name = "config_value")
-    private String configValue;
-
-    /**
-     * 配置版本
-     */
-    private Long version;
-
-    /**
-     * 备注
-     */
-    private String remark;
+    @Column(name = "owner_email")
+    private String ownerEmail;
 
     /**
      * 创建时间

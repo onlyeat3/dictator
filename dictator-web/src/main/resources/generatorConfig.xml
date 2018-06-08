@@ -29,7 +29,10 @@
         <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}"
                              type="XMLMAPPER"/>
 
-        <table tableName="dictator_role_profile"/>
+        <table tableName="dictator_config"/>
+        <table tableName="dictator_config_history"/>
+        <table tableName="dictator_app"/>
+        <!--<table tableName="dictator_role_profile"/>-->
         <!--<table tableName="dictator_config"/>-->
         <!--<table tableName="dictator_config_history"/>-->
         <!--<table tableName="dictator_config_group"/>-->
