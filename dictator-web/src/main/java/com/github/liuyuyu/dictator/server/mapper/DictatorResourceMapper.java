@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
+import com.github.liuyuyu.dictator.server.basic.mybatis.SimpleMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorResource;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorResourcePermissionDto;
 import com.google.common.collect.Lists;
