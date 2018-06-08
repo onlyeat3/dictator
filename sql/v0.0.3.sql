@@ -20,6 +20,7 @@ create table dictator_app
     app_name varchar(50) not null comment 'app名称',
     app_id varchar(50) not null comment 'APP ID',
     owner_email varchar(50) not null comment '所有者邮箱',
+    `enable` bit NOT NULL DEFAULT 0 COMMENT '是否启用',
     `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `operator_id` bigint(20) NOT NULL COMMENT '操作者ID',
@@ -30,5 +31,8 @@ create table dictator_app
     KEY `idx_operator_id` (`operator_id`)
 )engine=InnoDB comment 'APP';
 
-ALTER TABLE `dictator`.`dictator_config` MODIFY COLUMN `app_id` bigint NOT NULL COMMENT '应用（服务）ID' AFTER `id`;
-ALTER TABLE `dictator`.`dictator_config_history` MODIFY COLUMN `app_id` bigint NOT NULL COMMENT '应用（服务）ID' AFTER `id`;
+ALTER TABLE `dictator_config` MODIFY COLUMN `app_id` bigint NOT NULL COMMENT '应用（服务）ID' AFTER `id`;
+ALTER TABLE `dictator_config_history` MODIFY COLUMN `app_id` bigint NOT NULL COMMENT '应用（服务）ID' AFTER `id`;
+
+ALTER TABLE `dictator_config` ADD COLUMN `app_code` VARCHAR(50) NOT NULL COMMENT 'APP 代码' AFTER `app_id`;
+ALTER TABLE `dictator_config_history` ADD COLUMN `app_code` VARCHAR(50) NOT NULL COMMENT 'APP 代码' AFTER `app_id`;
