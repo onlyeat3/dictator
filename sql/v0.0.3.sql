@@ -18,7 +18,7 @@ create table dictator_app
 (
     `id` bigint NOT NULL primary key AUTO_INCREMENT COMMENT '自增主键',
     app_name varchar(50) not null comment 'app名称',
-    app_id varchar(50) not null comment 'APP ID',
+    app_code varchar(50) not null comment 'APP CODE',
     owner_email varchar(50) not null comment '所有者邮箱',
     `enable` bit NOT NULL DEFAULT 0 COMMENT '是否启用',
     `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

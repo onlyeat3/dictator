@@ -2,8 +2,10 @@ package com.github.liuyuyu.dictator.server.web.service;
 
 import com.github.liuyuyu.dictator.common.exception.ExceptionWrapper;
 import com.github.liuyuyu.dictator.common.utils.BeanConverter;
+import com.github.liuyuyu.dictator.server.mapper.DictatorAppMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigHistoryMapper;
 import com.github.liuyuyu.dictator.server.mapper.DictatorConfigMapper;
+import com.github.liuyuyu.dictator.server.model.entity.DictatorApp;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
@@ -34,6 +36,7 @@ public class ConfigService {
     private DictatorConfigMapper configMapper;
     @Autowired
     private DictatorConfigHistoryMapper configHistoryMapper;
+    @Autowired private DictatorAppMapper appMapper;
 
     @Autowired private PermissionService permissionService;
 
@@ -66,6 +69,12 @@ public class ConfigService {
         this.permissionService.checkWritePermission(param);
 
         DictatorConfig dictatorConfig = configSaveUpdateParam.to(DictatorConfig.class);
+        Long appId = dictatorConfig.getAppId();
+        if (appId != null) {
+            DictatorApp dictatorApp = this.appMapper.findById(appId)
+                    .orElseThrow(ConfigErrorMessageEnum.APP_NOT_EXISTS::serviceException);
+            dictatorConfig.setAppCode(dictatorApp.getAppCode());
+        }
         //版本上升
         Long version = 0L;
         //没有ID,insert
