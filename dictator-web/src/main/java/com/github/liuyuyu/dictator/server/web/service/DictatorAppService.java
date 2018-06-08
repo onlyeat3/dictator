@@ -30,7 +30,7 @@ public class DictatorAppService {
     }
 
     public List<DictatorAppDto> findAll(){
-        return BeanConverter.from(this.appMapper.findAll())
+        return BeanConverter.from(this.appMapper.findAllEnabled())
                 .toList(DictatorAppDto.class);
     }
 
