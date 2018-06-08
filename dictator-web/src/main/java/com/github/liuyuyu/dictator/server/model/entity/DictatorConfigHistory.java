@@ -10,14 +10,13 @@ public class DictatorConfigHistory {
     /**
      * 自增主键
      */
-    @Id
     private Long id;
 
     /**
      * 应用（服务）ID
      */
     @Column(name = "app_id")
-    private String appId;
+    private Long appId;
 
     /**
      * 配置表ID
