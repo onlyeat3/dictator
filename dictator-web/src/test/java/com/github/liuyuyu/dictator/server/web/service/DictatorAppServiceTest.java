@@ -5,15 +5,12 @@ import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorAppDto;
 import com.github.liuyuyu.dictator.server.web.model.param.AppSaveOrUpdateParam;
 import com.github.liuyuyu.dictator.server.web.model.param.DeleteParam;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author liuyuyu
