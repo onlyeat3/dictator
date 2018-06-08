@@ -12,7 +12,7 @@
         <plugin type="com.github.liuyuyu.mbg.plus.ClearResultMapPlugin"/>
         <plugin type="com.github.liuyuyu.mbg.plus.LombokPlugin"/>
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.github.liuyuyu.dictator.server.mapper.SimpleMapper"/>
+            <property name="mappers" value="com.github.liuyuyu.dictator.server.basic.mybatis.SimpleMapper"/>
         </plugin>
 
         <commentGenerator type="com.github.liuyuyu.mbg.plus.DatabaseCommentGenerator"/>

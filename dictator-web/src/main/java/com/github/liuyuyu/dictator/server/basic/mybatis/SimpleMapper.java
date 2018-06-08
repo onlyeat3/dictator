@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.mapper;
+package com.github.liuyuyu.dictator.server.basic.mybatis;
 
 import com.github.liuyuyu.dictator.server.utils.PageInfoUtils;
 import com.github.pagehelper.Page;

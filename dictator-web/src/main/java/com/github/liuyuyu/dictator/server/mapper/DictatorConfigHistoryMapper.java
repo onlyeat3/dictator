@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
+import com.github.liuyuyu.dictator.server.basic.mybatis.SimpleMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigListParam;

@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.server.mapper;
 
+import com.github.liuyuyu.dictator.server.basic.mybatis.SimpleMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorRoleProfile;
 import com.github.liuyuyu.dictator.server.web.model.dto.DictatorProfilePermissionDto;
 import org.apache.ibatis.annotations.Mapper;

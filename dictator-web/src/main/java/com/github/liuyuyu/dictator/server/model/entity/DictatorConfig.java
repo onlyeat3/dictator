@@ -10,6 +10,7 @@ public class DictatorConfig {
     /**
      * 自增主键
      */
+    @Id
     private Long id;
 
     /**
@@ -17,6 +18,12 @@ public class DictatorConfig {
      */
     @Column(name = "app_id")
     private Long appId;
+
+    /**
+     * APP 代码
+     */
+    @Column(name = "app_code")
+    private String appCode;
 
     /**
      * profile_id
