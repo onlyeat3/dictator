@@ -30,7 +30,7 @@ public class DictatorSpringNamespaceHandler extends NamespaceHandlerSupport {
             DictatorClientProperties dictatorClientProperties = DictatorClientProperties.of();
             dictatorClientProperties.setProfile(element.getAttribute("profile"));
             dictatorClientProperties.setServerUrl(element.getAttribute("serverUrl"));
-            dictatorClientProperties.setAppId(element.getAttribute("appId"));
+            dictatorClientProperties.setAppCode(element.getAttribute("appCode"));
             return BeanDefinitionBuilder.rootBeanDefinition(DictatorPropertySourcesPlaceholderConfigurer.class)
                     .addPropertyValue("dictatorClientProperties",dictatorClientProperties)
                     .getBeanDefinition();

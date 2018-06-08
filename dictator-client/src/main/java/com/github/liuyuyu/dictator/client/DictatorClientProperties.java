@@ -27,8 +27,8 @@ public class DictatorClientProperties extends BaseProperties {
         if(StringUtils.isEmpty(this.serverUrl)){
             throw new IllegalArgumentException("dictator serverUrl is required");
         }
-        if(StringUtils.isEmpty(this.getAppId())){
-            throw new IllegalArgumentException("dictator appId is required");
+        if(StringUtils.isEmpty(this.getAppCode())){
+            throw new IllegalArgumentException("dictator appCode is required");
         }
     }
 

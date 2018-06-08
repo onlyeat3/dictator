@@ -22,7 +22,7 @@ public class PropertyGetRequest extends BaseProperties {
 
     public static PropertyGetRequest from(@NonNull BaseProperties source) {
         PropertyGetRequest target = new PropertyGetRequest();
-        target.setAppId(source.getAppId());
+        target.setAppCode(source.getAppCode());
         target.setProfile(source.getProfile());
         return target;
     }

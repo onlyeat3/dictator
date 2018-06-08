@@ -58,7 +58,7 @@ public class DataBaseConfigReadServiceTest extends AbstractConfigReadServiceTest
     @Test
     public void findPageValid() {
         CommonParam commParam = new CommonParam();
-        commParam.setAppId("app");
+        commParam.setAppCode("app");
         commParam.setProfile("dev");
         Map<String, String> all = this.dataBaseConfigService.findAll(commParam);
         all.keySet()

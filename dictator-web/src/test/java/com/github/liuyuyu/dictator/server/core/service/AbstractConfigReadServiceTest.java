@@ -25,7 +25,7 @@ public abstract class AbstractConfigReadServiceTest {
 
     public void findAll() {
         CommonParam commonParam = new CommonParam();
-        commonParam.setAppId("dictator-demo");
+        commonParam.setAppCode("dictator-demo");
         commonParam.setProfile("dev");
         Map<String, String> configMap = this.configReadService.findAll(commonParam);
         assertFalse(configMap.isEmpty());

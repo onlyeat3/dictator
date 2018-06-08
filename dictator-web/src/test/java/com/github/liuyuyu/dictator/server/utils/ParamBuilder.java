@@ -8,7 +8,7 @@ import com.github.liuyuyu.dictator.server.core.service.param.ConfigGetParam;
 public class ParamBuilder {
     public static ConfigGetParam buildCommonParam() {
         ConfigGetParam param = new ConfigGetParam();
-        param.setAppId("app");
+        param.setAppCode("app");
         param.setProfile("dev");
         param.setKey("spring.datasource.username");
         return param;

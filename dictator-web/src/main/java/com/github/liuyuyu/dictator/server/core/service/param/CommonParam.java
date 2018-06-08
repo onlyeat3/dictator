@@ -23,7 +23,7 @@ public class CommonParam extends BaseProperties {
     private String key;
 
     public String toFullKey(@NonNull String seperator) {
-        List<String> pathElements = Stream.of(this.getAppId(), this.getProfile(), this.getKey())
+        List<String> pathElements = Stream.of(this.getAppCode(), this.getProfile(), this.getKey())
                 .filter(Objects::nonNull)
                 .filter(StringUtils::isNotBlank)
                 .collect(Collectors.toList());
