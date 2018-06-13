@@ -45,4 +45,13 @@ public class DictatorAppDto {
      * 操作者IP
      */
     private String operatorIp;
+
+    /**
+     * 是否启用
+     */
+    private Boolean enable;
+    /**
+     * 是否启用
+     */
+    private String enableString;
 }

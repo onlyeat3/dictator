@@ -30,8 +30,10 @@ public class DictatorAppService {
     }
 
     public List<DictatorAppDto> findAll(){
-        return BeanConverter.from(this.appMapper.findAllEnabled())
+        List<DictatorAppDto> appDtoList = BeanConverter.from(this.appMapper.findAll())
                 .toList(DictatorAppDto.class);
+        appDtoList.forEach(e-> e.setEnableString(e.getEnable()?"是":"否"));
+        return appDtoList;
     }
 
 

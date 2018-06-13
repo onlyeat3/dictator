@@ -8,6 +8,6 @@ import org.hibernate.validator.constraints.NotBlank;
 @Data
 @NoArgsConstructor
 public abstract class AbstractOperatorParam implements OperatorParam {
-    @NonNull protected Long operatorId;
-    @NotBlank protected String operatorIp;
+    protected Long operatorId;
+    protected String operatorIp;
 }
