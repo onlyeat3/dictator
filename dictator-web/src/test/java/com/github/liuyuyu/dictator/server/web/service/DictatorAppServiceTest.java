@@ -21,7 +21,7 @@ public class DictatorAppServiceTest extends AbstractSpringBootTest {
     @Test
     public void test1_saveOrUpdate() {
         AppSaveOrUpdateParam appSaveOrUpdateParam = new AppSaveOrUpdateParam();
-        appSaveOrUpdateParam.setAppId("dictator-demo");
+        appSaveOrUpdateParam.setAppCode("dictator-demo");
         appSaveOrUpdateParam.setAppName("dictator");
         appSaveOrUpdateParam.setOwnerEmail("liuyuyu2333@gmail.com");
         appSaveOrUpdateParam.setOperatorId(0L);

@@ -3,6 +3,8 @@ package com.github.liuyuyu.dictator.server.web.model.param;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author liuyuyu
  */
@@ -17,14 +19,17 @@ public class AppSaveOrUpdateParam extends AbstractOperatorParam {
      * app名称
      */
     @NotBlank private String appName;
-
     /**
-     * APP ID
+     * App代码
      */
-    @NotBlank private String appId;
+    @NotBlank private String appCode;
 
     /**
      * 所有者邮箱
      */
     @NotBlank private String ownerEmail;
+    /**
+     * 是否启用
+     */
+    private Boolean enable;
 }
