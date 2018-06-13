@@ -9,7 +9,8 @@ export default {
     permission:'Permission',
     resource: 'Resource',
     role: 'Role',
-    user: 'User'
+    user: 'User',
+    app: 'Application'
   },
   navbar: {
     logOut: 'Log Out',

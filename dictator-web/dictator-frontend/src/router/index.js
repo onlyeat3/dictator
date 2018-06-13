@@ -53,6 +53,12 @@ export const asyncRouterMap = [
     meta: {title: 'config', icon: 'dashboard', noCache: true},
     children: [
       {
+        path: 'app',
+        component: _import('config/app'),
+        name: 'app',
+        meta: {title: 'app', icon: 'app', noCache: true}
+      },
+      {
         path: 'current',
         component: _import('config/current'),
         name: 'currentConfig',

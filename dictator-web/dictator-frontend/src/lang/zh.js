@@ -9,7 +9,8 @@ export default {
     permission:'权限',
     resource: '资源',
     role: '角色',
-    user: '账号'
+    user: '账号',
+    app: '应用'
   },
   navbar: {
     logOut: '退出登录',
