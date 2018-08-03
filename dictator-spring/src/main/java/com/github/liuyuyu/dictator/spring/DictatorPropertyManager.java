@@ -69,7 +69,7 @@ public class DictatorPropertyManager {
         DictatorClientProperties dictatorClientProperties = DictatorClientProperties.of();
         dictatorClientProperties.setProfile(mainProfile);
         dictatorClientProperties.setServerUrl(environment.getProperty("dictator.serverUrl"));
-        dictatorClientProperties.setAppCode(environment.getProperty("dictator.appId"));
+        dictatorClientProperties.setAppCode(environment.getProperty("dictator.appCode"));
         dictatorClientProperties.setProfile(mainProfile);
         // 打印参数
         dictatorClientProperties.printCurrent();
