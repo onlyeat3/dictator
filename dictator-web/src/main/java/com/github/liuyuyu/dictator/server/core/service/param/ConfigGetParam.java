@@ -24,8 +24,10 @@ public class ConfigGetParam extends CommonParam {
     }
 
     public static ConfigGetParam from(PropertyGetRequest propertyGetRequest) {
-        return BeanConverter.from(propertyGetRequest)
+        ConfigGetParam configGetParam = BeanConverter.from(propertyGetRequest)
                 .to(ConfigGetParam.class);
+        configGetParam.setKey(propertyGetRequest.getPropertyName());
+        return configGetParam;
     }
 
     public static ConfigGetParam from(@NonNull BaseProperties source) {
