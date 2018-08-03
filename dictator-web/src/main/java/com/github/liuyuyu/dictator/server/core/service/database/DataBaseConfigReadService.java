@@ -82,14 +82,16 @@ public class DataBaseConfigReadService implements ConfigReadService {
     }
 
     public PageInfo<DictatorConfigDto> findPageValid(ConfigListParam configListParam) {
-        //过滤不存在的角色
-        if(configListParam.getRoleIdList().isEmpty()){
-            return new PageInfo<>();
-        }
-        List<Long> roleIdList = this.profileMapper.findByRoleIdList(configListParam.getRoleIdList());
-        configListParam.setRoleIdList(roleIdList);
-        if (roleIdList.isEmpty()) {
-            return new PageInfo<>();
+        if(!configListParam.getIsGM()){
+            //过滤不存在的角色
+            if(configListParam.getRoleIdList().isEmpty()){
+                return new PageInfo<>();
+            }
+            List<Long> roleIdList = this.profileMapper.findByRoleIdList(configListParam.getRoleIdList());
+            configListParam.setRoleIdList(roleIdList);
+            if (roleIdList.isEmpty()) {
+                return new PageInfo<>();
+            }
         }
         configListParam.startPage();
         PageInfo<DictatorConfigDto> pageValid = this.configMapper.findPageValid(configListParam,configListParam.getProfileId(),configListParam.getRoleIdList()).toPageInfo();

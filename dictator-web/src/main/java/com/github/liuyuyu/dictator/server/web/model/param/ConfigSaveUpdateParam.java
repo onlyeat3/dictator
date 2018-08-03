@@ -15,7 +15,7 @@ public class ConfigSaveUpdateParam implements Convertible, OperatorParam {
      * 应用（服务）ID
      */
     @NotBlank
-    private String appCode;
+    private String appId;
 
     /**
      * 配置名
