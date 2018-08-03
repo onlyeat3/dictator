@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-header>
       <el-form :model="listQuery" :inline="true">
-        <el-form-item label="应用ID">
+        <el-form-item label="应用">
           <el-select v-model="listQuery.appId" placeholder="请选择">
             <el-option
               v-for="item in appSelectData"
@@ -177,8 +177,15 @@
     </el-dialog>
     <el-dialog :visible.sync="batchForm.showForm" :before-close="clearBatchForm" width="60%" title="文件导入">
       <el-form v-model="batchForm" label-width="80px">
-        <el-form-item label="应用ID">
-          <el-input v-model="editForm.appCode"/>
+        <el-form-item label="应用">
+          <el-select v-model="editForm.appId" placeholder="请选择">
+            <el-option
+              v-for="item in appSelectData"
+              :key="item.value"
+              :label="item.appName"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="环境">
           <el-select v-model="editForm.profileId">
@@ -264,7 +271,7 @@ export default {
       });
     },
     clearBatchForm() {
-      clearAttrs(this.editForm);
+      clearAttrs(this.batchForm);
     },
     onSubmit() {
       saveOrUpdateConfig(this.editForm).then(() => {
