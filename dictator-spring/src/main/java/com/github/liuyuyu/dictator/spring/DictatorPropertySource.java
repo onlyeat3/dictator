@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.spring;
 
 import org.springframework.core.env.MapPropertySource;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -25,12 +26,12 @@ public class DictatorPropertySource extends MapPropertySource {
 
     @Override
     public String[] getPropertyNames() {
-        return super.getPropertyNames();
+        return StringUtils.toStringArray(DictatorPropertyManager.CONFIG_CACHE.keySet());
     }
 
     @Override
     public String getProperty(String name) {
-        return DictatorPropertyManager.getProperty(name);
+        return DictatorPropertyManager.getOrRemoteGet(name);
     }
 
     @Override

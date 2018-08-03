@@ -5,8 +5,10 @@ import com.github.liuyuyu.dictator.server.mapper.DictatorConfigProfileMapper;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigProfile;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
 import com.github.liuyuyu.dictator.server.web.model.dto.ConfigProfileDto;
+import com.github.liuyuyu.dictator.server.web.model.dto.DictatorUserDto;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigProfileDeleteParam;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigProfileParam;
+import com.github.liuyuyu.dictator.server.web.mvc.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +52,6 @@ public class ProfileService {
     @TransactionalAutoRollback
     public void delete(ConfigProfileDeleteParam configProfileDeleteParam) {
         this.profileMapper.deleteByPrimaryKey(configProfileDeleteParam.getId());
-        this.configService.deleteByProfileId(configProfileDeleteParam.getId(),configProfileDeleteParam.getRoleIdList());
+        this.configService.deleteByProfileId(configProfileDeleteParam.getOperatorId(),configProfileDeleteParam.getId(),configProfileDeleteParam.getRoleIdList());
     }
 }
