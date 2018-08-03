@@ -21,7 +21,7 @@ public class DictatorPropertySourcesPlaceholderConfigurer extends PropertyPlaceh
 
     @Override
     protected String resolvePlaceholder(@NonNull String placeholder, Properties props, int systemPropertiesMode) {
-        return DictatorPropertyManager.getProperty(placeholder);
+        return DictatorPropertyManager.getOrRemoteGet(placeholder);
     }
 
     @Override

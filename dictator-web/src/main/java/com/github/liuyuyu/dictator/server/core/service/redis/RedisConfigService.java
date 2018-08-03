@@ -76,45 +76,6 @@ public class RedisConfigService implements ConfigWriteService, ConfigReadService
 
     @Override
     public Map<String, String> findAll(CommonParam commonParam) {
-        List<String> keyList = this.redisTemplate.execute((RedisCallback<List<String>>) redisConnection -> {
-            Cursor<byte[]> cursor = redisConnection.scan(ScanOptions.scanOptions().match(String.format("%s:*",commonParam.toFullKey(seperator))).build());
-            List<String> matchKeyList = new ArrayList<>();
-            while (cursor.hasNext()) {
-                String key = new String(cursor.next());
-                matchKeyList.add(key);
-            }
-            return matchKeyList;
-        });
-        List<List<String>> splitSubList = new ArrayList<>();
-        int step = 1000;
-        for (int j = 0; j < keyList.size(); j+=step) {
-            int toIndex = j + step;
-            if(toIndex > keyList.size()){
-                toIndex = keyList.size() - 1;
-            }
-            List<String> subKeyList = keyList.subList(j, toIndex);
-            splitSubList.add(subKeyList);
-        }
-
-
-        Map<String,String> dataMap = new ConcurrentHashMap<>();
-        CountDownLatch countDownLatch = new CountDownLatch(splitSubList.size());
-        for (List<String> subKeyList : splitSubList) {
-            this.executorService.submit(() -> {
-                List<String> valueList = redisTemplate.opsForValue().multiGet(subKeyList);
-                for (int i = 0; i < subKeyList.size(); i++) {
-                    String key = subKeyList.get(i);
-                    String value = valueList.get(i);
-                    dataMap.put(key, value);
-                }
-                countDownLatch.countDown();
-            });
-        }
-        try {
-            countDownLatch.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            log.error("load config error",e);
-        }
-        return dataMap;
+        throw new RuntimeException("Not support.");
     }
 }

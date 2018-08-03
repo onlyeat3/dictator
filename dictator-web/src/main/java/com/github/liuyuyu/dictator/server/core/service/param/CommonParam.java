@@ -29,4 +29,6 @@ public class CommonParam extends BaseProperties {
                 .collect(Collectors.toList());
         return String.join(seperator, pathElements);
     }
+
+
 }

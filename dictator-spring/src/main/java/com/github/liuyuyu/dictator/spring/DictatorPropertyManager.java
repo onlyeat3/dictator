@@ -9,10 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
@@ -22,30 +20,49 @@ import java.util.stream.Collectors;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DictatorPropertyManager {
-    public static final Map<String, Object> CONFIG_CACHE = new HashMap<>();
+    public static final Map<String, Object> CONFIG_CACHE = new ConcurrentHashMap<>();
     private static final ReentrantLock LOCK = new ReentrantLock();
     private static DictatorClient DICTATOR_CLIENT;
+    /**
+     * 最后刷新缓存时间
+     */
     private static Long LAST_UPDATED_TIME;
 
-    static String getProperty(@NonNull String name) {
+    static String getPropertyFromCache(@NonNull String name) {
+        Object cachedValue = CONFIG_CACHE.get(name);
+        if (cachedValue != null) {
+            return String.valueOf(cachedValue);
+        } else {
+            return null;
+        }
+    }
+
+    static String getOrRemoteGet(@NonNull String propertyName){
         LOCK.lock();
         try {
-            Object cachedValue = CONFIG_CACHE.get(name);
+            String cachedValue = getPropertyFromCache(propertyName);
             if (cachedValue != null) {
-                return String.valueOf(cachedValue);
+                return cachedValue;
             } else {
-                return null;
+                if(DICTATOR_CLIENT != null){
+                    String value = DICTATOR_CLIENT.get(propertyName);
+                    if(value != null){
+                        CONFIG_CACHE.put(propertyName,value);
+                    }
+                    return value;
+                }
             }
-        } finally {
-            LOCK.unlock();
+        }finally {
+            LOCK.lock();
         }
+        return null;
     }
 
     public static void refreshCache() {
         Assert.notNull(DICTATOR_CLIENT, "DICTATOR_CLIENT not found.");
         LOCK.lock();
         try {
-            Map<String, String> currentConfigMap = DICTATOR_CLIENT.loadAll(LAST_UPDATED_TIME);
+            Map<String, String> currentConfigMap = DICTATOR_CLIENT.loadAll(CONFIG_CACHE.keySet(),LAST_UPDATED_TIME);
             if (currentConfigMap.isEmpty()) {
                 return;
             }

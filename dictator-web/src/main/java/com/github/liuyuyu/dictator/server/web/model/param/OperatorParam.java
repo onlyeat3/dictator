@@ -11,12 +11,12 @@ public interface OperatorParam {
     default void join(DictatorUserDto userDto) {
         this.setOperatorId(userDto.getId());
         this.setOperatorIp(userDto.getLoginIp());
-        this.setCurrentRoleIdList(userDto.getRoleIdList());
+        this.setRoleIdList(userDto.getRoleIdList());
     }
 
     void setOperatorIp(String ip);
 
     void setOperatorId(Long id);
 
-    default void setCurrentRoleIdList(List<Long> roleIdList){}
+    default void setRoleIdList(List<Long> roleIdList){}
 }

@@ -9,6 +9,7 @@ import com.github.liuyuyu.dictator.server.model.entity.DictatorApp;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfigHistory;
 import com.github.liuyuyu.dictator.server.web.annotation.TransactionalAutoRollback;
+import com.github.liuyuyu.dictator.server.web.constant.UserConstants;
 import com.github.liuyuyu.dictator.server.web.exception.ServiceException;
 import com.github.liuyuyu.dictator.server.web.exception.enums.ConfigErrorMessageEnum;
 import com.github.liuyuyu.dictator.server.web.model.param.ConfigBatchImportParam;
@@ -66,7 +67,10 @@ public class ConfigService {
         ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
         param.setRoleIdList(configSaveUpdateParam.getRoleIdList());
         param.setProfileId(configSaveUpdateParam.getProfileId());
-        this.permissionService.checkWritePermission(param);
+        //GM免验证
+        if(!UserConstants.GM_USER_ID.equals(configSaveUpdateParam.getOperatorId())){
+            this.permissionService.checkWritePermission(param);
+        }
 
         DictatorConfig dictatorConfig = configSaveUpdateParam.to(DictatorConfig.class);
         Long appId = dictatorConfig.getAppId();
@@ -109,11 +113,13 @@ public class ConfigService {
     }
 
     @TransactionalAutoRollback
-    public void deleteByProfileId(@NonNull Long profileId,@NonNull List<Long> roleIdList) {
+    public void deleteByProfileId(@NonNull Long operatorId,@NonNull Long profileId,@NonNull List<Long> roleIdList) {
         ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
         param.setRoleIdList(roleIdList);
         param.setProfileId(profileId);
-        this.permissionService.checkWritePermission(param);
+        if(!UserConstants.GM_USER_ID.equals(operatorId)) {
+            this.permissionService.checkWritePermission(param);
+        }
 
         List<DictatorConfig> configList = this.configMapper.findByProfileId(profileId);
         BeanConverter.from(configList)
@@ -137,7 +143,9 @@ public class ConfigService {
         ProfilePermissionCheckParam param = new ProfilePermissionCheckParam();
         param.setRoleIdList(configBatchImportParam.getRoleIdList());
         param.setProfileId(configBatchImportParam.getProfileId());
-        this.permissionService.checkWritePermission(param);
+        if(!UserConstants.GM_USER_ID.equals(configBatchImportParam.getOperatorId())){
+            this.permissionService.checkWritePermission(param);
+        }
         try {
             Properties properties = new Properties();
             properties.load(new StringReader(configBatchImportParam.getContent()));

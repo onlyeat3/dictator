@@ -1,5 +1,6 @@
 package com.github.liuyuyu.dictator.server.controller;
 
+import com.github.liuyuyu.dictator.common.model.request.BatchGetRequest;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.server.core.service.ListableConfigReadService;
@@ -34,9 +35,9 @@ public class DictatorConfigController {
     }
 
     @RequestMapping(value = "/batch/get", method = RequestMethod.POST)
-    public DataWrapper batchGet(@Valid @RequestBody CommonParam commonParam) {
-        DataWrapper dataWrapper = DataWrapper.from(this.listableConfigReadService.findAll(commonParam));
-        log.info("request:{},response:{}", commonParam, dataWrapper);
+    public DataWrapper batchGet(@Valid @RequestBody BatchGetRequest batchGetRequest) {
+        DataWrapper dataWrapper = DataWrapper.from(this.listableConfigReadService.findAll(batchGetRequest));
+        log.info("request:{},response:{}", batchGetRequest, dataWrapper);
         return dataWrapper;
     }
 }

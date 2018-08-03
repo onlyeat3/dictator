@@ -2,8 +2,8 @@ package com.github.liuyuyu.dictator.client;
 
 import com.github.liuyuyu.dictator.client.http.MediaTypeConstants;
 import com.github.liuyuyu.dictator.common.ApiUrlConstants;
-import com.github.liuyuyu.dictator.common.BaseProperties;
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
+import com.github.liuyuyu.dictator.common.model.request.BatchGetRequest;
 import com.github.liuyuyu.dictator.common.model.request.PropertyGetRequest;
 import com.github.liuyuyu.dictator.common.model.response.DataWrapper;
 import com.github.liuyuyu.dictator.common.utils.JsonUtils;
@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,8 +77,9 @@ public class DictatorClient {
     }
 
     @SuppressWarnings("unchecked")
-    public Map<String, String> loadAll(Long lastUpdatedTime) {
-        BaseProperties batchRequest = BaseProperties.from(this.dictatorClientProperties);
+    public Map<String, String> loadAll(Collection<String> keys, Long lastUpdatedTime) {
+        BatchGetRequest batchRequest = BatchGetRequest.from(this.dictatorClientProperties);
+        batchRequest.setKeys(keys);
         batchRequest.setLastUpdatedTime(lastUpdatedTime);
         Request request = new Request.Builder()
                 .url(String.format("%s/%s", this.dictatorClientProperties.getServerUrl(), ApiUrlConstants.CONFIG_BATCH_GET_URI))
