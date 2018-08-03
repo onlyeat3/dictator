@@ -3,7 +3,14 @@
     <el-header>
       <el-form :model="listQuery" :inline="true">
         <el-form-item label="应用ID">
-          <el-input v-model="listQuery.appCode"/>
+          <el-select v-model="listQuery.appId" placeholder="请选择">
+            <el-option
+              v-for="item in appSelectData"
+              :key="item.value"
+              :label="item.appName"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="配置名">
           <el-input v-model="listQuery.configName"/>
@@ -60,7 +67,10 @@
             <el-form-item label="id">
               <span>{{props.row.id}}</span>
             </el-form-item>
-            <el-form-item label="应用ID">
+            <el-form-item label="应用名">
+              <span>{{props.row.appName}}</span>
+            </el-form-item>
+            <el-form-item label="应用代码">
               <span>{{props.row.appCode}}</span>
             </el-form-item>
             <el-form-item label="环境">
@@ -119,7 +129,14 @@
       <el-form v-model="editForm" label-width="80px">
         <el-input type="hidden" v-model="editForm.id"/>
         <el-form-item label="应用ID">
-          <el-input v-model="editForm.appCode"/>
+          <el-select v-model="editForm.appId" placeholder="请选择">
+            <el-option
+              v-for="item in appSelectData"
+              :key="item.value"
+              :label="item.appName"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="环境">
           <el-select v-model="editForm.profileId">
@@ -198,151 +215,158 @@
 </template>
 
 <script>
-  import '@/styles/common.scss';
-  import request from '@/utils/request';
-  import {MessageBox} from 'element-ui';
-  import {listAllProfile} from "@/api/profile";
-  import {listAllGroup} from "@/api/group";
-  import {listConfig,saveOrUpdateConfig,batchAddConfig} from "@/api/config";
-  import {clearAttrs} from "@/utils";
+import "@/styles/common.scss";
+import request from "@/utils/request";
+import { MessageBox } from "element-ui";
+import { listAllProfile } from "@/api/profile";
+import appApi from "@/api/app";
+import { listAllGroup } from "@/api/group";
+import { listConfig, saveOrUpdateConfig, batchAddConfig } from "@/api/config";
+import { clearAttrs } from "@/utils";
 
-  export default {
-    name: 'configTable',
-    data() {
-      return {
-        listLoading: true,
-        tableData: [],
-        listQuery: {
-          pageNum: 1,
-          pageSize: 10,
-          configName: '',
-          groupName: ''
-        },
-        editForm: {
-          showForm: false,
-          id: -1,
-          appCode: '',
-          deploymentId: '',
-          profileId: '',
-          groupId: '',
-          configName: '',
-          configValue: ''
-        },
-        batchForm:{
-          showForm:false,
-          content:''
-        },
-        profileList: [],
-        groupList: [],
-      }
+export default {
+  name: "configTable",
+  data() {
+    return {
+      listLoading: true,
+      tableData: [],
+      listQuery: {
+        pageNum: 1,
+        pageSize: 10,
+        configName: "",
+        groupName: ""
+      },
+      appSelectData:[],
+      editForm: {
+        showForm: false,
+        id: -1,
+        appCode: "",
+        deploymentId: "",
+        profileId: "",
+        groupId: "",
+        configName: "",
+        configValue: ""
+      },
+      batchForm: {
+        showForm: false,
+        content: ""
+      },
+      profileList: [],
+      groupList: []
+    };
+  },
+  methods: {
+    onSubmitBatchImport() {
+      Object.assign(this.batchForm, this.editForm);
+      batchAddConfig(this.batchForm).then(() => {
+        this.clearBatchForm();
+        this.fetchData();
+      });
     },
-    methods: {
-      onSubmitBatchImport(){
-        Object.assign(this.batchForm,this.editForm);
-        batchAddConfig(this.batchForm)
-          .then(()=>{
-            this.clearBatchForm();
+    clearBatchForm() {
+      clearAttrs(this.editForm);
+    },
+    onSubmit() {
+      saveOrUpdateConfig(this.editForm).then(() => {
+        this.clearForm();
+        this.fetchData();
+      });
+    },
+    onQueryFormSubmit() {
+      this.fetchData();
+    },
+    onPageNumChange(currentPage) {
+      this.listQuery.pageNum = currentPage;
+      this.fetchData();
+    },
+    onPageSizeChange(pageSize) {
+      this.listQuery.pageSize = pageSize;
+      this.fetchData();
+    },
+    handleDelete(row) {
+      MessageBox.confirm("删除后可以在配置历史里恢复,确认删除?", "提示", {
+        type: "warning",
+        confirmButtonText: "确定",
+        cancelButtonText: "取消"
+      })
+        .then(() => {
+          request({
+            url: "config/delete",
+            data: {
+              id: row.id
+            }
+          }).then(() => {
             this.fetchData();
           });
-      },
-      clearBatchForm(){
-        clearAttrs(this.editForm);
-      },
-      onSubmit() {
-        saveOrUpdateConfig(this.editForm)
-          .then(() => {
-            this.clearForm();
-            this.fetchData();
-          });
-      },
-      onQueryFormSubmit() {
-        this.fetchData();
-      },
-      onPageNumChange(currentPage) {
-        this.listQuery.pageNum = currentPage;
-        this.fetchData();
-      },
-      onPageSizeChange(pageSize) {
-        this.listQuery.pageSize = pageSize;
-        this.fetchData();
-      },
-      handleDelete(row) {
-        MessageBox.confirm("删除后可以在配置历史里恢复,确认删除?", "提示", {
-          type: "warning",
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
         })
-          .then(() => {
-            request({
-              url: "config/delete",
-              data: {
-                id: row.id
-              }
-            }).then(() => {
-              this.fetchData();
-            })
-          })
-          .catch(() => {
-          })
-      },
-      handleEdit(row) {
-        Object.assign(this.editForm, row);
-        this.handleAdd();
-      },
-      handleAdd() {
-        this.fetchProfile();
-        this.fetchGroup();
-        this.editForm.showForm = true;
-      },
-      clearForm() {
-        clearAttrs(this.editForm);
-      },
-      fetchData() {
-        this.listLoading = true;
-        listConfig(this.listQuery).then(response => {
-          let {data} = response;
-          let {list} = data;
+        .catch(() => {});
+    },
+    handleEdit(row) {
+      Object.assign(this.editForm, row);
+      this.handleAdd();
+    },
+    handleAdd() {
+      this.fetchProfile();
+      this.fetchGroup();
+      this.fetchApp();
+      this.editForm.showForm = true;
+    },
+    clearForm() {
+      clearAttrs(this.editForm);
+    },
+    fetchData() {
+      this.listLoading = true;
+      listConfig(this.listQuery)
+        .then(response => {
+          let { data } = response;
+          let { list } = data;
           this.tableData = list;
           this.listQuery.currentPage = data.pageSize;
           this.listQuery.total = data.total;
           this.listLoading = false;
-        }).catch(() => {
+        })
+        .catch(() => {
           this.listLoading = false;
         });
-      },
-      fetchProfile() {
-        listAllProfile()
-          .then(response => {
-            let {data} = response;
-            this.profileList = data;
-          });
-      },
-      fetchGroup() {
-        listAllGroup()
-          .then(response => {
-            let {data} = response;
-            this.groupList = data;
-          })
-      }
     },
-    created() {
-      this.fetchData();
-      this.fetchGroup();
-      this.fetchProfile();
+    fetchProfile() {
+      listAllProfile().then(response => {
+        let { data } = response;
+        this.profileList = data;
+      });
+    },
+    fetchGroup() {
+      listAllGroup().then(response => {
+        let { data } = response;
+        this.groupList = data;
+      });
+    },
+    fetchApp(){
+      appApi.listAll()
+      .then(({data})=>{
+        this.appSelectData = data;
+      });
     }
+  },
+  created() {
+    this.fetchData();
+    this.fetchGroup();
+    this.fetchProfile();
+    this.fetchApp();
   }
+};
 </script>
 <style>
 .demo-table-expand {
-        font-size: 0;
-    }
-    .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
-    }
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
 </style>

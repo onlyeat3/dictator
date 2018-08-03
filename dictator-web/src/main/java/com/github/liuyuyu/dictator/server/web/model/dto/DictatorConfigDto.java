@@ -14,9 +14,14 @@ public class DictatorConfigDto {
      */
     private Long id;
     /**
-     * 应用（服务）ID
+     * app名称
      */
-    private String appId;
+    private String appName;
+
+    /**
+     * APP CODE
+     */
+    private String appCode;
     /**
      * 环境名
      */
