@@ -21,6 +21,8 @@ public class DataSourceProperties implements InitializingBean {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
+    @Value("${java.io.tmpdir}")
+    private String tmpDir;
 
     @Override
     public void afterPropertiesSet() throws Exception {
