@@ -53,7 +53,7 @@ public class DictatorPropertyManager {
                 }
             }
         }finally {
-            LOCK.lock();
+            LOCK.unlock();
         }
         return null;
     }
