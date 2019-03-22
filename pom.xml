@@ -36,7 +36,7 @@
         <siesta.version>0.4.0</siesta.version>
 
         <curator.version>2.12.0</curator.version>
-        <lombok.version>1.16.18</lombok.version>
+        <lombok.version>1.18.6</lombok.version>
         <okhttp.version>3.9.1</okhttp.version>
         <jackson.version>2.9.8</jackson.version>
 
