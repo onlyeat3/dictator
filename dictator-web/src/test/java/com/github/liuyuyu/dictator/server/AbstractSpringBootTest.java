@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@SpringBootTest(classes = DictatorWebApplication.class)
 public class AbstractSpringBootTest {
 
     protected Long getLastUpdatedTime() {

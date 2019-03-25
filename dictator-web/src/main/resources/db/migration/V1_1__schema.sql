@@ -11,7 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 导出  表 dictator.dictator_config 结构
-CREATE TABLE IF NOT EXISTS `dictator_config` (
+CREATE TABLE `dictator_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `app_id` varchar(100) NOT NULL COMMENT '应用（服务）ID',
   `profile_id` bigint(20) NOT NULL COMMENT 'profile_id',
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `dictator_config` (
 
 
 -- 导出  表 dictator.dictator_config_group 结构
-CREATE TABLE IF NOT EXISTS `dictator_config_group` (
+CREATE TABLE `dictator_config_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `group_name` varchar(20) NOT NULL COMMENT '分组名',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `dictator_config_group` (
 
 
 -- 导出  表 dictator.dictator_config_history 结构
-CREATE TABLE IF NOT EXISTS `dictator_config_history` (
+CREATE TABLE `dictator_config_history` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `app_id` varchar(100) NOT NULL COMMENT '应用（服务）ID',
   `config_id` bigint(20) NOT NULL COMMENT '配置表ID',
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `dictator_config_history` (
 
 
 -- 导出  表 dictator.dictator_config_profile 结构
-CREATE TABLE IF NOT EXISTS `dictator_config_profile` (
+CREATE TABLE `dictator_config_profile` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `profile_name` varchar(50) NOT NULL COMMENT '环境名',
   `profile_code` varchar(20) NOT NULL COMMENT '环境代码',
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `dictator_config_profile` (
 
 
 -- 导出  表 dictator.dictator_resource 结构
-CREATE TABLE IF NOT EXISTS `dictator_resource` (
+CREATE TABLE `dictator_resource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `resource_name` varchar(20) NOT NULL COMMENT '资源名',
   `resource_type` tinyint(4) NOT NULL COMMENT '资源类型：菜单、按钮',
@@ -119,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `dictator_resource` (
 
 
 -- 导出  表 dictator.dictator_role 结构
-CREATE TABLE IF NOT EXISTS `dictator_role` (
+CREATE TABLE `dictator_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `role_name` varchar(20) NOT NULL COMMENT '角色名',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `dictator_role` (
 
 
 -- 导出  表 dictator.dictator_role_group 结构
-CREATE TABLE IF NOT EXISTS `dictator_role_group` (
+CREATE TABLE `dictator_role_group` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `group_id` bigint(20) NOT NULL COMMENT '分组ID',
   PRIMARY KEY (`role_id`,`group_id`)
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `dictator_role_group` (
 
 
 -- 导出  表 dictator.dictator_role_resource 结构
-CREATE TABLE IF NOT EXISTS `dictator_role_resource` (
+CREATE TABLE `dictator_role_resource` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `resource_id` bigint(20) NOT NULL COMMENT '资源ID',
   PRIMARY KEY (`role_id`,`resource_id`)
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `dictator_role_resource` (
 
 
 -- 导出  表 dictator.dictator_user 结构
-CREATE TABLE IF NOT EXISTS `dictator_user` (
+CREATE TABLE `dictator_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '自增主键',
   `user_name` varchar(50) NOT NULL COMMENT '用户姓名',
   `password` varchar(200) NOT NULL COMMENT '密码',
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `dictator_user` (
 
 
 -- 导出  表 dictator.dictator_user_role 结构
-CREATE TABLE IF NOT EXISTS `dictator_user_role` (
+CREATE TABLE `dictator_user_role` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`,`role_id`)
