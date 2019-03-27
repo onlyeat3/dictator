@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.mariadbj;
+package com.github.liuyuyu.dictator.test.embed.mysql;
 
 import lombok.Data;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
