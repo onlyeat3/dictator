@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.mariadbj;
+package com.github.liuyuyu.dictator.test.embed.mysql;
 
 import com.wix.mysql.EmbeddedMysql;
 import com.wix.mysql.config.MysqldConfig;
@@ -57,8 +57,8 @@ public class MySQLServiceStartListener implements SpringApplicationRunListener {
                 .build();
         EmbeddedMysql mysqlServer = anEmbeddedMysql(config).start();
         if (!MySQLProperties.DEFAULT_TEST_DB.equals(databaseName)) {
-            mysqlServer.dropSchema(cfg);
-            mysqlServer.addSchema(cfg);
+//            mysqlServer.dropSchema(cfg);
+//            mysqlServer.addSchema(cfg);
         }
 
 
