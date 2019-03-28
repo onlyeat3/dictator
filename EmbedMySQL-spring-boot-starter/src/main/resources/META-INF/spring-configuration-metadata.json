@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource",
+      "type": "com.github.liuyuyu.dictator.test.embed.mysql.MySQLProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "databaseName",
+      "type": "java.lang.String",
+      "description": "Database name ",
+      "defaultValue": "test"
+    },
+    {
+      "name": "port",
+      "type": "java.lang.Integer",
+      "description": "MySql Server port",
+      "defaultValue": "3307"
+    },
+    {
+      "name": "scriptLocations",
+      "type": "java.lang.String",
+      "description": "data.sql"
+    }
+  ]
+}
