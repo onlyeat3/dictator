@@ -1,6 +1,7 @@
 package com.github.liuyuyu.dictator.server.core.service;
 
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
+import com.github.liuyuyu.dictator.service.ConfigReadService;
+import com.github.liuyuyu.dictator.service.param.CommonParam;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

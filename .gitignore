@@ -14,3 +14,5 @@ package-lock.json
 dictator-web/src/main/resources/public/*
 !dictator-web/src/main/resources/public/index.html
 !dictator-web/src/main/resources/public/favicon.ico
+
+.DS_Store

@@ -1,8 +1,9 @@
 package com.github.liuyuyu.dictator.server.core.service.redis;
 
 import com.github.liuyuyu.dictator.server.AbstractSpringBootTest;
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
-import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.service.param.CommonParam;
+import com.github.liuyuyu.dictator.service.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.service.redis.RedisConfigService;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;

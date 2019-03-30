@@ -1,7 +1,7 @@
 package com.github.liuyuyu.dictator.server.mapper.weekend;
 
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.model.entity.DictatorConfig;
+import com.github.liuyuyu.dictator.service.param.CommonParam;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
