@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.core.service.param;
+package com.github.liuyuyu.dictator.service.param;
 
 import com.github.liuyuyu.dictator.common.BaseProperties;
 import lombok.*;

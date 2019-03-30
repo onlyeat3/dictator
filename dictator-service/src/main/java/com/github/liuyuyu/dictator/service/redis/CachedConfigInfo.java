@@ -1,4 +1,4 @@
-package com.github.liuyuyu.dictator.server.core.service.redis;
+package com.github.liuyuyu.dictator.service.redis;
 
 import lombok.Data;
 

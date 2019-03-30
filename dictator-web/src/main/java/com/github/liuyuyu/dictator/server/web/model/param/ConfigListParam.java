@@ -17,6 +17,8 @@ public class ConfigListParam extends PageParam {
      * 应用ID
      */
     private String appId;
+
+    private String appCode;
     /**
      * 环境ID(搜索)
      */

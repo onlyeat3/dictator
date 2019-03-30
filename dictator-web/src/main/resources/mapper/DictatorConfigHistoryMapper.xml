@@ -18,8 +18,8 @@
     <select id="findPageValid" resultType="com.github.liuyuyu.dictator.server.web.model.dto.DictatorConfigHistoryDto">
         select * from dictator_config_history history
         <where>
-            <if test="configListParam.appCode != null and configListParam.appCode != ''">
-                and app_code = #{configListParam.appCode}
+            <if test="configListParam.appCode != null and configListParam.appId != ''">
+                and app_id = #{configListParam.appId}
             </if>
             <if test="configListParam.profileId != null and configListParam.profileId != ''">
                 and profile_id = #{configListParam.profileId}

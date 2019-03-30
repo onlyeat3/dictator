@@ -1,7 +1,8 @@
 package com.github.liuyuyu.dictator.server.core.service;
 
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
-import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
+import com.github.liuyuyu.dictator.service.ConfigWriteService;
+import com.github.liuyuyu.dictator.service.param.CommonParam;
+import com.github.liuyuyu.dictator.service.param.ConfigSetParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

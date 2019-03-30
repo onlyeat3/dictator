@@ -1,7 +1,8 @@
-package com.github.liuyuyu.dictator.server.core.service;
+package com.github.liuyuyu.dictator.service;
 
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
-import com.github.liuyuyu.dictator.server.core.service.param.ConfigSetParam;
+
+import com.github.liuyuyu.dictator.service.param.CommonParam;
+import com.github.liuyuyu.dictator.service.param.ConfigSetParam;
 
 /*
  * @author liuyuyu

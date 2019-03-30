@@ -2,8 +2,8 @@ package com.github.liuyuyu.dictator.server.core.service.database;
 
 import com.github.liuyuyu.dictator.common.model.dto.DictatorValueResponse;
 import com.github.liuyuyu.dictator.server.core.service.AbstractConfigReadServiceTest;
-import com.github.liuyuyu.dictator.server.core.service.param.CommonParam;
 import com.github.liuyuyu.dictator.server.utils.ParamBuilder;
+import com.github.liuyuyu.dictator.service.param.CommonParam;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
