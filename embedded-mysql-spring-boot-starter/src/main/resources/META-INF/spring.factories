@@ -1,2 +1,2 @@
-org.springframework.boot.SpringApplicationRunListener=\
-com.github.liuyuyu.dictator.test.embed.mysql.MySQLServiceStartListener
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.liuyuyu.dictator.test.embed.mysql.EmbeddedMySQLAutoConfiguration
