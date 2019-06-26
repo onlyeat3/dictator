@@ -110,10 +110,11 @@
             <!--<version>2.4.0</version>-->
             <!--<scope>test</scope>-->
         <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/io.github.liuyuyu/embedded-mysql-spring-boot-starter -->
         <dependency>
-            <groupId>com.github.liuyuyu</groupId>
-            <artifactId>mariaDBj-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
+            <groupId>io.github.liuyuyu</groupId>
+            <artifactId>embedded-mysql-spring-boot-starter</artifactId>
+            <version>0.0.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
