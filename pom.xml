@@ -17,7 +17,6 @@
         <module>dictator-client</module>
         <module>dictator-spring</module>
         <module>dictator-spring-boot-starter</module>
-        <module>embedded-mysql-spring-boot-starter</module>
         <module>dictator-service</module>
     </modules>
     <properties>
