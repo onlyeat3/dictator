@@ -39,7 +39,7 @@
         <curator.version>2.12.0</curator.version>
         <lombok.version>1.18.6</lombok.version>
         <okhttp.version>3.9.1</okhttp.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.10.0.pr1</jackson.version>
 
         <junit.version>4.12</junit.version>
     </properties>
