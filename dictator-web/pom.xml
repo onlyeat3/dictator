@@ -26,7 +26,7 @@
         <mysql.version>6.0.6</mysql.version>
         <mbg.version>1.0</mbg.version>
 
-        <commons-io.version>2.6</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <pagehelper-spring-start.version>1.2.3</pagehelper-spring-start.version>
         <spring-security.version>4.2.17.RELEASE</spring-security.version>
     </properties>
